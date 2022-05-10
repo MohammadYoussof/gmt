@@ -2,16 +2,16 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>solar &mdash; GMT 6.3.0 documentation</title>
+  <title>solar &mdash; GMT 6.4.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
       <link rel="stylesheet" href="_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.png"/>
@@ -23,9 +23,12 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/togglebutton.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
+        <script>let toggleHintShow = 'Click to show example script';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -48,7 +51,7 @@
             <a href="index.html" class="icon icon-home"> GMT
           </a>
               <div class="version">
-                6.3
+                6.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -64,6 +67,7 @@
 <li class="toctree-l1"><a class="reference internal" href="gallery.html">Example Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="animations.html">Animations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_jl.html">Tutorial in Julia</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -183,7 +187,7 @@ and either writes them to standard output or uses them for clipping or filling o
 </dd>
 </dl>
 <dl class="simple" id="c">
-<dt><strong>-C</strong></dt><dd><p>Formats the report selected by <strong>-I</strong> using tab-separated fields on a single line. The
+<dt><strong>-C</strong></dt><dd><p>Formats the report selected by <a class="reference internal" href="#i"><span><strong>-I</strong></span></a></strong> using tab-separated fields on a single line. The
 output is Sun <em>Lon Lat Azimuth Elevation</em> in degrees, <em>Sunrise Sunset Noon</em> in decimal days,
 <em>day length</em> in minutes, <em>SolarElevationCorrected</em> corrected for the effect of refraction index
 and <em>Equation of time</em> in minutes. Note that if no position is provided in <strong>-I</strong><em>lon/lat</em> the
@@ -192,7 +196,7 @@ data after <em>Elevation</em> refers to the point (0,0).</p>
 </dl>
 <dl class="simple" id="g">
 <dt><strong>-G</strong>[<em>fill</em>] <a class="reference internal" href="cookbook/features.html#gfill-attrib"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select color or pattern for filling of terminators, or give no argument for clipping [Default is no fill or clipping].
-Deactivate clipping by appending the output of gmt <a class="reference internal" href="clip.html"><span class="doc">clip</span></a> <strong>-C</strong>.</p>
+Deactivate clipping by appending the output of gmt <a class="reference internal" href="clip.html"><span class="doc">clip</span></a> <a class="reference internal" href="#c"><span><strong>-C</strong></span></a></strong>.</p>
 </dd>
 </dl>
 <dl class="simple" id="i">
@@ -214,7 +218,7 @@ Negative offsets look like <em>−03:00</em> or <em>−03</em>. Positive offsets
 </dl>
 <dl class="simple" id="n">
 <dt><strong>-N</strong></dt><dd><p>Invert the sense of what is inside and outside the terminator.  Only
-used with clipping (<strong>-G</strong>) and cannot be used together with <strong>-B</strong>.</p>
+used with clipping (<a class="reference internal" href="#g"><span><strong>-G</strong></span></a></strong>) and cannot be used together with <a class="reference internal" href="#b"><span><strong>-B</strong></span></a></strong>.</p>
 </dd>
 </dl>
 <dl class="simple" id="r">
@@ -267,7 +271,7 @@ width = default, color = black, style = solid].</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (NOTE: on Windows just use <strong>-</strong>).</p>
+<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (<strong>Note</strong>: on Windows just use <strong>-</strong>).</p>
 </dd>
 <dt><strong>-+</strong> or just <strong>+</strong></dt><dd><p>Print an extensive usage (help) message, including the explanation of
 any module-specific option (but not the GMT common options), then exit.</p>
@@ -330,8 +334,8 @@ gmt end show
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, The GMT Team..
-      <span class="lastupdated">Last updated on Nov 18, 2021.
+    <p>&#169; Copyright 2022, The GMT Team..
+      <span class="lastupdated">Last updated on May 10, 2022.
       </span></p>
   </div>
 

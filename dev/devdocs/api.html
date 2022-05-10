@@ -2,16 +2,16 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GMT C API &mdash; GMT 6.3.0 documentation</title>
+  <title>GMT C API &mdash; GMT 6.4.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/togglebutton.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
       <link rel="stylesheet" href="../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/favicon.png"/>
@@ -23,9 +23,12 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/togglebutton.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
+        <script>let toggleHintShow = 'Click to show example script';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../_static/togglebutton.js"></script>
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -48,7 +51,7 @@
             <a href="../index.html" class="icon icon-home"> GMT
           </a>
               <div class="version">
-                6.3
+                6.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -64,6 +67,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../gallery.html">Example Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../animations.html">Animations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial_jl.html">Tutorial in Julia</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -219,6 +223,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#id5">2-D FFT manipulation</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#manual-demultiplexing">Manual demultiplexing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#destroying-the-fft-machinery">Destroying the FFT machinery</a></li>
 </ul>
 </li>
@@ -620,10 +625,9 @@ GMT grids expect this type of variable.</p>
     <span class="kt">char</span>   <span class="n">command</span><span class="p">[</span><span class="n">GMT_GRID_COMMAND_LEN320</span><span class="p">];</span><span class="cm">/* Name of generating command */</span>
     <span class="kt">char</span>   <span class="n">remark</span><span class="p">[</span><span class="n">GMT_GRID_REMARK_LEN160</span><span class="p">];</span>  <span class="cm">/* Comments regarding this data set */</span>
 <span class="p">};</span>
-
-<span class="n">The</span> <span class="n">basic</span> <span class="n">grid</span> <span class="n">header</span> <span class="n">holds</span> <span class="n">the</span> <span class="n">metadata</span> <span class="n">written</span> <span class="n">to</span> <span class="n">grid</span> <span class="n">files</span><span class="p">.</span>
 </pre></div>
 </div>
+<p>The basic grid header holds the metadata written to grid files.</p>
 </section>
 <section id="gmt-images">
 <h4>GMT images<a class="headerlink" href="#gmt-images" title="Permalink to this headline">¶</a></h4>
@@ -1004,142 +1008,145 @@ any of them to see the full syntax of each function.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#gmt-fft-parse">GMT_FFT_Parse</a></p></td>
 <td><p>Parse argument with FFT options and modifiers</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#gmt-fft-wavenumber">GMT_FFT_Wavenumber</a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#gmt-fft-reset">GMT_FFT_Reset</a></p></td>
+<td><p>Manually demultiplex output of inverse FFT</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-fft-wavenumber">GMT_FFT_Wavenumber</a></p></td>
 <td><p>Return wavenumber given data index</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-find-option">GMT_Find_Option</a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#gmt-find-option">GMT_Find_Option</a></p></td>
 <td><p>Find an option in the linked list</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#gmt-free">GMT_Free</a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-free">GMT_Free</a></p></td>
 <td><p>Free GMT-allocated non-container memory</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-get-common">GMT_Get_Common</a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#gmt-get-common">GMT_Get_Common</a></p></td>
 <td><p>Determine if a GMT common option was set</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#gmt-get-coord">GMT_Get_Coord</a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-get-coord">GMT_Get_Coord</a></p></td>
 <td><p>Create a coordinate array</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-get-default">GMT_Get_Default</a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#gmt-get-default">GMT_Get_Default</a></p></td>
 <td><p>Obtain one of the API or GMT default settings</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#gmt-get-enum">GMT_Get_Enum</a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-get-enum">GMT_Get_Enum</a></p></td>
 <td><p>Obtain one of the API enum constants</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-get-filepath">GMT_Get_FilePath</a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#gmt-get-filepath">GMT_Get_FilePath</a></p></td>
 <td><p>Verify input file exist and replace with full path</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#gmt-get-index">GMT_Get_Index</a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-get-index">GMT_Get_Index</a></p></td>
 <td><p>Convert row, col into a grid or image 1-D index</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-get-index3">GMT_Get_Index3</a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#gmt-get-index3">GMT_Get_Index3</a></p></td>
 <td><p>Convert row, col, layer into a cube 1-D index</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#gmt-get-info">GMT_Get_Info</a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-get-info">GMT_Get_Info</a></p></td>
 <td><p>Obtain meta data (range, dimension), … from object</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-get-matrix">GMT_Get_Matrix</a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#gmt-get-matrix">GMT_Get_Matrix</a></p></td>
 <td><p>Obtain pointer to user matrix from container</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#gmt-get-pixel">GMT_Get_Pixel</a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-get-pixel">GMT_Get_Pixel</a></p></td>
 <td><p>Get grid or image node</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-get-record">GMT_Get_Record</a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#gmt-get-record">GMT_Get_Record</a></p></td>
 <td><p>Import a single data record</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#gmt-get-row">GMT_Get_Row</a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-get-row">GMT_Get_Row</a></p></td>
 <td><p>Import a single grid row</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-get-status">GMT_Get_Status</a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#gmt-get-status">GMT_Get_Status</a></p></td>
 <td><p>Check status of record-by-record i/o</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#gmt-get-strings">GMT_Get_Strings</a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-get-strings">GMT_Get_Strings</a></p></td>
 <td><p>Obtain pointer to user strings from matrix or vector</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-get-values">GMT_Get_Values</a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#gmt-get-values">GMT_Get_Values</a></p></td>
 <td><p>Convert string into coordinates or dimensions</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#gmt-get-vector">GMT_Get_Vector</a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-get-vector">GMT_Get_Vector</a></p></td>
 <td><p>Obtain pointer to user vector from container</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-get-version">GMT_Get_Version</a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#gmt-get-version">GMT_Get_Version</a></p></td>
 <td><p>Return the current lib version as a float</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#gmt-init-io">GMT_Init_IO</a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-init-io">GMT_Init_IO</a></p></td>
 <td><p>Initialize i/o given registered resources</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-init-virtualfile">GMT_Init_VirtualFile</a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#gmt-init-virtualfile">GMT_Init_VirtualFile</a></p></td>
 <td><p>Reset a virtual file for reuse</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#gmt-inquire-virtualfile">GMT_Inquire_VirtualFile</a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-inquire-virtualfile">GMT_Inquire_VirtualFile</a></p></td>
 <td><p>Get family of a virtual file</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-make-option">GMT_Make_Option</a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#gmt-make-option">GMT_Make_Option</a></p></td>
 <td><p>Create an option structure</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#gmt-message">GMT_Message</a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-message">GMT_Message</a></p></td>
 <td><p>Issue a message, optionally with time stamp</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-open-virtualfile">GMT_Open_VirtualFile</a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#gmt-open-virtualfile">GMT_Open_VirtualFile</a></p></td>
 <td><p>Select memory location as input or output for module</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#gmt-option">GMT_Option</a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-option">GMT_Option</a></p></td>
 <td><p>Explain one or more GMT common options</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-parse-common">GMT_Parse_Common</a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#gmt-parse-common">GMT_Parse_Common</a></p></td>
 <td><p>Parse the GMT common options</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#gmt-put-levels">GMT_Put_Levels</a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-put-levels">GMT_Put_Levels</a></p></td>
 <td><p>Put user level coordinates into cube container</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-put-matrix">GMT_Put_Matrix</a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#gmt-put-matrix">GMT_Put_Matrix</a></p></td>
 <td><p>Put user matrix into container</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#gmt-put-record">GMT_Put_Record</a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-put-record">GMT_Put_Record</a></p></td>
 <td><p>Export a data record</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-put-row">GMT_Put_Row</a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#gmt-put-row">GMT_Put_Row</a></p></td>
 <td><p>Export a grid row</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#gmt-put-strings">GMT_Put_Strings</a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-put-strings">GMT_Put_Strings</a></p></td>
 <td><p>Put user strings into various containers</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-put-vector">GMT_Put_Vector</a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#gmt-put-vector">GMT_Put_Vector</a></p></td>
 <td><p>Put user vector into container</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#gmt-read-data">GMT_Read_Data</a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-read-data">GMT_Read_Data</a></p></td>
 <td><p>Import a data resource or file</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-read-group">GMT_Read_Group</a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#gmt-read-group">GMT_Read_Group</a></p></td>
 <td><p>Import a group of data resources or files</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#gmt-read-virtualfile">GMT_Read_VirtualFile</a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-read-virtualfile">GMT_Read_VirtualFile</a></p></td>
 <td><p>Access the output from a module via memory</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-register-io">GMT_Register_IO</a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#gmt-register-io">GMT_Register_IO</a></p></td>
 <td><p>Register a resources for i/o</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#gmt-report">GMT_Report</a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-report">GMT_Report</a></p></td>
 <td><p>Issue a message contingent upon verbosity level</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-set-default">GMT_Set_Default</a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#gmt-set-default">GMT_Set_Default</a></p></td>
 <td><p>Set one of the API or GMT default settings</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#gmt-set-comment">GMT_Set_Comment</a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-set-comment">GMT_Set_Comment</a></p></td>
 <td><p>Assign a comment to a data resource</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-set-columns">GMT_Set_Columns</a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#gmt-set-columns">GMT_Set_Columns</a></p></td>
 <td><p>Specify how many columns to use for rec-by-rec i/o</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#gmt-set-geometry">GMT_Set_Geometry</a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-set-geometry">GMT_Set_Geometry</a></p></td>
 <td><p>Specify data geometry for rec-by-rec i/o</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-set-index">GMT_Set_Index</a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#gmt-set-index">GMT_Set_Index</a></p></td>
 <td><p>Convert row, col into a grid or image index</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#gmt-update-option">GMT_Update_Option</a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-update-option">GMT_Update_Option</a></p></td>
 <td><p>Modify an option structure</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#gmt-write-data">GMT_Write_Data</a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#gmt-write-data">GMT_Write_Data</a></p></td>
 <td><p>Export a data resource</p></td>
 </tr>
 </tbody>
@@ -2970,18 +2977,24 @@ API or GMT default settings you can do so via</p>
 <p>where <code class="docutils literal notranslate"><span class="pre">keyword</span></code> is one such keyword (e.g., <a class="reference internal" href="../gmt.conf.html#term-PROJ_LENGTH_UNIT"><span class="xref std std-term">PROJ_LENGTH_UNIT</span></a>) and
 <code class="docutils literal notranslate"><span class="pre">value</span></code> must be a character string long enough to hold the answer.  In
 addition to the long list of GMT defaults you can also inquire about the
-API parameters <code class="docutils literal notranslate"><span class="pre">API_PAD</span></code> (the current pad setting), <code class="docutils literal notranslate"><span class="pre">API_IMAGE_LAYOUT</span></code> (the
-order and structure of image memory storage), <code class="docutils literal notranslate"><span class="pre">API_GRID_LAYOUT</span></code> (order of
-grid memory storage), <code class="docutils literal notranslate"><span class="pre">API_VERSION</span></code> (the API version string),
-<code class="docutils literal notranslate"><span class="pre">API_CORES</span></code> (the number of cores seen by the API),
-<code class="docutils literal notranslate"><span class="pre">API_BINDIR</span></code> (the API (GMT) executable path),
-<code class="docutils literal notranslate"><span class="pre">API_SHAREDIR</span></code> (the API (GMT) shared directory path),
-<code class="docutils literal notranslate"><span class="pre">API_DATADIR</span></code> (the API (GMT) data directory path), and
-<code class="docutils literal notranslate"><span class="pre">API_PLUGINDIR</span></code> (the API (GMT) plugin path).
-Depending on what parameter you selected you could further convert it to
+following API parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">API_PAD</span></code> - the current pad setting</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">API_IMAGE_LAYOUT</span></code> - the order and structure of image memory storage</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">API_GRID_LAYOUT</span></code> - order of grid memory storage</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">API_VERSION</span></code> - the API version string</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">API_CORES</span></code> - the number of cores seen by the API</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">API_BINDIR</span></code> - the API (GMT) executable path</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">API_SHAREDIR</span></code> - the API (GMT) shared directory path</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">API_DATADIR</span></code> - the API (GMT) data directory path</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">API_PLUGINDIR</span></code> - the API (GMT) plugin path</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">API_BIN_VERSION</span></code> - the API version string with Git commit information</p></li>
+</ul>
+</div></blockquote>
+<p>Depending on what parameter you selected you could further convert it to
 a numerical value with <a class="reference internal" href="#gmt-get-values">GMT_Get_Values</a> or just use it in a text comparison.</p>
-<p>To change any of the API or
-GMT default settings programmatically you would use</p>
+<p>To change any of the API or GMT default settings programmatically you would use</p>
 <blockquote id="gmt-set-default">
 <div><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">GMT_Set_Default</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">API</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">keyword</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">value</span><span class="p">);</span>
 </pre></div>
@@ -3427,7 +3440,11 @@ again with the inverse direction to recover the corresponding space-domain
 version of your data. The FFT is fully normalized so that calling
 forward followed by inverse yields the original data set. The information
 passed via <code class="docutils literal notranslate"><span class="pre">K</span></code> determines if a 1-D or 2-D transform takes place; the
-key work is done via <code class="docutils literal notranslate"><span class="pre">GMT_FFT_1D</span></code> or <code class="docutils literal notranslate"><span class="pre">GMT_FFT_2D</span></code>, as explained below.</p>
+key work is done via <code class="docutils literal notranslate"><span class="pre">GMT_FFT_1D</span></code> or <code class="docutils literal notranslate"><span class="pre">GMT_FFT_2D</span></code>, as explained below.
+<strong>Note</strong>: When <code class="docutils literal notranslate"><span class="pre">direction</span></code> is <code class="docutils literal notranslate"><span class="pre">GMT_FFT_INV</span></code> we will remove the space for
+the temporary imaginary components so that the result is real-valued only;
+this is the most common use in spectral analysis.  However, you can add
+<code class="docutils literal notranslate"><span class="pre">GMT_FFT_NO_DEMUX</span></code> to <code class="docutils literal notranslate"><span class="pre">mode</span></code> which will prevent this adjustment.</p>
 </section>
 <section id="taking-the-1-d-fft">
 <h3>Taking the 1-D FFT<a class="headerlink" href="#taking-the-1-d-fft" title="Permalink to this headline">¶</a></h3>
@@ -3519,11 +3536,24 @@ differently), and set up the loop this way:</p>
 </div></blockquote>
 </section>
 </section>
+<section id="manual-demultiplexing">
+<h3>Manual demultiplexing<a class="headerlink" href="#manual-demultiplexing" title="Permalink to this headline">¶</a></h3>
+<p>For almost all applications this step will be done automatically for you when you
+take the inverse FFT.  However, if you need to have the result of the inverse
+transform still occupy a real/imaginary layout you will need to pass the special
+mode flag <code class="docutils literal notranslate"><span class="pre">GMT_FFT_NO_DEMUX</span></code> to <code class="docutils literal notranslate"><span class="pre">GMT_FFT</span></code> and then call</p>
+<blockquote id="gmt-fft-reset">
+<div><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">GMT_FFT_Reset</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">API</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">dim</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">mode</span><span class="p">);</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>which does the delayed demultiplexing of the data.</p>
+</section>
 <section id="destroying-the-fft-machinery">
 <h3>Destroying the FFT machinery<a class="headerlink" href="#destroying-the-fft-machinery" title="Permalink to this headline">¶</a></h3>
 <p>When done you terminate the FFT machinery with</p>
 <blockquote id="gmt-fft-destroy">
-<div><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span> <span class="nf">GMT_FFT_Destroy</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">API</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">K</span><span class="p">);</span>
+<div><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">GMT_FFT_Destroy</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">API</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">K</span><span class="p">);</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -4170,8 +4200,8 @@ own threads.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, The GMT Team..
-      <span class="lastupdated">Last updated on Nov 18, 2021.
+    <p>&#169; Copyright 2022, The GMT Team..
+      <span class="lastupdated">Last updated on May 10, 2022.
       </span></p>
   </div>
 

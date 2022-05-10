@@ -2,16 +2,16 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>gmt &mdash; GMT 6.3.0 documentation</title>
+  <title>gmt &mdash; GMT 6.4.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
       <link rel="stylesheet" href="_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.png"/>
@@ -23,11 +23,14 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/togglebutton.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
+        <script>let toggleHintShow = 'Click to show example script';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -49,7 +52,7 @@
             <a href="index.html" class="icon icon-home"> GMT
           </a>
               <div class="version">
-                6.3
+                6.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -65,6 +68,7 @@
 <li class="toctree-l1"><a class="reference internal" href="gallery.html">Example Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="animations.html">Animations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_jl.html">Tutorial in Julia</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -202,13 +206,13 @@ in your browser via gmt <a class="reference internal" href="docs.html"><span cla
 <dl class="simple">
 <dt><strong>--help</strong></dt><dd><p>List and description of GMT modules.</p>
 </dd>
-<dt><strong>--new-script</strong>[=<em>L</em>]</dt><dd><p>Write a GMT modern mode script template to stdout. Optionally append the desired
+<dt><strong>--new-script</strong>[=<em>L</em>]</dt><dd><p>Write a GMT modern mode script template to standard output. Optionally append the desired
 scripting language among <em>bash</em>, <em>csh</em>, or <em>batch</em>.  Default is the main shell
 closest to your current shell (e.g., bash for zsh, csh for tcsh).</p>
 </dd>
 <dt><strong>--new-glue</strong>=<em>name</em></dt><dd><p>Write the C code glue needed when building third-party supplements as shared
 libraries.  The <em>name</em> is the name of the shared library. Run <strong>gmt</strong> in the directory
-of the supplement and the glue code will be written to <em>stdout</em>.  Including this C code
+of the supplement and the glue code will be written to standard output.  Including this C code
 when building the shared library means <strong>gmt</strong> can list available modules via the
 <strong>--show-modules</strong>, <strong>--help</strong> options.  We recommend saving the code to gmt_<em>name</em>_glue.c.</p>
 </dd>
@@ -216,9 +220,9 @@ when building the shared library means <strong>gmt</strong> can list available m
 </dd>
 <dt><strong>--show-citation</strong></dt><dd><p>Show the citation for the latest GMT publication.</p>
 </dd>
-<dt><strong>--show-classic</strong></dt><dd><p>List classic module names on stdout and exit.</p>
+<dt><strong>--show-classic</strong></dt><dd><p>List classic module names on standard output and exit.</p>
 </dd>
-<dt><strong>--show-classic-core</strong></dt><dd><p>List classic module names (core only) on stdout and exit.</p>
+<dt><strong>--show-classic-core</strong></dt><dd><p>List classic module names (core only) on standard output and exit.</p>
 </dd>
 <dt><strong>--show-cores</strong></dt><dd><p>Show number of available cores.</p>
 </dd>
@@ -226,11 +230,15 @@ when building the shared library means <strong>gmt</strong> can list available m
 </dd>
 <dt><strong>--show-dataserver</strong></dt><dd><p>Show URL of the remote GMT data server.</p>
 </dd>
+<dt><strong>--show-dcw</strong></dt><dd><p>Show the DCW data version used.</p>
+</dd>
 <dt><strong>--show-doi</strong></dt><dd><p>Show the DOI of the current release.</p>
 </dd>
-<dt><strong>--show-modules</strong></dt><dd><p>List modern module names on stdout and exit.</p>
+<dt><strong>--show-gshhg</strong></dt><dd><p>Show the GSHHG data version used.</p>
 </dd>
-<dt><strong>--show-modules-core</strong></dt><dd><p>List modern module names (core only) on stdout and exit.</p>
+<dt><strong>--show-modules</strong></dt><dd><p>List modern module names on standard output and exit.</p>
+</dd>
+<dt><strong>--show-modules-core</strong></dt><dd><p>List modern module names (core only) on standard output and exit.</p>
 </dd>
 <dt><strong>--show-library</strong></dt><dd><p>Show the path of the shared GMT library.</p>
 </dd>
@@ -282,7 +290,7 @@ can benefit from the GMT infrastructure and extend GMT in specific ways.</p>
 <strong>-a</strong><a class="reference internal" href="#aspatial-full"><span class="std std-ref">flags</span></a>
 <strong>-b</strong><a class="reference internal" href="#bi-full"><span class="std std-ref">binary</span></a>
 <strong>-c</strong><a class="reference internal" href="#c-full"><span class="std std-ref">row,col|index</span></a>
-<strong>-d</strong>[<strong>+c</strong><em>col</em>]<a class="reference internal" href="#d-full"><span class="std std-ref">nodata</span></a>
+<strong>-d</strong><a class="reference internal" href="#d-full"><span class="std std-ref">nodata</span></a>[<strong>+c</strong><em>col</em>]
 <strong>-e</strong><a class="reference internal" href="#e-full"><span class="std std-ref">regexp</span></a>
 <strong>-f</strong><a class="reference internal" href="#f-full"><span class="std std-ref">flags</span></a>
 <strong>-g</strong><a class="reference internal" href="#g-full"><span class="std std-ref">gaps</span></a>
@@ -834,9 +842,9 @@ geosynchronous orbit.</p></li>
 <blockquote id="js-full">
 <div><dl class="simple">
 <dt><strong>-Js</strong>|<strong>S</strong><em>lon0/lat0</em>[<em>/horizon</em>]<em>/</em><em>scale</em>|<em>width</em> (General Stereographic <strong>[C]</strong>).</dt><dd><p><em>lon0/lat0</em> specifies the projection center. <em>horizon</em> specifies the max distance from projection center (in
-degrees, &lt; 180, default 90). Give <em>scale</em> (with <strong>-Js</strong>; as <strong>1:</strong><em>xxxx</em> (true at pole) or <em>lat0</em>/<strong>1:</strong><em>xxxx</em> (true at standard parallel <em>lat</em>) or <em>radius/lat</em> (<em>radius</em> in <a class="reference internal" href="cookbook/features.html#plt-units"><span class="std std-ref">plot-units</span></a> from origin
+degrees, &lt; 180, default 90). Give <em>scale</em> (with <strong>-Js</strong>; as <strong>1:</strong><em>xxxx</em> (true at pole) or <em>lat</em>/<strong>1:</strong><em>xxxx</em> (true at standard parallel <em>lat</em> and requires <em>lat0</em> = ±90) or <em>radius/lat</em> (<em>radius</em> in <a class="reference internal" href="cookbook/features.html#plt-units"><span class="std std-ref">plot-units</span></a> from origin
 to the oblique latitude <em>lat</em>). Note if <strong>1:</strong><em>xxxx</em> is used then to specify <em>horizon</em> you must also specify
-the <em>lat</em> as +-90 to avoid ambiguity.) or width (with <strong>-JS</strong>; in <a class="reference internal" href="cookbook/features.html#plt-units"><span class="std std-ref">plot-units</span></a>).</p>
+the <em>lat</em> as ±90 to avoid ambiguity.) or width (with <strong>-JS</strong>; in <a class="reference internal" href="cookbook/features.html#plt-units"><span class="std std-ref">plot-units</span></a>).</p>
 </dd>
 </dl>
 <p><strong>MISCELLANEOUS PROJECTIONS:</strong></p>
@@ -943,7 +951,7 @@ projection type, the arguments of the last used <strong>-J</strong>, or the last
 </dl>
 <dl id="jproj-full">
 <dt><strong>-J</strong><em>proj</em>|<strong>EPSG:n</strong></dt><dd><p>Starting at GMT6 it is possible to use the <a class="reference external" href="https://proj.org/">PROJ</a> library to do coordinate and datum transforms.
-This is achieved via GDAL so it requires that GMT build is linked to that library. It is, however,
+This is achieved via the GDAL library. It is, however,
 beyond the scope of this manual to document the <strong>PROJ</strong> syntax (that is the syntax of the <strong>proj</strong>
 and <strong>cs2cs</strong> programs) so users are referred to <a class="reference external" href="http://proj.org/apps/index.html">PROJ Applications</a> for the details.</p>
 <p>The usage of <strong>PROJ</strong> follows very closely the syntax of <strong>proj</strong> and <strong>cs2cs</strong>. The projection parameters
@@ -984,8 +992,10 @@ geographic regions when using map projections where meridians and parallels are 
 <em>ymin</em>, and <em>ymax</em> refer to the data limits.</p></li>
 <li><p><strong>-R</strong><em>xmin</em>/<em>xmax</em>/<em>ymin</em>/<em>ymax</em><strong>+u</strong><em>unit</em>. Append <strong>+u</strong><em>unit</em> to the option 1 to specify a region in
 projected units (e.g., UTM meters) where <em>xmin</em>/<em>xmax</em>/<em>ymin</em>/<em>ymax</em> are Cartesian projected coordinates compatible
-with the chosen projection and <em>unit</em> is an allowable <a class="reference internal" href="cookbook/features.html#dist-units"><span class="std std-ref">distance unit</span></a>. The coordinates are relative
-to the standard longitude and latitude indicated in the projection (<strong>-J</strong>).</p></li>
+with the chosen projection and <em>unit</em> is an allowable <a class="reference internal" href="cookbook/features.html#dist-units"><span class="std std-ref">distance unit</span></a> [e]. The coordinates are relative
+to the standard longitude and latitude indicated in the projection (<strong>-J</strong>).  For projected regions centered on
+(0,0) you may use the short-hand <strong>-R</strong><em>halfwidth</em>[/<em>halfheight</em>]<strong>+u</strong><em>unit</em>, where <em>halfheight</em> defaults
+to <em>halfwidth</em> if not given. This short-hand requires the <strong>+u</strong> modifier.</p></li>
 <li><p><strong>-R</strong><em>xlleft</em>/<em>ylleft</em>/<em>xuright</em>/<em>yuright</em><strong>+r</strong>. This form is useful for map projections that are oblique,
 making meridians and parallels poor choices for map boundaries. Here, we instead specify the lower left corner and
 upper right corner geographic coordinates, followed by the modifier <strong>+r</strong>. This form guarantees a rectangular map
@@ -995,22 +1005,26 @@ even though lines of equal longitude and latitude are not straight lines.</p></l
 <li><p><strong>-R</strong><em>gridfile</em>. This will copy the domain settings found for the grid in specified file. Note that depending on
 the nature of the calling module, this mechanism will also set grid spacing and possibly the grid registration (see
 <a class="reference internal" href="cookbook/options.html#grid-registration-the-r-option"><span class="std std-ref">Grid registration: The -r option</span></a>).</p></li>
-<li><p><strong>-R</strong><em>code1,code2,…</em>[<strong>+e</strong>|<strong>r</strong>|<strong>R</strong><em>incs</em>]. This indirectly supplies the region by consulting
-the DCW (Digital Chart of the World) database and derives the bounding regions for one or more countries given by
-the codes. Simply append one or more comma-separated countries using the two-character
-<a class="reference external" href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2 convention</a>.
-To select a state within a country (if available), append .state, e.g, US.TX for Texas. To specify a whole continent,
-prepend <strong>=</strong> to any of the continent codes <strong>AF</strong> (Africa), <strong>AN</strong> (Antarctica), <strong>AS</strong> (Asia), <strong>EU</strong> (Europe),
-<strong>OC</strong> (Oceania), <strong>NA</strong> (North America), or <strong>SA</strong> (South America). The following modifiers can be appended:</p>
+<li><p><strong>-R</strong><em>code1,code2,…</em>[<strong>+e</strong>|<strong>r</strong>|<strong>R</strong><em>incs</em>]. This indirectly supplies the region by
+consulting the DCW (Digital Chart of the World) database and derives the bounding regions for one or more
+countries given by the codes. Simply append one or more comma-separated countries using either the two-character
+<a class="reference external" href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)">ISO 3166-1 alpha-2 convention</a> (e.g., NO) or the full
+country name (e.g., Norway). To select a state within a country (if available), append .state (e.g, US.TX),
+or the full state name (e.g., Texas). To specify a whole continent, spell out the full continent name (e.g., -RAfrica).
+Finally, append any <a class="reference internal" href="coast.html#id1"><span class="std std-ref">DCW collection</span></a> abbreviations or full names for the extent of the
+collection or named region. All names are case-insensitive. The following modifiers can be appended:</p>
 <ul class="simple">
 <li><p><strong>+r</strong> to adjust the region boundaries to be multiples of the steps indicated by <em>inc</em>, <em>xinc</em>/<em>yinc</em>, or
 <em>winc</em>/<em>einc</em>/<em>sinc</em>/<em>ninc</em> [default is no adjustment]. For example, <strong>-R</strong><em>FR</em><strong>+r</strong>1 will select the
-national bounding box of France rounded to nearest integer degree.</p></li>
-<li><p><strong>+R</strong> to extend the region outward by adding the amounts specified by <em>inc</em>, <em>xinc</em>/<em>yinc</em>, or
-<em>winc</em>/<em>einc</em>/<em>sinc</em>/<em>ninc</em> [default is no extension].</p></li>
+national bounding box of France rounded to nearest integer degree, where <em>inc</em> can be positive to expand the
+region or negative to shrink the region.</p></li>
+<li><p><strong>+R</strong> to adjust the region by adding the amounts specified by <em>inc</em>, <em>xinc</em>/<em>yinc</em>, or
+<em>winc</em>/<em>einc</em>/<em>sinc</em>/<em>ninc</em> [default is no extension], where <em>inc</em> can be positive to expand the
+region or negative to shrink the region.</p></li>
 <li><p><strong>+e</strong> to adjust the region boundaries to be multiples of the steps indicated by <em>inc</em>, <em>xinc</em>/<em>yinc</em>, or
-<em>winc</em>/<em>einc</em>/<em>sinc</em>/<em>ninc</em>, while ensuring that the bounding box extends by at least 0.25 times the increment
-[default is no adjustment].</p></li>
+<em>winc</em>/<em>einc</em>/<em>sinc</em>/<em>ninc</em>, while ensuring that the bounding box is adjusted by at least 0.25 times the
+increment [default is no adjustment], where <em>inc</em> can be positive to expand the region or negative to shrink
+the region.</p></li>
 </ul>
 </li>
 <li><p><strong>-R</strong><em>justify</em><em>x0</em>/<em>y0</em>/<em>nx</em>/<em>ny</em>, where <em>justify</em> is a 2-character combination of <strong>L</strong>|<strong>C</strong>|<strong>R</strong> (for
@@ -1102,10 +1116,12 @@ previous plot unless the origin is shifted using these options. The following mo
 <li><p>Prepend <strong>r</strong> to move the origin relative to its current location.</p></li>
 </ul>
 <p>When <strong>-X</strong> or <strong>-Y</strong> are used without any further arguments, the values from the last use of that option in a previous
-GMT command will be used. Note that <strong>-X</strong> and <strong>-Y</strong> can also access the previous plot bounding box dimensions <em>w</em> and
-<em>h</em> and construct offsets that involves them.  For instance, to move the origin up 2 cm beyond the height of the
-previous plot, use <strong>-Y</strong><em>h</em>+2c. To move the origin half the width to the right, use <strong>-X</strong><em>w</em>/2. <strong>Note</strong>:
-the previous plot bounding box refers to the last object plotted, which may be an image, logo, legend, colorbar, etc.</p>
+GMT command will be used. In modern mode, <strong>-X</strong> and <strong>-Y</strong> can also access the previous plot bounding box dimensions <em>w</em> and
+<em>h</em> and construct offsets that involve them.  Thus, <em>xshift</em> can in general be [[±][<em>f</em>]<em>w</em>[/<em>d</em>]±]<em>xoff</em>, where optional signs, factor <em>f</em>
+and divisor <em>d</em> can be used to compute an offset that may be adjusted further by ±<em>off</em>.  Similarly, <em>yshift</em> can in general be
+[[±][<em>f</em>]<em>h</em>[/<em>d</em>]±]<em>yoff</em>.  For instance, to move the origin up 2 cm beyond the height of the previous plot, use <strong>-Y</strong><em>h</em>+2c.
+To move the origin half the width to the right, use <strong>-X</strong><em>w</em>/2. <strong>Note</strong>: the previous plot bounding box refers to the last
+object plotted, which may be an image, logo, legend, colorbar, etc.</p>
 </section>
 <section id="the-a-option">
 <span id="aspatial-full"></span><h3>The <strong>-a</strong> option<a class="headerlink" href="#the-a-option" title="Permalink to this headline">¶</a></h3>
@@ -1116,7 +1132,7 @@ the previous plot bounding box refers to the last object plotted, which may be a
 </dl>
 <p><strong>Description</strong></p>
 <p>GMT relies on external tools to translate geospatial files such as shapefiles into a format we can read. The tool
-<strong>ogr2ogr</strong> in the GDAL package can do such translations and preserve the aspatial metadata via a new OGR/GMT format
+<em>ogr2ogr</em> in the GDAL package can do such translations and preserve the aspatial metadata via a new OGR/GMT format
 specification (See the cookbook chapter <a class="reference internal" href="cookbook/ogrgmt-format.html"><span class="doc">The GMT Vector Data Format for OGR Compatibility</span></a>). For this to be useful we need a mechanism to
 associate certain metadata values with required input and output columns expected by GMT programs. The <strong>-a</strong> option
 allows you to supply one or more comma-separated associations <em>col=name</em>, where <em>name</em> is the name of an aspatial
@@ -1386,7 +1402,9 @@ one of the following modifiers to any column or column range to transform the in
 km to degrees or <strong>k</strong> to convert degrees to km using <a class="reference internal" href="gmt.conf.html#term-PROJ_MEAN_RADIUS"><span class="xref std std-term">PROJ_MEAN_RADIUS</span></a>.</p></li>
 <li><p><strong>+o</strong> to add the given <em>offset</em> to the input values [default is 0].</p></li>
 </ul>
-<p>To read from a given column until the end of the record, leave off <em>stop</em> when specifying the column range. Normally,
+<p><strong>Note</strong>: The order of these optional transformations are (1) take log10, (2) scale or divide, and (3)
+add <em>offset</em>.  To read from a given column until the end of the record,
+leave off <em>stop</em> when specifying the column range. Normally,
 any trailing text will be read but when <strong>-i</strong> is used to specify specific input columns you must explicitly append the
 “column” <strong>t</strong> to retain the trailing text internally. To only ingest a single word from the trailing text, append
 the word number (first word is 0).  If your trailing text columns start with a valid number and you want to ensure
@@ -1452,7 +1470,8 @@ width among the specified columns. If <strong>legend</strong> is not called expl
 plot via <a class="reference internal" href="end.html"><span class="doc">end</span></a>. <strong>Note</strong>: If auto-coloring is used for pens or fills and <strong>-l</strong> is set then <em>label</em> may contain a
 C-format for integers (e.g., %3.3d) or just # and we will use the sequence number with the format to build the label
 entries.  Alternatively, give a list of comma-separated labels, or give no label if your segment headers contain label
-settings.</p>
+settings. <strong>Note</strong>: Due to this mechanism, if your single label actually contains commas, you must replace these with the
+octal code for a comma (\054).</p>
 </section>
 <section id="the-n-option">
 <span id="n-full"></span><h3>The <strong>-n</strong> option<a class="headerlink" href="#the-n-option" title="Permalink to this headline">¶</a></h3>
@@ -1537,7 +1556,7 @@ to select another axis location than the plot origin.</p>
 <span id="qo-full"></span><span id="qi-full"></span><span id="q-full"></span><h3>The <strong>-q</strong> option<a class="headerlink" href="#the-q-option" title="Permalink to this headline">¶</a></h3>
 <p><strong>Syntax</strong></p>
 <dl class="simple">
-<dt><strong>-q</strong>[<strong>i</strong>|<strong>o</strong>][~]<em>rows</em>|<em>limits</em>[<strong>+c</strong><em>col</em>][<strong>+a</strong>|<strong>f</strong>|<strong>s</strong>]</dt><dd><p>Select specific data rows to be read and/or written.</p>
+<dt><strong>-q</strong>[<strong>i</strong>|<strong>o</strong>][~]<em>rows</em>|<em>limits</em>[<strong>+c</strong><em>col</em>][<strong>+a</strong>|<strong>t</strong>|<strong>s</strong>]</dt><dd><p>Select specific data rows to be read and/or written.</p>
 </dd>
 </dl>
 <p><strong>Description</strong></p>
@@ -1549,7 +1568,7 @@ rows <em>not</em> specified by the given ranges, prepend the selected rows with 
 modifiers to control how the rows are counted [Default is <strong>+a</strong>]:</p>
 <ul class="simple">
 <li><p><strong>+a</strong> to count all rows in the data set.</p></li>
-<li><p><strong>+f</strong> to reset the count at the start of each file.</p></li>
+<li><p><strong>+t</strong> to reset the count at the start of each table.</p></li>
 <li><p><strong>+s</strong> to reset the count at the start of each segment.</p></li>
 </ul>
 <p>Alternatively, use <strong>+c</strong><em>col</em> to indicate that the arguments instead are min/max <em>data limits</em> for the values in
@@ -1739,7 +1758,7 @@ geographical grids are expected to have the longitude as first (minor) dimension
 <section id="module-help-and-configuration">
 <h4>Module help and configuration<a class="headerlink" href="#module-help-and-configuration" title="Permalink to this headline">¶</a></h4>
 <dl class="simple">
-<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (NOTE: on Windows just use <strong>-</strong>).</p>
+<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (<strong>Note</strong>: on Windows just use <strong>-</strong>).</p>
 </dd>
 <dt><strong>-+</strong> or just <strong>+</strong></dt><dd><p>Print an extensive usage (help) message, including the explanation of
 any module-specific option (but not the GMT common options), then exit.</p>
@@ -1970,8 +1989,8 @@ GMT documentation site <a class="reference external" href="https://docs.generic-
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, The GMT Team..
-      <span class="lastupdated">Last updated on Nov 18, 2021.
+    <p>&#169; Copyright 2022, The GMT Team..
+      <span class="lastupdated">Last updated on May 10, 2022.
       </span></p>
   </div>
 

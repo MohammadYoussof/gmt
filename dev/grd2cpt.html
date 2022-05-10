@@ -2,16 +2,16 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>grd2cpt &mdash; GMT 6.3.0 documentation</title>
+  <title>grd2cpt &mdash; GMT 6.4.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
       <link rel="stylesheet" href="_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.png"/>
@@ -23,9 +23,12 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/togglebutton.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
+        <script>let toggleHintShow = 'Click to show example script';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -48,7 +51,7 @@
             <a href="index.html" class="icon icon-home"> GMT
           </a>
               <div class="version">
-                6.3
+                6.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -64,6 +67,7 @@
 <li class="toctree-l1"><a class="reference internal" href="gallery.html">Example Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="animations.html">Animations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_jl.html">Tutorial in Julia</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -175,7 +179,7 @@
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
 <p><strong>grd2cpt</strong> reads one or more grid files and writes a static color palette
 (CPT) file. In classic mode we write the CPT to standard output, while under
-modern mode we simply save the CPT as the current session CPT (but see <strong>-H</strong>).
+modern mode we simply save the CPT as the current session CPT (but see <a class="reference internal" href="#h"><span><strong>-H</strong></span></a></strong>).
 The CPT is based on an existing dynamic
 master CPT of your choice, and the mapping from data value to
 colors is through the data’s cumulative distribution function (CDF), so
@@ -197,7 +201,7 @@ copied into the new master file. If not, the parameters
 <a class="reference internal" href="gmt.conf.html#term-COLOR_BACKGROUND"><span class="xref std std-term">COLOR_BACKGROUND</span></a>, <a class="reference internal" href="gmt.conf.html#term-COLOR_FOREGROUND"><span class="xref std std-term">COLOR_FOREGROUND</span></a>,
 and <a class="reference internal" href="gmt.conf.html#term-COLOR_NAN"><span class="xref std std-term">COLOR_NAN</span></a> from
 the <a class="reference internal" href="gmt.conf.html"><span class="doc">gmt.conf</span></a> file or the command line will be used. This default
-behavior can be overruled using the options <strong>-D</strong>, <strong>-M</strong> or <strong>-N</strong>.</p>
+behavior can be overruled using the options <a class="reference internal" href="#d"><span><strong>-D</strong></span></a></strong>, <a class="reference internal" href="#m"><span><strong>-M</strong></span></a></strong> or <a class="reference internal" href="#n"><span><strong>-N</strong></span></a></strong>.</p>
 <p>The color model (RGB, HSV or CMYK) of the palette created by <a class="reference internal" href="makecpt.html"><span class="doc">makecpt</span></a>
 will be the same as specified in the header of the master CPT. When
 there is no <a class="reference internal" href="gmt.conf.html#term-COLOR_MODEL"><span class="xref std std-term">COLOR_MODEL</span></a> entry in the master CPT, the
@@ -250,7 +254,7 @@ or an HTML hexadecimal color (e.g. #aabbcc).</p>
 </dl>
 <dl class="simple" id="d">
 <dt><strong>-D</strong>[<strong>i</strong>|<strong>o</strong>]</dt><dd><p>Select the back- and foreground colors to match the colors for
-lowest and highest <em>z</em>-values in the output CPT [Default (<strong>-D</strong> or <strong>-Do</strong>)
+lowest and highest <em>z</em>-values in the output CPT [Default (<a class="reference internal" href="#d"><span><strong>-D</strong></span></a></strong> or <strong>-Do</strong>)
 uses the colors specified in the master file, or those defined by the
 parameters <a class="reference internal" href="gmt.conf.html#term-COLOR_BACKGROUND"><span class="xref std std-term">COLOR_BACKGROUND</span></a>, <a class="reference internal" href="gmt.conf.html#term-COLOR_FOREGROUND"><span class="xref std std-term">COLOR_FOREGROUND</span></a>, and
 <a class="reference internal" href="gmt.conf.html#term-COLOR_NAN"><span class="xref std std-term">COLOR_NAN</span></a>]. Append <strong>i</strong> to match the colors for the lowest and
@@ -305,7 +309,7 @@ exchanges the foreground and background colors, including those
 specified by the parameters <a class="reference internal" href="gmt.conf.html#term-COLOR_BACKGROUND"><span class="xref std std-term">COLOR_BACKGROUND</span></a> and
 <a class="reference internal" href="gmt.conf.html#term-COLOR_FOREGROUND"><span class="xref std std-term">COLOR_FOREGROUND</span></a>.
 Append <strong>z</strong> to reverse the sign of z-values in the color table.  Note that
-this change of <em>z</em>-direction happens before <strong>-G</strong> and <strong>-S</strong> values are used
+this change of <em>z</em>-direction happens before <a class="reference internal" href="#g"><span><strong>-G</strong></span></a></strong> and <a class="reference internal" href="#s"><span><strong>-S</strong></span></a></strong> values are used
 so the latter must be compatible with the changed <em>z</em>-range. See also <a class="reference internal" href="cookbook/features.html#manipulating-cpts"><span class="std std-ref">Manipulating CPTs</span></a></p>
 </dd>
 </dl>
@@ -321,7 +325,7 @@ master CPT with the values of the parameters
 <a class="reference internal" href="gmt.conf.html#term-COLOR_BACKGROUND"><span class="xref std std-term">COLOR_BACKGROUND</span></a>, <a class="reference internal" href="gmt.conf.html#term-COLOR_FOREGROUND"><span class="xref std std-term">COLOR_FOREGROUND</span></a>,
 and <a class="reference internal" href="gmt.conf.html#term-COLOR_NAN"><span class="xref std std-term">COLOR_NAN</span></a>
 specified in the <a class="reference internal" href="gmt.conf.html"><span class="doc">gmt.conf</span></a> file or on the command line. When
-combined with <strong>-D</strong>, only <a class="reference internal" href="gmt.conf.html#term-COLOR_NAN"><span class="xref std std-term">COLOR_NAN</span></a> is considered.</p>
+combined with <a class="reference internal" href="#d"><span><strong>-D</strong></span></a></strong>, only <a class="reference internal" href="gmt.conf.html#term-COLOR_NAN"><span class="xref std std-term">COLOR_NAN</span></a> is considered.</p>
 </dd>
 </dl>
 <dl class="simple" id="n">
@@ -372,7 +376,7 @@ to produce a wrapped (cyclic) color table that endlessly repeats its range.</p>
 </dl>
 <dl class="simple">
 <dt><strong>-bo</strong><em>record</em>[<strong>+b</strong>|<strong>l</strong>] <a class="reference internal" href="gmt.html#bo-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary format for table output. [Default is 2]. This option
-only applies if <strong>-E</strong> selects CDF output.</p>
+only applies if <a class="reference internal" href="#e"><span><strong>-E</strong></span></a></strong> selects CDF output.</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -380,7 +384,7 @@ only applies if <strong>-E</strong> selects CDF output.</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (NOTE: on Windows just use <strong>-</strong>).</p>
+<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (<strong>Note</strong>: on Windows just use <strong>-</strong>).</p>
 </dd>
 <dt><strong>-+</strong> or just <strong>+</strong></dt><dd><p>Print an extensive usage (help) message, including the explanation of
 any module-specific option (but not the GMT common options), then exit.</p>
@@ -426,7 +430,7 @@ See <a class="reference internal" href="cookbook/cpts.html#of-colors-and-color-l
 <section id="discrete-versus-continuous-cpt">
 <h2>Discrete versus Continuous CPT<a class="headerlink" href="#discrete-versus-continuous-cpt" title="Permalink to this headline">¶</a></h2>
 <p>All CPTs can be stretched, but only continuous CPTs can be sampled
-at new nodes (i.e., by given an increment in <strong>-T</strong>).  We impose this
+at new nodes (i.e., by given an increment in <a class="reference internal" href="#t"><span><strong>-T</strong></span></a></strong>).  We impose this
 limitation to avoid aliasing the original CPT.</p>
 </section>
 <section id="examples">
@@ -444,7 +448,7 @@ from the remote 5m relief file, using the geo color table, try:</p>
 <p>Sometimes you don’t want to make a CPT (yet) but would find it
 helpful to know that 90% of your data lie between z1 and z2, something
 you cannot learn from <a class="reference internal" href="grdinfo.html"><span class="doc">grdinfo</span></a>. So you can do this to see some points
-on the CDF(Z) curve (use <strong>-V</strong> option to see more):</p>
+on the CDF(Z) curve (use <a class="reference internal" href="#v"><span><strong>-V</strong></span></a></strong> option to see more):</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt grd2cpt mydata.nc -V &gt; /dev/null
 </pre></div>
@@ -472,7 +476,7 @@ and save the CDF to file as well. try:</p>
 a module that may create a CPT, such as <a class="reference internal" href="#"><span class="doc">grd2cpt</span></a> and <a class="reference internal" href="makecpt.html"><span class="doc">makecpt</span></a> (or even
 <a class="reference internal" href="grdimage.html"><span class="doc">grdimage</span></a> when no color table is available), the behavior under modern mode
 is to write that CPT to a hidden file in the session directory.  When a module
-requires a CPT (e.g., <strong>grdimage</strong> not given <strong>-C</strong> or <strong>plot</strong> given <strong>-C</strong> with no name)
+requires a CPT (e.g., <strong>grdimage</strong> not given <a class="reference internal" href="#c"><span><strong>-C</strong></span></a></strong> or <strong>plot</strong> given <a class="reference internal" href="#c"><span><strong>-C</strong></span></a></strong> with no name)
 then we read this hidden CPT (if it exists).  This file is called the <em>current</em> CPT.
 In fact, there are several levels of current CPTs that may all be different, and
 some may not be present.  If you create a CPT within an <strong>inset</strong> operation then
@@ -517,8 +521,8 @@ CPTs.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, The GMT Team..
-      <span class="lastupdated">Last updated on Nov 18, 2021.
+    <p>&#169; Copyright 2022, The GMT Team..
+      <span class="lastupdated">Last updated on May 10, 2022.
       </span></p>
   </div>
 

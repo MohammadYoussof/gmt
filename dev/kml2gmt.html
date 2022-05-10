@@ -2,16 +2,16 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>kml2gmt &mdash; GMT 6.3.0 documentation</title>
+  <title>kml2gmt &mdash; GMT 6.4.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
       <link rel="stylesheet" href="_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.png"/>
@@ -23,9 +23,12 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/togglebutton.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
+        <script>let toggleHintShow = 'Click to show example script';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -48,7 +51,7 @@
             <a href="index.html" class="icon icon-home"> GMT
           </a>
               <div class="version">
-                6.3
+                6.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -64,6 +67,7 @@
 <li class="toctree-l1"><a class="reference internal" href="gallery.html">Example Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="animations.html">Animations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_jl.html">Tutorial in Julia</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -152,7 +156,7 @@
 [ <a class="reference internal" href="#v"><span><strong>-V</strong></span></a></strong>[<em>level</em>] ]
 [ <a class="reference internal" href="#z"><span><strong>-Z</strong></span></a></strong> ]
 [ <strong>-bo</strong><a class="reference internal" href="gmt.html#bo-full"><span class="std std-ref">binary</span></a> ]
-[ <strong>-do</strong>[<strong>+c</strong><em>col</em>]<a class="reference internal" href="gmt.html#do-full"><span class="std std-ref">nodata</span></a> ]
+[ <strong>-do</strong><a class="reference internal" href="gmt.html#do-full"><span class="std std-ref">nodata</span></a>[<strong>+c</strong><em>col</em>] ]
 [ <strong>-h</strong><a class="reference internal" href="gmt.html#h-full"><span class="std std-ref">headers</span></a> ]
 [ <strong>-:</strong>[<strong>i</strong>|<strong>o</strong>] ]
 [ <strong>--PAR</strong>=<em>value</em> ]</p>
@@ -166,8 +170,8 @@ This is a bare-bones operation that aims to extract coordinates and
 possibly the name and description tags of each feature. The main use
 intended is to capture coordinates modified in Google Earth and then
 reinsert the modified data into the original GMT data file. For a more
-complete reformatting, consider using <strong>ogr2ogr -f</strong> “GMT” somefile.gmt
-somefile.kml.</p>
+complete reformatting, consider using
+<code class="docutils literal notranslate"><span class="pre">ogr2ogr</span> <span class="pre">-f</span> <span class="pre">&quot;GMT&quot;</span> <span class="pre">somefile.gmt</span> <span class="pre">somefile.kml</span></code>.</p>
 </section>
 <section id="required-arguments">
 <h2>Required Arguments<a class="headerlink" href="#required-arguments" title="Permalink to this headline">¶</a></h2>
@@ -182,7 +186,7 @@ standard input is read.</p>
 <dl class="simple" id="e">
 <dt><strong>-E</strong></dt><dd><p>Get the altitude from the <em>ExtendData</em> property; <em>z</em> coordinates are then ignored. KML provides
 more than one mechanism to store information via <em>ExtendData</em> but here we only implemented the
-<em>&lt;SimpleData name=”string”&gt;</em> variation. Implicitly sets <strong>-Z</strong></p>
+<em>&lt;SimpleData name=”string”&gt;</em> variation. Implicitly sets <a class="reference internal" href="#z"><span><strong>-Z</strong></span></a></strong></p>
 </dd>
 </dl>
 <dl class="simple" id="f">
@@ -216,7 +220,7 @@ output just longitude and latitude].</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (NOTE: on Windows just use <strong>-</strong>).</p>
+<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (<strong>Note</strong>: on Windows just use <strong>-</strong>).</p>
 </dd>
 <dt><strong>-+</strong> or just <strong>+</strong></dt><dd><p>Print an extensive usage (help) message, including the explanation of
 any module-specific option (but not the GMT common options), then exit.</p>
@@ -277,8 +281,8 @@ gmt kml2gmt google.kml -Fs -V &gt; points.txt
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, The GMT Team..
-      <span class="lastupdated">Last updated on Nov 18, 2021.
+    <p>&#169; Copyright 2022, The GMT Team..
+      <span class="lastupdated">Last updated on May 10, 2022.
       </span></p>
   </div>
 

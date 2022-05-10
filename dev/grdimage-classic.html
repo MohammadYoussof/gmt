@@ -2,16 +2,16 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>grdimage &mdash; GMT 6.3.0 documentation</title>
+  <title>grdimage &mdash; GMT 6.4.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
       <link rel="stylesheet" href="_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.png"/>
@@ -23,9 +23,12 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/togglebutton.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
+        <script>let toggleHintShow = 'Click to show example script';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -48,7 +51,7 @@
             <a href="index.html" class="icon icon-home"> GMT
           </a>
               <div class="version">
-                6.3
+                6.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -64,6 +67,7 @@
 <li class="toctree-l1"><a class="reference internal" href="gallery.html">Example Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="animations.html">Animations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_jl.html">Tutorial in Julia</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -179,14 +183,14 @@ intensities in the (-1,+1) range or instructions to derive intensities
 from the input data grid. Values outside this range will be
 clipped. Such intensity files can be created from the grid using
 <a class="reference internal" href="grdgradient.html"><span class="doc">grdgradient</span></a> and, optionally, modified by <a class="reference internal" href="grdmath.html"><span class="doc">grdmath</span></a> or
-<a class="reference internal" href="grdhisteq.html"><span class="doc">grdhisteq</span></a>. A third alternative is available when GMT is built
-with GDAL support. Pass <em>image</em> which can be an image file (geo-referenced or not).
+<a class="reference internal" href="grdhisteq.html"><span class="doc">grdhisteq</span></a>. Alternatively , pass <em>image</em> which can be an image
+file (geo-referenced or not).
 In this case the image can optionally be illuminated with the
-file provided via the <strong>-I</strong> option. Here, if image has no coordinates
+file provided via the <a class="reference internal" href="#i"><span><strong>-I</strong></span></a></strong> option. Here, if image has no coordinates
 then those of the intensity file will be used.</p>
 <p>When using map projections, the grid is first resampled on a new
 rectangular grid with the same dimensions. Higher resolution images can
-be obtained by using the <strong>-E</strong> option. To obtain the resampled value
+be obtained by using the <a class="reference internal" href="#e"><span><strong>-E</strong></span></a></strong> option. To obtain the resampled value
 (and hence shade or color) of each map pixel, its location is inversely
 projected back onto the input grid after which a value is interpolated
 between the surrounding input grid values. By default bi-cubic
@@ -194,7 +198,7 @@ interpolation is used. Aliasing is avoided by also forward projecting
 the input grid nodes. If two or more nodes are projected onto the same
 pixel, their average will dominate in the calculation of the pixel
 value. Interpolation and aliasing is controlled with the <strong>-n</strong> option.</p>
-<p>The <strong>-R</strong> option can be used to select a map region larger or smaller
+<p>The <a class="reference internal" href="#r"><span><strong>-R</strong></span></a></strong> option can be used to select a map region larger or smaller
 than that implied by the extent of the grid.</p>
 </section>
 <section id="required-arguments">
@@ -212,9 +216,7 @@ than that implied by the extent of the grid.</p>
 <section id="optional-arguments">
 <h2>Optional Arguments<a class="headerlink" href="#optional-arguments" title="Permalink to this headline">¶</a></h2>
 <dl class="simple" id="a">
-<dt><strong>-A</strong><em>out_img</em>[<strong>=</strong><em>driver</em>]</dt><dd><p>Save an image in a raster format instead of PostScript. Use extension .ppm for a Portable
-Pixel Map format which is the only raster format GMT can natively write. For GMT installations
-configured with GDAL support there are more choices: Append <em>out_img</em> to select
+<dt><strong>-A</strong><em>out_img</em>[<strong>=</strong><em>driver</em>]</dt><dd><p>Save an image in a raster format instead of PostScript. Append <em>out_img</em> to select
 the image file name and extension. If the extension is one of .bmp, .gif, .jpg, .png, or .tif
 then no driver information is required. For other output formats you must append the required
 GDAL driver. The <em>driver</em> is the driver code name used by GDAL; see your GDAL installation’s
@@ -249,9 +251,9 @@ then under modern mode we select the current CPT.</p>
 <dl class="simple" id="d">
 <dt><strong>-D</strong>[<strong>r</strong>]</dt><dd><p>GMT will automatically detect standard image files (Geotiff, TIFF,
 JPG, PNG, GIF, etc.) and will read those via GDAL.  For very
-obscure image formats you may need to explicitly set <strong>-D</strong>, which
+obscure image formats you may need to explicitly set <a class="reference internal" href="#d"><span><strong>-D</strong></span></a></strong>, which
 specifies that the grid is in fact an image file to be read via
-GDAL. Append <strong>r</strong> to assign the region specified by <strong>-R</strong> to the image.
+GDAL. Append <strong>r</strong> to assign the region specified by <a class="reference internal" href="#r"><span><strong>-R</strong></span></a></strong> to the image.
 For example, if you have used <strong>-Rd</strong> then the image will be
 assigned a global domain. This mode allows you to project a raw image
 (an image without referencing coordinates).</p>
@@ -290,7 +292,7 @@ must be provided.</p>
 </dl>
 <dl class="simple" id="m">
 <dt><strong>-M</strong></dt><dd><p>Force conversion to monochrome image using the (old-style television) YIQ
-transformation. Cannot be used with <strong>-Q</strong>.</p>
+transformation. Cannot be used with <a class="reference internal" href="#q"><span><strong>-Q</strong></span></a></strong>.</p>
 </dd>
 </dl>
 <dl class="simple" id="n">
@@ -299,8 +301,9 @@ non-rectangular maps).</p>
 </dd>
 </dl>
 <dl class="simple" id="q">
-<dt><strong>-Q</strong>[<em>color</em>]</dt><dd><p>Make grid nodes with NaN values transparent, using the color-masking
+<dt><strong>-Q</strong>[<em>color</em>][<strong>+z</strong><em>value</em>]</dt><dd><p>Make grid nodes with NaN values transparent, using the color-masking
 feature in PostScript Level 3 (the PS device must support PS Level 3).
+Use <strong>+z</strong> to select another grid value than NaN.
 If input is instead an image then black pixels are set to be transparent;
 append an alternate color to select another pixel value to be transparent.</p>
 </dd>
@@ -352,7 +355,7 @@ subset of the grid [Default is the region given by the grid file].</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (NOTE: on Windows just use <strong>-</strong>).</p>
+<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (<strong>Note</strong>: on Windows just use <strong>-</strong>).</p>
 </dd>
 <dt><strong>-+</strong> or just <strong>+</strong></dt><dd><p>Print an extensive usage (help) message, including the explanation of
 any module-specific option (but not the GMT common options), then exit.</p>
@@ -526,7 +529,8 @@ map areas may show up with fore- or background color due to the resampling.
 In that case you have two options: (1) Modify your CPT to fit the resampled
 extrema (reported with <strong>-V</strong>) or (2) Impose clipping of resampled values
 so they do not exceed the input min/max values (add <strong>+c</strong> to your <strong>-n</strong>
-option).</p>
+option). <strong>Note</strong>: If <strong>-n</strong> is not set and no CPT is given (or a master
+CPT is given or implied), we automatically set <strong>-nc+c</strong>.</p>
 </section>
 <section id="imaging-categorical-grids">
 <h2>Imaging Categorical Grids<a class="headerlink" href="#imaging-categorical-grids" title="Permalink to this headline">¶</a></h2>
@@ -535,9 +539,9 @@ be interpolated (i.e., categories 4 and 5 should never be averaged to give
 a new category 4.5).  However, imaging such grids using map projections
 requires a resampling onto an equidistant Cartesian lattice that usually
 will result in such blending.  We do not know if a grid is categorical but
-if the CPT provided via <strong>-C</strong> is categorical we will override any <strong>-n</strong> setting you
+if the CPT provided via <a class="reference internal" href="#c"><span><strong>-C</strong></span></a></strong> is categorical we will override any <strong>-n</strong> setting you
 have chosen (perhaps implicitly) with <strong>-nn+a</strong> that turns <em>on</em> nearest neighbor
-gridding and turns <em>off</em> anti-aliasing.  Alternatively, use <a class="reference internal" href="grdview.html"><span class="doc">grdview</span></a> <strong>-T</strong>
+gridding and turns <em>off</em> anti-aliasing.  Alternatively, use <a class="reference internal" href="grdview.html"><span class="doc">grdview</span></a> <a class="reference internal" href="#t"><span><strong>-T</strong></span></a></strong>
 instead to plot individual polygons centered on each node.</p>
 </section>
 <section id="image-formats-recognized">
@@ -546,6 +550,16 @@ instead to plot individual polygons centered on each node.</p>
 that could contain either an image or a data set (e.g., geotiff) we determine
 which case it is and act accordingly.  If your favorite image format is not
 automatically detected then please let us know its magic bytes so we can add it.</p>
+</section>
+<section id="macos-preview-warning">
+<h2>MacOS Preview Warning<a class="headerlink" href="#macos-preview-warning" title="Permalink to this headline">¶</a></h2>
+<p>Low-resolution raster-images appearing in PDF or PostScript files may look blurry when viewed
+with the Preview application under macOS. This happens because Preview decides to resample very
+coarse (low dpi) images instead of leaving them alone; we do not know of a simple way to turn
+this feature off.  It is most noticeable in color bars for discrete CPTs (we now use <strong>-Np</strong> as
+the default setting for such CPTs) and very small grids plotted in either <a class="reference internal" href="grdimage.html"><span class="doc">grdimage</span></a> or
+<a class="reference internal" href="grdview.html"><span class="doc">grdview</span></a> <strong>-Qi</strong>|<strong>c</strong>. However, if a raster format (such as JPG or PNG) is selected instead
+then here is no such blurring.  Other PDF viewers (e.g., Adobe Acrobat) do not seem similarly affected.</p>
 </section>
 <section id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
@@ -586,8 +600,7 @@ tickmarks every 5 units:</p>
 </pre></div>
 </div>
 </div></blockquote>
-<p>When GDAL support is built in: To create a sinusoidal projection of a
-remotely located Jessica Rabbit</p>
+<p>To create a sinusoidal projection of a remotely located Jessica Rabbit</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt grdimage -JI15c -Rd http://larryfire.files.wordpress.com/2009/07/untooned_jessicarabbit.jpg -P &gt; jess.ps
 </pre></div>
@@ -617,8 +630,8 @@ remotely located Jessica Rabbit</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, The GMT Team..
-      <span class="lastupdated">Last updated on Nov 18, 2021.
+    <p>&#169; Copyright 2022, The GMT Team..
+      <span class="lastupdated">Last updated on May 10, 2022.
       </span></p>
   </div>
 

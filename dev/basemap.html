@@ -2,16 +2,16 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>basemap &mdash; GMT 6.3.0 documentation</title>
+  <title>basemap &mdash; GMT 6.4.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
       <link rel="stylesheet" href="_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.png"/>
@@ -23,9 +23,12 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/togglebutton.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
+        <script>let toggleHintShow = 'Click to show example script';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -48,7 +51,7 @@
             <a href="index.html" class="icon icon-home"> GMT
           </a>
               <div class="version">
-                6.3
+                6.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -64,6 +67,7 @@
 <li class="toctree-l1"><a class="reference internal" href="gallery.html">Example Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="animations.html">Animations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_jl.html">Tutorial in Julia</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -268,7 +272,7 @@ the plain scale, <strong>+u</strong> will instead select the unit to be appended
 font. The height of the map scale is controlled by <a class="reference internal" href="gmt.conf.html#term-MAP_SCALE_HEIGHT"><span class="xref std std-term">MAP_SCALE_HEIGHT</span></a>, and the pen thickness is set by
 <a class="reference internal" href="gmt.conf.html#term-MAP_TICK_PEN_PRIMARY"><span class="xref std std-term">MAP_TICK_PEN_PRIMARY</span></a>. Optionally, use <a class="reference internal" href="#f"><span><strong>-F</strong></span></a></strong> to place a panel behind the scale.</p>
 </div></blockquote>
-<p id="t"><strong>-Td</strong>[<strong>g</strong>|<strong>j</strong>|<strong>J</strong>|<strong>n</strong>|<strong>x</strong>]<em>refpoint</em><strong>+w</strong><em>width</em>[<strong>+f</strong>[<em>level</em>]][<strong>+j</strong><em>justify</em>][<strong>+l</strong>[<em>w,e,s,n</em>]][<strong>+o</strong><em>dx</em>[/<em>dy</em>]]</p>
+<p id="t"><strong>-Td</strong>[<strong>g</strong>|<strong>j</strong>|<strong>J</strong>|<strong>n</strong>|<strong>x</strong>]<em>refpoint</em>[<strong>+f</strong>|<strong>F</strong>[<em>level</em>]][<strong>+j</strong><em>justify</em>][<strong>+l</strong>[<em>w,e,s,n</em>]][<strong>+o</strong><em>dx</em>[/<em>dy</em>]][<strong>+w</strong><em>width</em>]</p>
 <blockquote>
 <div><p>Draw a map directional rose on the map at the location defined by the reference (<em>refpoint</em>) and anchor point
 (set by <strong>+o</strong><em>dx</em>[/<em>dy</em>] and/or <strong>+j</strong><em>justify</em>). Give the reference point on the map for the rose using one
@@ -283,14 +287,14 @@ both <a class="reference internal" href="#r"><span><strong>-R</strong></span></a
 <li><p>Append <strong>x</strong><em>x</em>/<em>y</em> for <a class="reference internal" href="cookbook/features.html#reference-points-x"><span class="std std-ref">plot coordinates</span></a> (append <strong>c</strong>m, <strong>i</strong>nch, or
 <strong>p</strong>point).</p></li>
 </ol>
-<p>The following modifiers can be appended to <a class="reference internal" href="#t"><span><strong>-T</strong></span></a></strong><strong>d</strong> (<strong>+w</strong> is required), with additional explanation and
+<p>The following optional modifiers can be appended to <a class="reference internal" href="#t"><span><strong>-T</strong></span></a></strong><strong>d</strong>, with additional explanation and
 examples provided in the <a class="reference internal" href="cookbook/features.html#placing-dir-map-roses"><span class="std std-ref">Placing directional map roses</span></a> cookbook section. Optionally, use <a class="reference internal" href="#f"><span><strong>-F</strong></span></a></strong> to place a panel
 behind the directional rose.</p>
 <ul class="simple">
-<li><p><strong>+w</strong><em>width</em> to set the width of the rose in plot coordinates (append <strong>i</strong>nch, <strong>c</strong>m, or <strong>p</strong>oints).</p></li>
 <li><p><strong>+f</strong>[<em>level</em>] to get a “fancy” rose, and optionally specify the <em>level</em> of fanciness. Level <strong>1</strong> draws
 the two principal E-W, N-S orientations, <strong>2</strong> adds the two intermediate NW-SE and NE-SW orientations, while <strong>3</strong>
-adds the eight minor orientations WNW-ESE, NNW-SSE, NNE-SSW, and ENE-WSW [default is <strong>1</strong>].</p></li>
+adds the eight minor orientations WNW-ESE, NNW-SSE, NNE-SSW, and ENE-WSW [default is <strong>1</strong>].  Use <strong>+F</strong> to
+force the labels to be readable from the south if the projection has extensive rotation of the directions.</p></li>
 <li><p><strong>+j</strong><em>justify</em> to set the justification <a class="reference internal" href="cookbook/features.html#anchor-point-j"><span class="std std-ref">anchor point</span></a>, where <em>justify</em> is a 2-character
 <a class="reference internal" href="cookbook/features.html#reference-points"><span class="std std-ref">justification code</span></a> that is a combination of a horizontal (<strong>L</strong>, <strong>C</strong>, or <strong>R</strong>) and a
 vertical (<strong>T</strong>, <strong>M</strong>, or <strong>B</strong>) code. <strong>Note</strong>: If <strong>j</strong> is used to set the reference point
@@ -300,9 +304,12 @@ of <em>refpoint</em>; if <strong>g</strong>, <strong>n</strong>, or <strong>x</s
 to override the default. Skip a specific label by leaving it blank.</p></li>
 <li><p><strong>+o</strong><em>dx</em>[/<em>dy</em>] to offset the <a class="reference internal" href="cookbook/features.html#anchor-point-o"><span class="std std-ref">anchor point</span></a> by <em>dx</em> and optionally <em>dy</em> (if different
 than <em>dx</em>).</p></li>
+<li><p><strong>+w</strong><em>width</em> to set the width of the rose in plot coordinates (append <strong>i</strong>nch, <strong>c</strong>m, or <strong>p</strong>oints),
+or append unit % for a size in percentage of map width [10%].</p></li>
 </ul>
+<p>For further information, see the Map Embellishment section on <a class="reference internal" href="cookbook/features.html#placing-dir-map-roses"><span class="std std-ref">Directional Roses</span></a>.</p>
 </div></blockquote>
-<p><strong>-Tm</strong>[<strong>g</strong>|<strong>j</strong>|<strong>J</strong>|<strong>n</strong>|<strong>x</strong>]<em>refpoint</em><strong>+w</strong><em>width</em>[<strong>+d</strong><em>dec</em>[/<em>dlabel</em>]]][<strong>+i</strong><em>pen</em>][<strong>+j</strong><em>justify</em>][<strong>+l</strong>[<em>w,e,s,n</em>]][<strong>+p</strong><em>pen</em>][<strong>+t</strong><em>ints</em>][<strong>+o</strong><em>dx</em>[/<em>dy</em>]]</p>
+<p><strong>-Tm</strong>[<strong>g</strong>|<strong>j</strong>|<strong>J</strong>|<strong>n</strong>|<strong>x</strong>]<em>refpoint</em>[<strong>+d</strong><em>dec</em>[/<em>dlabel</em>]]][<strong>+i</strong><em>pen</em>][<strong>+j</strong><em>justify</em>][<strong>+l</strong>[<em>w,e,s,n</em>]][<strong>+p</strong><em>pen</em>][<strong>+t</strong><em>ints</em>][<strong>+o</strong><em>dx</em>[/<em>dy</em>]][<strong>+w</strong><em>width</em>]</p>
 <blockquote>
 <div><p>Draw a map magnetic rose on the map at the location defined by the reference (<em>refpoint</em>) and anchor point
 (set by <strong>+o</strong><em>dx</em>[/<em>dy</em>] and/or <strong>+j</strong><em>justify</em>). Give the reference point on the map for the rose using one
@@ -317,11 +324,10 @@ both <a class="reference internal" href="#r"><span><strong>-R</strong></span></a
 <li><p>Append <strong>x</strong><em>x</em>/<em>y</em> for <a class="reference internal" href="cookbook/features.html#reference-points-x"><span class="std std-ref">plot coordinates</span></a> (append <strong>c</strong>m, <strong>i</strong>nch, or
 <strong>p</strong>point).</p></li>
 </ol>
-<p>The following modifiers can be appended to <a class="reference internal" href="#t"><span><strong>-T</strong></span></a></strong><strong>m</strong> (<strong>+w</strong> is required), with additional explanation and
+<p>The following optional modifiers can be appended to <a class="reference internal" href="#t"><span><strong>-T</strong></span></a></strong><strong>m</strong>, with additional explanation and
 examples provided in the <a class="reference internal" href="cookbook/features.html#placing-mag-map-roses"><span class="std std-ref">Placing magnetic map roses</span></a> cookbook section. Optionally, use <a class="reference internal" href="#f"><span><strong>-F</strong></span></a></strong> to place a panel
 behind the magnetic rose.</p>
 <ul class="simple">
-<li><p><strong>+w</strong><em>width</em> to set the width of the rose in plot coordinates (append <strong>i</strong>nch, <strong>c</strong>m, or <strong>p</strong>oints).</p></li>
 <li><p><strong>+d</strong><em>dec</em>[/<em>dlabel</em>] to assign the magnetic declination and set <em>dlabel</em>, which is a label for the
 magnetic compass needle (omit <em>dlabel</em> to format a label from <em>dec</em>, or give <em>-</em> to bypass labeling). With <strong>+d</strong>,
 both directions to geographic and magnetic north are plotted [default is geographic only].</p></li>
@@ -337,10 +343,15 @@ plotted instead of the north label.</p></li>
 <li><p><strong>+p</strong><em>pen</em> to draw the outline of the outer circle in the specified <a class="reference internal" href="cookbook/features.html#wpen-attrib"><span class="std std-ref">pen</span></a>.</p></li>
 <li><p><strong>+t</strong><em>ints</em> to specify the annotation and two tick interval levels for the geographic and magnetic directions
 by providing three slash-separated intervals. Specify separate intervals by appending three slash-separated
-geographic intervals followed by three slash-separated magnetic intervals [default is <strong>30</strong>/<strong>5</strong>/<strong>1</strong>]</p></li>
+geographic intervals followed by three slash-separated magnetic intervals [default is <strong>30</strong>/<strong>5</strong>/<strong>1</strong>].
+<strong>Note</strong>: If <a class="reference internal" href="gmt.conf.html#term-MAP_EMBELLISHMENT_MODE"><span class="xref std std-term">MAP_EMBELLISHMENT_MODE</span></a> is <strong>auto</strong> and the compass size is smaller than 2.5 cm then the
+interval defaults are reset to <strong>90</strong>/<strong>30</strong>/<strong>3</strong>/<strong>9450</strong>/<strong>15</strong>/<strong>3</strong>.</p></li>
 <li><p><strong>+o</strong><em>dx</em>[/<em>dy</em>] to offset the <a class="reference internal" href="cookbook/features.html#anchor-point-o"><span class="std std-ref">anchor point</span></a> by <em>dx</em> and optionally <em>dy</em> (if different
 than <em>dx</em>).</p></li>
+<li><p><strong>+w</strong><em>width</em> to set the width of the rose in plot coordinates (append <strong>i</strong>nch, <strong>c</strong>m, or <strong>p</strong>oints).
+or append unit % for a size in percentage of map width [15%].</p></li>
 </ul>
+<p>For further information, see the Map Embellishment section on <a class="reference internal" href="cookbook/features.html#placing-mag-map-roses"><span class="std std-ref">Magnetic Roses</span></a>.</p>
 </div></blockquote>
 <dl class="simple" id="u">
 <dt><strong>-U</strong>[<em>label</em>|<strong>+c</strong>][<strong>+j</strong><em>just</em>][<strong>+o</strong><em>dx</em>[/<em>dy</em>]]</dt><dd><p>Draw GMT time stamp logo on plot. <a class="reference internal" href="gmt.html#u-full"><span class="std std-ref">(See full description)</span></a> <a class="reference internal" href="cookbook/options.html#timestamps-on-plots-the-u-option"><span class="std std-ref">(See cookbook information)</span></a>.</p>
@@ -371,7 +382,7 @@ than <em>dx</em>).</p></li>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (NOTE: on Windows just use <strong>-</strong>).</p>
+<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (<strong>Note</strong>: on Windows just use <strong>-</strong>).</p>
 </dd>
 <dt><strong>-+</strong> or just <strong>+</strong></dt><dd><p>Print an extensive usage (help) message, including the explanation of
 any module-specific option (but not the GMT common options), then exit.</p>
@@ -514,7 +525,7 @@ global basemap centered on the 130E meridian is made by</p>
 <p>To use this projection you must know the UTM zone number, which defines
 the central meridian. A UTM basemap for Indo-China can be plotted as</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt basemap -R95/5/108/20r -Ju46/1:10000000 -Bafg -B+tUTM -pdf utm
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt basemap -R95/5/108/20+r -Ju46/1:10000000 -Bafg -B+tUTM -pdf utm
 </pre></div>
 </div>
 </div></blockquote>
@@ -646,7 +657,7 @@ indicate the lower left and upper right corners (in lon/lat) that will
 define our rectangle. We choose a pole at 130/-30 and use 100/-45 and
 160/-5 as our corners. The command becomes</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt basemap -R100/-45/160/-5r -JS130/-30/12c -Bafg -B+t<span class="s2">&quot;General Stereographic View&quot;</span> -pdf stereo2
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt basemap -R100/-45/160/-5+r -JS130/-30/12c -Bafg -B+t<span class="s2">&quot;General Stereographic View&quot;</span> -pdf stereo2
 </pre></div>
 </div>
 </div></blockquote>
@@ -804,8 +815,8 @@ However, it is fairly simple for most applications (see examples).</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, The GMT Team..
-      <span class="lastupdated">Last updated on Nov 18, 2021.
+    <p>&#169; Copyright 2022, The GMT Team..
+      <span class="lastupdated">Last updated on May 10, 2022.
       </span></p>
   </div>
 

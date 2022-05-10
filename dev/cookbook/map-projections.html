@@ -2,16 +2,16 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>6. GMT Map Projections &mdash; GMT 6.3.0 documentation</title>
+  <title>6. GMT Map Projections &mdash; GMT 6.4.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/togglebutton.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
       <link rel="stylesheet" href="../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/favicon.png"/>
@@ -23,11 +23,14 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/togglebutton.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
+        <script>let toggleHintShow = 'Click to show example script';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../_static/togglebutton.js"></script>
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -49,7 +52,7 @@
             <a href="../index.html" class="icon icon-home"> GMT
           </a>
               <div class="version">
-                6.3
+                6.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -65,6 +68,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../gallery.html">Example Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../animations.html">Animations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial_jl.html">Tutorial in Julia</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul class="current">
@@ -309,7 +313,7 @@ meaning.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#jg-pers"><span class="std std-ref">General perspective</span></a></p></td>
 <td><p><strong>-Jg</strong>|<strong>G</strong></p></td>
 <td><p><strong>-Jnsper/</strong></p></td>
-<td><p>lon<sub>0</sub>/lat<sub>0</sub>/<em>alt</em>/<em>azim</em>/<em>tilt</em>/<em>twist</em>/<em>W</em>/<em>H</em>/<em>scale</em>|<em>width</em></p></td>
+<td><p>lon<sub>0</sub>/lat<sub>0</sub><em>/</em><em>scale</em>|<em>width</em>[<strong>+a</strong><em>azimuth</em>][<strong>+t</strong><em>tilt</em>][<strong>+v</strong><em>vwidth/vheight</em>][<strong>+w</strong><em>twist</em>][<strong>+z</strong><em>altitude</em>[<strong>r</strong>|<strong>R</strong>]|<strong>g</strong>]</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#jh"><span class="std std-ref">Hammer equal area</span></a></p></td>
 <td><p><strong>-Jh</strong>|<strong>H</strong></p></td>
@@ -569,7 +573,7 @@ meridian. As a consequence, no parallel is standard because conformity is lost w
 <p><strong>Example</strong></p>
 <p>Below we reproduce the illustration by <em>Snyder</em> [1987], with a gridline every 10 and annotations only every 30° in
 longitude:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -R-180/-20/0/90 -JPoly/10c -Bx30g10 -By10g10 -Dc -A1000 -Glightgray -Wthinnest --GMT_THEME<span class="o">=</span>cookbook -pdf GMT_polyconic
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -R-180/-20/0/90 -JPoly/10c -Bx30g10 -By10g10 -Dc -A1000 -Glightgray -Wthinnest --GMT_THEME<span class="o">=</span>cookbook -view GMT_polyconic
 </pre></div>
 </div>
 <figure class="align-center" id="id10">
@@ -592,7 +596,7 @@ longitude:</p>
 <ul class="simple">
 <li><p>The longitude (<em>lon0</em>) and latitude (<em>lat0</em>) of the projection center.</p></li>
 <li><p>Optionally, the <em>horizon</em>, i.e., the number of degrees from the center to the edge (&lt;=180) [default is 90].</p></li>
-<li><p>The <em>scale</em> as 1:xxxxx or as radius/latitude where radius is the projected distance on the map from projection center
+<li><p>The <em>scale</em> as 1:xxxxx or as <em>radius/latitude</em> where <em>radius</em> is the projected distance on the map from projection center
 to an oblique latitude where 0 would be the oblique Equator (with <strong>-Ja</strong>) or map <em>width</em>
 <a class="reference internal" href="features.html#plt-units"><span class="std std-ref">plot-units</span></a> (with <strong>-JA</strong>).</p></li>
 </ul>
@@ -635,7 +639,7 @@ an error since <em>‘east’</em> &lt; <em>‘west’</em>.</p>
 <h4><span class="section-number">6.2.1.2. </span>Hemisphere map<a class="headerlink" href="#hemisphere-map" title="Permalink to this headline">¶</a></h4>
 <p>Here, you must specify the world as your region (<strong>-Rg</strong> or <strong>-Rd</strong>). E.g., to obtain a hemisphere view that shows the
 Americas, try</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -Rg -JA280/30/12c -Bg -Dc -A1000 -Gnavy --GMT_THEME<span class="o">=</span>cookbook -pdf GMT_lambert_az_hemi
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -Rg -JA280/30/12c -Bg -Dc -A1000 -Gnavy --GMT_THEME<span class="o">=</span>cookbook -view GMT_lambert_az_hemi
 </pre></div>
 </div>
 <figure class="align-center" id="id12">
@@ -679,14 +683,15 @@ gmt end show
 <ul class="simple">
 <li><p>The longitude (<em>lon0</em>) and latitude (<em>lat0</em>) of the projection center.</p></li>
 <li><p>Optionally, the <em>horizon</em>, i.e., the number of degrees from the center to the edge (&lt; 180) [default is 90].</p></li>
-<li><p>Scale as 1:xxxxx (true scale at pole), slat/1:xxxxx (true scale at standard parallel slat), or radius/latitude where
-radius is distance on map in <a class="reference internal" href="features.html#plt-units"><span class="std std-ref">plot-units</span></a> from projection center to a particular oblique latitude
-(with <strong>-Js</strong>) or simply map <em>width</em> in <a class="reference internal" href="features.html#plt-units"><span class="std std-ref">plot-units</span></a> (with <strong>-JS</strong>).</p></li>
+<li><p>Scale (via <strong>-Js</strong>) may be provided in one of three flavors: Append 1:xxxxx (true scale at pole), <em>slat</em>/1:xxxxx
+(true scale at standard parallel <em>slat</em> for the polar aspect only), or <em>radius/latitude</em> (where <em>radius</em> is
+distance on map in <a class="reference internal" href="features.html#plt-units"><span class="std std-ref">plot-units</span></a> from projection center to a particular oblique latitude).</p></li>
+<li><p>Alternatively, simply append map <em>width</em> in <a class="reference internal" href="features.html#plt-units"><span class="std std-ref">plot-units</span></a> (with <strong>-JS</strong>).</p></li>
 </ul>
 <p><strong>Description</strong></p>
 <p>This is a conformal, azimuthal projection that dates back to the Greeks. Its main use is for mapping the polar regions.
 In the polar aspect all meridians are straight lines and parallels are arcs of circles. While this is the most common
-use it is possible to select any point as the center of projection. The requirements are</p>
+use it is possible to select any point as the center of projection.</p>
 <p>A map scale factor of 0.9996 will be applied by default (although you may change this with <a class="reference internal" href="../gmt.conf.html#term-PROJ_SCALE_FACTOR"><span class="xref std std-term">PROJ_SCALE_FACTOR</span></a>).
 However, the setting is ignored when a standard parallel has been specified since the scale is then implicitly given.
 We will look at two different types of maps.</p>
@@ -699,7 +704,7 @@ examples in the next three subsections.</p>
 pole. This means we have a polar stereographic projection and the map
 boundaries will coincide with lines of constant longitude and latitude.
 An example is given by:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -R-30/30/60/72 -Js0/90/12c/60 -B10g -Dl -A250 -Groyalblue -Sseashell --GMT_THEME<span class="o">=</span>cookbook -pdf GMT_stereographic_polar
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -R-30/30/60/72 -Js0/90/12c/60 -B10g -Dl -A250 -Groyalblue -Sseashell --GMT_THEME<span class="o">=</span>cookbook -view GMT_stereographic_polar
 </pre></div>
 </div>
 <figure class="align-center" id="id14">
@@ -763,7 +768,7 @@ next to its equal-area cousin in the Section <a class="reference internal" href=
 <p><strong>Required Parameters</strong></p>
 <ul class="simple">
 <li><p>The longitude (<em>lon0</em>) and latitude (<em>lat0</em>) of the projection center.</p></li>
-<li><p>The <em>scale</em> as 1:xxxxx or as radius/latitude where radius is distance on map in <a class="reference internal" href="features.html#plt-units"><span class="std std-ref">plot-units</span></a> from
+<li><p>The <em>scale</em> as 1:xxxxx or as <em>radius/latitude</em> where <em>radius</em> is distance on map in <a class="reference internal" href="features.html#plt-units"><span class="std std-ref">plot-units</span></a> from
 projection center to a particular oblique latitude (with <strong>-Jg</strong>), or map width in <a class="reference internal" href="features.html#plt-units"><span class="std std-ref">plot-units</span></a>
 (with <strong>-JG</strong>).</p></li>
 </ul>
@@ -787,7 +792,7 @@ in GMT is very flexible, and thus requires many input variables.</p>
 <p>The imagined view of northwest Europe from a Space Shuttle at 230 km looking due east is thus accomplished by the
 following <a class="reference internal" href="../coast.html"><span class="doc">coast</span></a> command (<em>lon0</em>=4; <em>lat0</em>=52; <em>altitude</em>=230 km; <em>azimuth</em>= 90°; <em>tilt</em>= 60°;
 <em>twist</em>= 180°; <em>vwidth</em>= <em>vheight</em>= 60°; and <em>width</em> = 12 cm):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -Rg -JG4/52/12c+z230+a90+t60+w180+v60 -Bx2g2 -By1g1 -Ia -Di -Glightbrown -Wthinnest -Slightblue --GMT_THEME<span class="o">=</span>cookbook --MAP_ANNOT_MIN_SPACING<span class="o">=</span><span class="m">0</span>.6c -pdf GMT_perspective
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -Rg -JG4/52/12c+z230+a90+t60+w180+v60 -Bx2g2 -By1g1 -Ia -Di -Glightbrown -Wthinnest -Slightblue --GMT_THEME<span class="o">=</span>cookbook --MAP_ANNOT_MIN_SPACING<span class="o">=</span><span class="m">0</span>.6c -view GMT_perspective
 </pre></div>
 </div>
 <figure class="align-center" id="id17">
@@ -807,7 +812,7 @@ following <a class="reference internal" href="../coast.html"><span class="doc">c
 <ul class="simple">
 <li><p>The longitude (<em>lon0</em>) and latitude (<em>lat0</em>) of the projection center.</p></li>
 <li><p>Optionally, the <em>horizon</em>, i.e., the number of degrees from the center to the edge (&lt;=90) [default is 90].</p></li>
-<li><p>The <em>scale</em> as 1:xxxxx or as radius/latitude where radius is distance on map in <a class="reference internal" href="features.html#plt-units"><span class="std std-ref">plot-units</span></a> from
+<li><p>The <em>scale</em> as 1:xxxxx or as <em>radius/latitude</em> where <em>radius</em> is distance on map in <a class="reference internal" href="features.html#plt-units"><span class="std std-ref">plot-units</span></a> from
 projection center to a particular oblique latitude (with <strong>-Jg</strong>), or map width in <a class="reference internal" href="features.html#plt-units"><span class="std std-ref">plot-units</span></a>
 (with <strong>-JG</strong>).</p></li>
 </ul>
@@ -821,7 +826,7 @@ scale, only the spherical form is necessary.</p>
 <p><strong>Example</strong></p>
 <p>Our example of a perspective view centered on 75°W/40°N can therefore be generated by the following <a class="reference internal" href="../coast.html"><span class="doc">coast</span></a>
 command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -Rg -JG-75/41/12c -Bg -Dc -A5000 -Gpink -Sthistle --GMT_THEME<span class="o">=</span>cookbook -pdf GMT_orthographic
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -Rg -JG-75/41/12c -Bg -Dc -A5000 -Gpink -Sthistle --GMT_THEME<span class="o">=</span>cookbook -view GMT_orthographic
 </pre></div>
 </div>
 <figure class="align-center" id="id18">
@@ -841,7 +846,7 @@ command:</p>
 <ul class="simple">
 <li><p>The longitude (<em>lon0</em>) and latitude (<em>lat0</em>) of the projection center.</p></li>
 <li><p>Optionally, the <em>horizon</em>, i.e., the number of degrees from the center to the edge (&lt;=180) [default is 180].</p></li>
-<li><p>The <em>scale</em> as 1:xxxxx or as radius/latitude where radius is distance on map in <a class="reference internal" href="features.html#plt-units"><span class="std std-ref">plot-units</span></a> from
+<li><p>The <em>scale</em> as 1:xxxxx or as <em>radius/latitude</em> where <em>radius</em> is distance on map in <a class="reference internal" href="features.html#plt-units"><span class="std std-ref">plot-units</span></a> from
 projection center to a particular oblique latitude (with <strong>-Je</strong>), or map width in <a class="reference internal" href="features.html#plt-units"><span class="std std-ref">plot-units</span></a>
 (with <strong>-JE</strong>).</p></li>
 </ul>
@@ -855,7 +860,7 @@ point (the map center).</p>
 <p>Our example of a global view centered on 100°W/40°N can therefore be generated by the following <a class="reference internal" href="../coast.html"><span class="doc">coast</span></a> command.
 Note that the antipodal point is 180° away from the center, but in this projection this point plots as the entire map
 perimeter:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -Rg -JE-100/40/12c -Bg -Dc -A10000 -Glightgray -Wthinnest --GMT_THEME<span class="o">=</span>cookbook -pdf GMT_az_equidistant
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -Rg -JE-100/40/12c -Bg -Dc -A10000 -Glightgray -Wthinnest --GMT_THEME<span class="o">=</span>cookbook -view GMT_az_equidistant
 </pre></div>
 </div>
 <figure class="align-center" id="id19">
@@ -875,7 +880,7 @@ perimeter:</p>
 <ul class="simple">
 <li><p>The longitude (<em>lon0</em>) and latitude (<em>lat0</em>) of the projection center.</p></li>
 <li><p>Optionally, the <em>horizon</em>, i.e., the number of degrees from the center to the edge (&lt;90) [default is 60].</p></li>
-<li><p>The <em>scale</em> as 1:xxxxx or as radius/latitude where radius is distance on map in <a class="reference internal" href="features.html#plt-units"><span class="std std-ref">plot-units</span></a> from
+<li><p>The <em>scale</em> as 1:xxxxx or as <em>radius/latitude</em> where radius is distance on map in <a class="reference internal" href="features.html#plt-units"><span class="std std-ref">plot-units</span></a> from
 projection center to a particular oblique latitude (with <strong>-Jf</strong>), or map width in <a class="reference internal" href="features.html#plt-units"><span class="std std-ref">plot-units</span></a>
 (with <strong>-JF</strong>).</p></li>
 </ul>
@@ -888,7 +893,7 @@ lines. Because it is mainly used for pictorial views at a small scale, only the 
 <p><strong>Example</strong></p>
 <p>Using a <em>horizon</em> of 60, our example of this projection centered on 120°W/35°N can therefore be generated by the
 following <a class="reference internal" href="../coast.html"><span class="doc">coast</span></a> command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -Rg -JF-120/35/60/12c -B30g15 -Dc -A10000 -Gtan -Scyan -Wthinnest --GMT_THEME<span class="o">=</span>cookbook -pdf GMT_gnomonic
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -Rg -JF-120/35/60/12c -B30g15 -Dc -A10000 -Gtan -Scyan -Wthinnest --GMT_THEME<span class="o">=</span>cookbook -view GMT_gnomonic
 </pre></div>
 </div>
 <figure class="align-center" id="id20">
@@ -975,7 +980,7 @@ lines; other parallels and meridians are complex curves.</p>
 <p><strong>Example</strong></p>
 <p>A transverse Mercator map of south-east Europe and the Middle East with 35°E as the central meridian can be obtained as
 follows:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -R20/30/50/45+r -Jt35/0.5c -Bag -Dl -A250 -Glightbrown -Wthinnest -Sseashell --GMT_THEME<span class="o">=</span>cookbook -pdf GMT_transverse_merc
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -R20/30/50/45+r -Jt35/0.5c -Bag -Dl -A250 -Glightbrown -Wthinnest -Sseashell --GMT_THEME<span class="o">=</span>cookbook -view GMT_transverse_merc
 </pre></div>
 </div>
 <figure class="align-center" id="id22">
@@ -985,7 +990,7 @@ follows:</p>
 </figcaption>
 </figure>
 <p>A global transverse Mercator map - the equivalent of the 360° Mercator map - can also be obtained as follows:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -R0/360/-80/80 -JT330/-45/10c -Ba30g -BWSne -Dc -A2000 -Slightblue -G0 --MAP_ANNOT_OBLIQUE<span class="o">=</span>lon_horizontal --GMT_THEME<span class="o">=</span>cookbook -pdf GMT_TM
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -R0/360/-80/80 -JT330/-45/10c -Ba30g -BWSne -Dc -A2000 -Slightblue -G0 --MAP_ANNOT_OBLIQUE<span class="o">=</span>lon_horizontal --GMT_THEME<span class="o">=</span>cookbook -view GMT_TM
 </pre></div>
 </div>
 <figure class="align-center" id="id23">
@@ -1194,7 +1199,7 @@ projection was developed in the early 1900s by several workers.</p>
 <p>An oblique view of some Caribbean islands using Option 3 can be obtained as follows:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt begin GMT_obl_merc
     gmt <span class="nb">set</span> GMT_THEME cookbook
-    gmt coast -R270/20/305/25+r -JOc280/25.5/22/69/12c -Bag -Di -A250 -Gburlywood -Wthinnest -TdjTR+w1c+f2+l+o0.4c -Sazure --FONT_TITLE<span class="o">=</span>8p --MAP_TITLE_OFFSET<span class="o">=</span>4p
+    gmt coast -R270/20/305/25+r -JOc280/25.5/22/69/12c -Bag -Di -A250 -Gburlywood -Wthinnest -TdjTR+f2+l -Sazure
 gmt end show
 </pre></div>
 </div>
@@ -1241,7 +1246,7 @@ gmt <span class="nb">set</span> GMT_THEME cookbook
 <span class="nv">w2</span><span class="o">=</span><span class="k">$(</span>gmt math -Q <span class="nv">$w</span> <span class="m">2</span> <span class="nv">DIV</span> <span class="o">=</span><span class="k">)</span>
 <span class="nv">h2</span><span class="o">=</span><span class="k">$(</span>gmt math -Q <span class="nv">$h</span> <span class="m">2</span> <span class="nv">DIV</span> <span class="o">=</span><span class="k">)</span>
 <span class="nv">R</span><span class="o">=</span>-R-<span class="si">${</span><span class="nv">w2</span><span class="si">}</span>/<span class="nv">$w2</span>/-<span class="si">${</span><span class="nv">h2</span><span class="si">}</span>/<span class="si">${</span><span class="nv">h2</span><span class="si">}</span>+uk
-gmt coast <span class="nv">$R</span> -JOA<span class="nv">$lon</span>/<span class="nv">$lat</span>/<span class="nv">$az</span>/3i -Ba5f5g5 -Gred -Dh -TdjBR+w0.5i+l+o0.2i/-0.05i --FONT_TITLE<span class="o">=</span>9p --MAP_ANNOT_OBLIQUE<span class="o">=</span>separate,lon_horizontal,lat_parallel --FORMAT_GEO_MAP<span class="o">=</span>dddF
+gmt coast <span class="nv">$R</span> -JOA<span class="nv">$lon</span>/<span class="nv">$lat</span>/<span class="nv">$az</span>/3i -Ba5f5g5 -Gred -Dh -TdjBR+w0.5i+l --MAP_ANNOT_OBLIQUE<span class="o">=</span>separate,lon_horizontal,lat_parallel --FORMAT_GEO_MAP<span class="o">=</span>dddF
 <span class="nb">echo</span> <span class="nv">$plon</span> <span class="nv">$plat</span> <span class="p">|</span> gmt plot -Sc0.2c -Gblue -W0.25p
 gmt plot -R0/3/0/1.5 -Jx1i -W0.25p,- <span class="s">&lt;&lt; EOF</span>
 <span class="s">&gt;</span>
@@ -1261,7 +1266,7 @@ gmt text -F+f12p,Times-Italic+j -Dj0.1i -Gwhite <span class="s">&lt;&lt; EOF</sp
 <span class="s">1.5	1.5	TR	y</span>
 <span class="s">EOF</span>
 <span class="nv">az</span><span class="o">=</span><span class="m">215</span>
-gmt coast <span class="nv">$R</span> -JOA<span class="nv">$lon</span>/<span class="nv">$lat</span>/<span class="nv">$az</span>/3i -Ba5f5g5 -Gred -Dh -X3.4i -TdjTL+w0.5i+l+o0.2i/-0.05i --FONT_TITLE<span class="o">=</span>9p --MAP_ANNOT_OBLIQUE<span class="o">=</span>separate,lon_horizontal,lat_parallel --FORMAT_GEO_MAP<span class="o">=</span>dddF
+gmt coast <span class="nv">$R</span> -JOA<span class="nv">$lon</span>/<span class="nv">$lat</span>/<span class="nv">$az</span>/3i -Ba5f5g5 -Gred -Dh -X3.4i -TdjTL+w0.5i+l --MAP_ANNOT_OBLIQUE<span class="o">=</span>separate,lon_horizontal,lat_parallel --FORMAT_GEO_MAP<span class="o">=</span>dddF
 <span class="nb">echo</span> <span class="nv">$plon</span> <span class="nv">$plat</span> <span class="p">|</span> gmt plot -Sc0.2c -Gblue -W0.25p
 gmt plot -R0/3/0/1.5 -Jx1i -W0.25p,- <span class="s">&lt;&lt; EOF</span>
 <span class="s">&gt;</span>
@@ -1300,7 +1305,7 @@ resulted from the argument <strong>-JOa</strong>120W/25N/-30/6c<strong>+v</stron
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt begin GMT_obl_baja
 	gmt <span class="nb">set</span> GMT_THEME cookbook
 	gmt <span class="nb">set</span> MAP_ANNOT_OBLIQUE lon_horizontal,lat_horizontal,tick_extend
-	gmt coast -R122W/35N/107W/22N+r -JOa120W/25N/-30/6c+v -Gsienna -Ba5g5 -B+f -N1/1p -EUS+gburlywood -Smintcream -TdjBL+w0.5i+l
+	gmt coast -R122W/35N/107W/22N+r -JOa120W/25N/-30/6c+v -Gsienna -Ba5g5 -B+f -N1/1p -EUS+gburlywood -Smintcream -TdjBL+l
 gmt end show
 </pre></div>
 </div>
@@ -1330,7 +1335,7 @@ and parallels are complex curves.</p>
 <p><strong>Example</strong></p>
 <p>A detailed map of the island of Sardinia centered on the 8°45’E meridian using the Cassini projection can be obtained by
 as follows:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -R7:30/38:30/10:30/41:30+r -JC8.75/40/6c -Bafg -LjBR+c40+w100+f+o0.4c/0.5c -Dh -Gspringgreen -Sazure -Wthinnest -Ia/thinner --GMT_THEME<span class="o">=</span>cookbook --FONT_LABEL<span class="o">=</span>10p -pdf GMT_cassini
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -R7:30/38:30/10:30/41:30+r -JC8.75/40/6c -Bafg -LjBR+c40+w100+f+o0.4c/0.5c -Dh -Gspringgreen -Sazure -Wthinnest -Ia/thinner --GMT_THEME<span class="o">=</span>cookbook --FONT_LABEL<span class="o">=</span>10p -view GMT_cassini
 </pre></div>
 </div>
 <figure class="align-center" id="id28">
@@ -1395,7 +1400,7 @@ the equator. Some selections for standard parallels have practical properties as
 </table>
 <p><strong>Example</strong></p>
 <p>A world map centered on the dateline using this projection can be obtained as follows:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -Rg -JQ12c -B60f30g30 -Dc -A5000 -Gtan4 -Slightcyan --GMT_THEME<span class="o">=</span>cookbook -pdf GMT_equi_cyl
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -Rg -JQ12c -B60f30g30 -Dc -A5000 -Gtan4 -Slightcyan --GMT_THEME<span class="o">=</span>cookbook -view GMT_equi_cyl
 </pre></div>
 </div>
 <figure class="align-center" id="id29">
@@ -1461,7 +1466,7 @@ choices of standard parallels that result in known (or named) projections. These
 <p><strong>Example</strong></p>
 <p>A world map centered on the 35°E meridian using the Behrman projection (Figure
 <a class="reference internal" href="#gmt-general-cyl"><span class="std std-ref">Behrman cylindrical projection</span></a>) can be obtained as follows:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -R-145/215/-90/90 -JY35/30/12c -B45g45 -Dc -A10000 -Sdodgerblue -Wthinnest --GMT_THEME<span class="o">=</span>cookbook --MAP_FRAME_TYPE<span class="o">=</span>fancy-rounded -pdf GMT_general_cyl
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -R-145/215/-90/90 -JY35/30/12c -B45g45 -Dc -A10000 -Sdodgerblue -Wthinnest --GMT_THEME<span class="o">=</span>cookbook --MAP_FRAME_TYPE<span class="o">=</span>fancy-rounded -view GMT_general_cyl
 </pre></div>
 </div>
 <figure class="align-center" id="id30">
@@ -1493,7 +1498,7 @@ is only a spherical form for this projection.</p>
 <p><strong>Example</strong></p>
 <p>A world map centered on the 90°E meridian at a map scale of 1:400,000,000 (Figure <a class="reference internal" href="#gmt-miller"><span class="std std-ref">Miller projection</span></a>)
 can be obtained as follows:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -R-90/270/-80/90 -Jj1:400000000 -Bx45g45 -By30g30 -Dc -A10000 -Gkhaki -Wthinnest -Sazure --GMT_THEME<span class="o">=</span>cookbook -pdf GMT_miller
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -R-90/270/-80/90 -Jj1:400000000 -Bx45g45 -By30g30 -Dc -A10000 -Gkhaki -Wthinnest -Sazure --GMT_THEME<span class="o">=</span>cookbook -view GMT_miller
 </pre></div>
 </div>
 <figure class="align-center" id="id31">
@@ -1597,7 +1602,7 @@ Hammer-Aitoff (the Aitoff projection looks similar, but is not equal-area). The 
 central meridian are straight lines, while other parallels and meridians are complex curves.</p>
 <p><strong>Example</strong></p>
 <p>A view of the Pacific ocean using the Dateline as central meridian can be generated thus:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -Rg -JH12c -Bg -Dc -A10000 -Gblack -Scornsilk --GMT_THEME<span class="o">=</span>cookbook -pdf GMT_hammer
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -Rg -JH12c -Bg -Dc -A10000 -Gblack -Scornsilk --GMT_THEME<span class="o">=</span>cookbook -view GMT_hammer
 </pre></div>
 </div>
 <figure class="align-center" id="id33">
@@ -1626,7 +1631,7 @@ arcs. The scale is only true along latitudes 40°44’ north and south. The proj
 showing data distributions. It is occasionally referenced under the name <em>homalographic</em> projection.</p>
 <p><strong>Example</strong></p>
 <p>An example centered on Greenwich can be generated thus:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -Rd -JW12c -Bg -Dc -A10000 -Gtomato1 -Sskyblue --GMT_THEME<span class="o">=</span>cookbook -pdf GMT_mollweide
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -Rd -JW12c -Bg -Dc -A10000 -Gtomato1 -Sskyblue --GMT_THEME<span class="o">=</span>cookbook -view GMT_mollweide
 </pre></div>
 </div>
 <figure class="align-center" id="id34">
@@ -1660,7 +1665,7 @@ Cylindrical and Aitoff (not Hammer-Aitoff) projections. The poles map into strai
 equator.</p>
 <p><strong>Example</strong></p>
 <p>Centered on Greenwich, the example in Figure <a class="reference internal" href="#gmt-winkel"><span class="std std-ref">Winkel Tripel projection</span></a> was created by this command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -Rd -JR12c -Bg -Dc -A10000 -Gburlywood4 -Swheat1 --GMT_THEME<span class="o">=</span>cookbook -pdf GMT_winkel
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -Rd -JR12c -Bg -Dc -A10000 -Gburlywood4 -Swheat1 --GMT_THEME<span class="o">=</span>cookbook -view GMT_winkel
 </pre></div>
 </div>
 <figure class="align-center" id="id35">
@@ -1690,7 +1695,7 @@ right<a class="footnote-reference brackets" href="#id6" id="id3">22</a>. The sca
 is currently used by the National Geographic Society.</p>
 <p><strong>Example</strong></p>
 <p>Again centered on Greenwich, the example below was created by this command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -Rd -JN12c -Bg -Dc -A10000 -Ggoldenrod -Ssnow2 --GMT_THEME<span class="o">=</span>cookbook -pdf GMT_robinson
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -Rd -JN12c -Bg -Dc -A10000 -Ggoldenrod -Ssnow2 --GMT_THEME<span class="o">=</span>cookbook -view GMT_robinson
 </pre></div>
 </div>
 <figure class="align-center" id="id36">
@@ -1721,7 +1726,7 @@ Their main use is in thematic world maps. To select Eckert IV you must use <stro
 is selected with <strong>-JKs</strong> (<strong>s</strong> for “six”). If no modifier is given it defaults to Eckert VI.</p>
 <p><strong>Examples</strong></p>
 <p>Centered on the Dateline, the Eckert IV example below was created by this command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -Rg -JKf12c -Bg -Dc -A10000 -Wthinnest -Givory -Sbisque3 --GMT_THEME<span class="o">=</span>cookbook -pdf GMT_eckert4
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -Rg -JKf12c -Bg -Dc -A10000 -Wthinnest -Givory -Sbisque3 --GMT_THEME<span class="o">=</span>cookbook -view GMT_eckert4
 </pre></div>
 </div>
 <figure class="align-center" id="id37">
@@ -1766,7 +1771,7 @@ other meridians are sinusoidal curves. Parallels are all equally spaced straight
 parallels (and central meridian).</p>
 <p><strong>Examples</strong></p>
 <p>A simple world map using the sinusoidal projection is therefore obtained by</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -Rd -JI12c -Bg -Dc -A10000 -Gcoral4 -Sazure3 --GMT_THEME<span class="o">=</span>cookbook -pdf GMT_sinusoidal
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -Rd -JI12c -Bg -Dc -A10000 -Gcoral4 -Sazure3 --GMT_THEME<span class="o">=</span>cookbook -view GMT_sinusoidal
 </pre></div>
 </div>
 <figure class="align-center" id="id39">
@@ -1815,7 +1820,7 @@ Central meridian and Equator are straight lines; other meridians are arcs of cir
 Equator only. Its main use is to show the entire world enclosed in a circle.</p>
 <p><strong>Example</strong></p>
 <p>Centered on the Dateline, the example below was created by this command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -Rg -JV10c -Bg -Dc -Glightgray -Scornsilk -A10000 -Wthinnest --GMT_THEME<span class="o">=</span>cookbook -pdf GMT_grinten
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -Rg -JV10c -Bg -Dc -Glightgray -Scornsilk -A10000 -Wthinnest --GMT_THEME<span class="o">=</span>cookbook -view GMT_grinten
 </pre></div>
 </div>
 <figure class="align-center" id="id41">
@@ -1860,8 +1865,8 @@ file.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, The GMT Team..
-      <span class="lastupdated">Last updated on Nov 18, 2021.
+    <p>&#169; Copyright 2022, The GMT Team..
+      <span class="lastupdated">Last updated on May 10, 2022.
       </span></p>
   </div>
 

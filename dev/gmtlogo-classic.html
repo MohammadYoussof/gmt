@@ -2,16 +2,16 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>gmtlogo &mdash; GMT 6.3.0 documentation</title>
+  <title>gmtlogo &mdash; GMT 6.4.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
       <link rel="stylesheet" href="_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.png"/>
@@ -23,9 +23,12 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/togglebutton.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
+        <script>let toggleHintShow = 'Click to show example script';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -48,7 +51,7 @@
             <a href="index.html" class="icon icon-home"> GMT
           </a>
               <div class="version">
-                6.3
+                6.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -64,6 +67,7 @@
 <li class="toctree-l1"><a class="reference internal" href="gallery.html">Example Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="animations.html">Animations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_jl.html">Tutorial in Julia</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -183,7 +187,7 @@ transparent or opaque rectangular map panel behind the GMT logo.</p>
 (1) Use <strong>-Dg</strong> for map (user) coordinates, (2) use <strong>-Dj</strong> or <strong>-DJ</strong> for setting <em>refpoint</em> via
 a 2-char justification code that refers to the (invisible) map domain rectangle,
 (3) use <strong>-Dn</strong> for normalized (0-1) coordinates, or (4) use <strong>-Dx</strong> for plot coordinates
-(inches, cm, etc.).  All but <strong>-Dx</strong> requires both <strong>-R</strong> and <strong>-J</strong> to be specified.
+(inches, cm, etc.).  All but <strong>-Dx</strong> requires both <a class="reference internal" href="#r"><span><strong>-R</strong></span></a></strong> and <a class="reference internal" href="#j"><span><strong>-J</strong></span></a></strong> to be specified.
 Use <strong>+w</strong><em>width</em> to set the width of the GMT logo in plot coordinates
 (inches, cm, etc.).
 By default, the anchor point on the GMT logo is assumed to be the bottom left corner (BL), but this
@@ -229,7 +233,7 @@ individual <a class="reference internal" href="cookbook/features.html#plt-units"
 </div></blockquote>
 <dl class="simple" id="s">
 <dt><strong>-S</strong>[<strong>l</strong>|<strong>n</strong>|<strong>u</strong>]</dt><dd><p>Control what is written beneath the map portion of the logo.
-Append <strong>l</strong> (or skip <strong>-S</strong> entirely) to plot the text label “The Generic Mapping Tools”
+Append <strong>l</strong> (or skip <a class="reference internal" href="#s"><span><strong>-S</strong></span></a></strong> entirely) to plot the text label “The Generic Mapping Tools”
 beneath the logo.  Append <strong>n</strong> to skip the label placement, and append
 <strong>u</strong> to place the URL to the GMT site instead [plot the label].</p>
 </dd>
@@ -255,7 +259,7 @@ beneath the logo.  Append <strong>n</strong> to skip the label placement, and ap
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (NOTE: on Windows just use <strong>-</strong>).</p>
+<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (<strong>Note</strong>: on Windows just use <strong>-</strong>).</p>
 </dd>
 <dt><strong>-+</strong> or just <strong>+</strong></dt><dd><p>Print an extensive usage (help) message, including the explanation of
 any module-specific option (but not the GMT common options), then exit.</p>
@@ -318,8 +322,8 @@ custom symbols <strong>QR</strong> or <strong>QR_transparent</strong> in <a clas
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, The GMT Team..
-      <span class="lastupdated">Last updated on Nov 18, 2021.
+    <p>&#169; Copyright 2022, The GMT Team..
+      <span class="lastupdated">Last updated on May 10, 2022.
       </span></p>
   </div>
 

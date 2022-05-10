@@ -2,16 +2,16 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>psimage &mdash; GMT 6.3.0 documentation</title>
+  <title>psimage &mdash; GMT 6.4.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
       <link rel="stylesheet" href="_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.png"/>
@@ -23,9 +23,12 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/togglebutton.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
+        <script>let toggleHintShow = 'Click to show example script';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -48,7 +51,7 @@
             <a href="index.html" class="icon icon-home"> GMT
           </a>
               <div class="version">
-                6.3
+                6.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -64,6 +67,7 @@
 <li class="toctree-l1"><a class="reference internal" href="gallery.html">Example Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="animations.html">Animations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_jl.html">Tutorial in Julia</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -188,9 +192,7 @@ by 146).</p>
 <dl class="simple">
 <dt><em>imagefile</em></dt><dd><p>This must be an Encapsulated PostScript (EPS) file or a raster
 image. An EPS file must contain an appropriate BoundingBox. A raster
-file can have a depth of 1, 8, 24, or 32 bits and is read via GDAL.
-<strong>Note</strong>: If GDAL was not configured during GMT installation then only
-EPS files are supported.</p>
+file can have a depth of 1, 8, 24, or 32 bits and is read via GDAL.</p>
 </dd>
 </dl>
 </section>
@@ -223,8 +225,9 @@ set the width (and height) of the image in plot coordinates
 (inches, cm, etc.). If <em>height</em> is not given, the original aspect
 ratio of the image is maintained. If <em>width</em> is negative we use the
 absolute value and interpolate image to the device resolution using
-the PostScript image operator. Optionally, use <strong>+n</strong><em>nx</em>[/<em>ny</em>] to
-replicate the image <em>nx</em> times horizontally and <em>ny</em> times
+the PostScript image operator. If neither size nor <em>dpi</em> is set then we
+revert to the default dpi [<a class="reference internal" href="gmt.conf.html#term-GMT_GRAPHICS_DPU"><span class="xref std std-term">GMT_GRAPHICS_DPU</span></a>].  Optionally, use
+<strong>+n</strong><em>nx</em>[/<em>ny</em>] to replicate the image <em>nx</em> times horizontally and <em>ny</em> times
 vertically. If <em>ny</em> is omitted, it will be identical to <em>nx</em> [Default is 1/1].</p>
 </dd>
 </dl>
@@ -296,7 +299,7 @@ YIQ-transformation.</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-p</strong>[<strong>x</strong>|<strong>y</strong>|<strong>z</strong>]<em>azim</em>[/<em>elev</em>[/<em>zlevel</em>]][<strong>+w</strong><em>lon0</em>/<em>lat0</em>[/<em>z0</em>]][<strong>+v</strong><em>x0</em>/<em>y0</em>] <a class="reference internal" href="gmt.html#perspective-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select perspective view. (Requires <strong>-R</strong> and <strong>-J</strong> for proper functioning).</p>
+<dt><strong>-p</strong>[<strong>x</strong>|<strong>y</strong>|<strong>z</strong>]<em>azim</em>[/<em>elev</em>[/<em>zlevel</em>]][<strong>+w</strong><em>lon0</em>/<em>lat0</em>[/<em>z0</em>]][<strong>+v</strong><em>x0</em>/<em>y0</em>] <a class="reference internal" href="gmt.html#perspective-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select perspective view. (Requires <a class="reference internal" href="#r"><span><strong>-R</strong></span></a></strong> and <a class="reference internal" href="#j"><span><strong>-J</strong></span></a></strong> for proper functioning).</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -304,7 +307,7 @@ YIQ-transformation.</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (NOTE: on Windows just use <strong>-</strong>).</p>
+<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (<strong>Note</strong>: on Windows just use <strong>-</strong>).</p>
 </dd>
 <dt><strong>-+</strong> or just <strong>+</strong></dt><dd><p>Print an extensive usage (help) message, including the explanation of
 any module-specific option (but not the GMT common options), then exit.</p>
@@ -317,7 +320,7 @@ any module-specific option (but not the GMT common options), then exit.</p>
 </section>
 <section id="notes">
 <h2>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h2>
-<p>The <strong>-G</strong> and <strong>-I</strong> options are for raster images only. They have
+<p>The <a class="reference internal" href="#g"><span><strong>-G</strong></span></a></strong> and <a class="reference internal" href="#i"><span><strong>-I</strong></span></a></strong> options are for raster images only. They have
 no effect when placing Encapsulated <em>PostScript</em> files.</p>
 </section>
 <section id="classic-mode-arguments">
@@ -386,8 +389,8 @@ to be 2.5 cm wide, use:</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, The GMT Team..
-      <span class="lastupdated">Last updated on Nov 18, 2021.
+    <p>&#169; Copyright 2022, The GMT Team..
+      <span class="lastupdated">Last updated on May 10, 2022.
       </span></p>
   </div>
 

@@ -2,16 +2,16 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contributors Guide &mdash; GMT 6.3.0 documentation</title>
+  <title>Contributors Guide &mdash; GMT 6.4.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/togglebutton.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
       <link rel="stylesheet" href="../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/favicon.png"/>
@@ -23,9 +23,12 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/togglebutton.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
+        <script>let toggleHintShow = 'Click to show example script';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../_static/togglebutton.js"></script>
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -48,7 +51,7 @@
             <a href="../index.html" class="icon icon-home"> GMT
           </a>
               <div class="version">
-                6.3
+                6.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -64,6 +67,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../gallery.html">Example Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../animations.html">Animations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial_jl.html">Tutorial in Julia</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -124,6 +128,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#contributing-code">Contributing Code</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#code-style">Code Style</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#testing-gmt">Testing GMT</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#managing-test-images-using-data-version-control-dvc">Managing Test Images Using Data Version Control (dvc)</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#running-tests">Running tests</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#reviewing-test-failures">Reviewing test failures</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#updating-reference-plots-for-tests">Updating reference plots for tests</a></li>
@@ -259,7 +264,7 @@ where you can submit general comments and/or questions:</p>
 <li><p>For general comments, select <em>New Topic</em> from the
 <a class="reference external" href="https://forum.generic-mapping-tools.org/c/lounge/">Lounge Page</a>.</p></li>
 <li><p>To share your work, select <em>New Topic</em> from the
-<a class="reference external" href="https://forum.generic-mapping-tools.org/c/Sow-your-nice-example-script/">Showcase Page</a>.</p></li>
+<a class="reference external" href="https://forum.generic-mapping-tools.org/c/Show-your-nice-example-script/">Showcase Page</a>.</p></li>
 </ul>
 </section>
 </section>
@@ -341,6 +346,10 @@ building the documentation.</p>
 <span class="nb">set</span> <span class="o">(</span>DO_API_TESTS ON<span class="o">)</span>
 </pre></div>
 </div>
+<p>Optionally, uncomment the following line to run tests on the supplement modules:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span> <span class="o">(</span>DO_SUPPLEMENT_TESTS ON<span class="o">)</span>
+</pre></div>
+</div>
 <p>Optionally, uncomment the following line and change <code class="docutils literal notranslate"><span class="pre">4</span></code> to the number of ctest jobs to run simultaneously:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span> <span class="o">(</span>N_TEST_JOBS <span class="m">4</span><span class="o">)</span>
 </pre></div>
@@ -418,7 +427,8 @@ You may need to know some basic reST syntax before making changes. Please refer 
 to install the <a class="reference external" href="http://www.sphinx-doc.org/">Sphinx</a> documentation builder. After configuring and
 <a class="reference external" href="https://github.com/GenericMappingTools/gmt/tree/master/BUILDING.md">building GMT</a>, you can build GMT documentation using
 the following commands within the build directory:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake --build . --target docs_depends     <span class="c1"># Generate images included in the documentation</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dvc pull
+cmake --build . --target docs_depends     <span class="c1"># Generate images included in the documentation</span>
 cmake --build . --target optimize_images  <span class="c1"># Optimize PNG images for documentation [optional]</span>
 cmake --build . --target docs_man         <span class="c1"># UNIX manual pages</span>
 cmake --build . --target docs_html        <span class="c1"># HTML manual, tutorial, cookbook, and API reference</span>
@@ -492,15 +502,55 @@ Here are some specific guidelines:</p>
 <section id="testing-gmt">
 <h3>Testing GMT<a class="headerlink" href="#testing-gmt" title="Permalink to this headline">¶</a></h3>
 <p>GMT ships with more than 1000 tests to make sure that any changes won’t break its functionality. In addition to the
-tests located in the <code class="docutils literal notranslate"><span class="pre">/test</span></code> directory, GMT tests all the plots included in its documentation. The
-documentation tests are located in the <code class="docutils literal notranslate"><span class="pre">/doc/scripts</span></code> directory. The majority of GMT tests are plot-based,
-with each test requiring a bash script for generating the plot and a reference PostScript file. These tests pass if the
-difference between a new plot generated using the test script and the reference PostScript file is less than a defined
-threshold. Other tests compute grids, tables, or other output, with the test passing if a suitable comparison is made
-against a reference case.</p>
-<p>Tests that are known to fail are excluded by adding <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">GMT_KNOWN_FAILURE</span></code> anywhere in the test script.</p>
+tests located in the <code class="docutils literal notranslate"><span class="pre">test/</span></code> directory, GMT tests all the plots included in its documentation. The
+documentation tests are located in the <code class="docutils literal notranslate"><span class="pre">doc/scripts/</span></code> and <code class="docutils literal notranslate"><span class="pre">doc/examples/</span></code> directories. The majority of GMT tests
+are plot-based, with each test requiring a bash script for generating the plot and a reference PostScript file. These
+tests pass if the difference between a new plot generated using the test script and the reference PostScript file is
+less than a defined threshold. Other tests compute grids, tables, or other output, with the test passing if a suitable
+comparison is made against a reference case.</p>
+<p>Tests that are known to fail are excluded by adding <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">GMT_KNOWN_FAILURE</span></code> anywhere in the test script. Tests that
+require a larger tolerance than the default RMS threshold are managed using <code class="docutils literal notranslate"><span class="pre">GRAPHICSMAGICK_RMS</span> <span class="pre">=</span> <span class="pre">&lt;RMS&gt;</span></code> in the
+test script. These tests are tracked in <a class="reference external" href="https://github.com/GenericMappingTools/gmt/issues/2458">GitHub issue #2458</a>.</p>
+<section id="managing-test-images-using-data-version-control-dvc">
+<h4>Managing Test Images Using Data Version Control (dvc)<a class="headerlink" href="#managing-test-images-using-data-version-control-dvc" title="Permalink to this headline">¶</a></h4>
+<p>As the baseline images are large blob files that can change often, it is not ideal to store them in <code class="docutils literal notranslate"><span class="pre">git</span></code>. Instead,
+we use <a class="reference external" href="https://dvc.org/">data version control (dvc)</a> to track the test images, which is like <code class="docutils literal notranslate"><span class="pre">git</span></code> but for data.
+<code class="docutils literal notranslate"><span class="pre">dvc</span></code> stores the hash (md5sum) of a file or an md5sum that describes the contents of a directory. For each test
+<code class="docutils literal notranslate"><span class="pre">test/&lt;module&gt;/*.sh</span></code> that generates a .PS file, there is a baseline image file in <code class="docutils literal notranslate"><span class="pre">test/baseline/&lt;module&gt;/</span></code>
+that is compared to the test result using <a class="reference external" href="www.graphicsmagick.org">GraphicsMagick</a>. Each of the
+directories <code class="docutils literal notranslate"><span class="pre">test/baseline/&lt;module&gt;</span></code> are tracked by <code class="docutils literal notranslate"><span class="pre">dvc</span></code> using the file <code class="docutils literal notranslate"><span class="pre">test/baseline/&lt;module&gt;.dvc</span></code>. This file
+contains the hash of a JSON .dir file stored in the .dvc cache. The .dir file contains information about each tracked
+file in the directory, which is used to push/pull the files to/from remote storage. The <code class="docutils literal notranslate"><span class="pre">test/baseline/&lt;module&gt;.dvc</span></code>
+files are stored as usual on GitHub, while the .PS files are stored separately on the <code class="docutils literal notranslate"><span class="pre">dvc</span></code> remote at
+<a class="reference external" href="https://dagshub.com/GenericMappingTools/gmt">https://dagshub.com/GenericMappingTools/gmt</a>.</p>
+<section id="setting-up-your-local-environment-for-dvc">
+<h5>Setting up your local environment for dvc<a class="headerlink" href="#setting-up-your-local-environment-for-dvc" title="Permalink to this headline">¶</a></h5>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://dvc.org/doc/install">Install dvc</a></p></li>
+<li><p>If you will need to push baseline images to the remote, ask a GMT maintainer to add you as a collaborator on
+<a class="reference external" href="https://dagshub.com/GenericMappingTools/gmt">DAGsHub</a>.</p></li>
+<li><p>If you will need to push baseline imaged to the remote, set up
+<a class="reference external" href="https://dagshub.com/docs/reference/dagshub_storage/#pushing-files-or-using-a-private-repo">authentication for the DVC remote</a>.</p></li>
+</ol>
+</section>
+<section id="pulling-files-from-the-remote-for-testing">
+<h5>Pulling files from the remote for testing<a class="headerlink" href="#pulling-files-from-the-remote-for-testing" title="Permalink to this headline">¶</a></h5>
+<p>To pull or sync files from the <code class="docutils literal notranslate"><span class="pre">dvc</span></code> remote to your local repository, the commands are similar to <code class="docutils literal notranslate"><span class="pre">git</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dvc status  <span class="c1"># should report any files &#39;not_in_cache&#39;</span>
+dvc pull    <span class="c1"># pull down files from DVC remote cache (fetch + checkout)</span>
+</pre></div>
+</div>
+<p>Once the sync is complete, you should notice that there are images stored in the <code class="docutils literal notranslate"><span class="pre">test/baseline/&lt;module&gt;</span></code>
+directories (e.g., <code class="docutils literal notranslate"><span class="pre">test/baseline/api/api_matrix_as_grid.ps</span></code>). These images are technically reflinks/symlinks/copies
+of the files under the <code class="docutils literal notranslate"><span class="pre">.dvc/cache</span></code> directory. You can now run the test suite as usual.</p>
+</section>
+</section>
 <section id="running-tests">
 <h4>Running tests<a class="headerlink" href="#running-tests" title="Permalink to this headline">¶</a></h4>
+<p>First, pull any baseline images stored in the DAGsHub repository using dvc:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dvc pull
+</pre></div>
+</div>
 <p>After configuring CMake and building GMT, you can run all the tests by running this command in the build directory:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake --build . --target check
 </pre></div>
@@ -535,25 +585,40 @@ configuring CMake or setting up <code class="docutils literal notranslate"><span
 instructions provided in the <a class="reference internal" href="#running-tests"><span class="std std-ref">Running tests</span></a> section. Therefore, you should
 expect all tests to pass unless something new is broken.</p>
 <p>Information about failing tests is produced in <code class="docutils literal notranslate"><span class="pre">test/fail_count.txt</span></code> inside the build directory. For plot-based tests,
-the subdirectories <code class="docutils literal notranslate"><span class="pre">test/</span></code> and <code class="docutils literal notranslate"><span class="pre">doc/scripts/</span></code> inside the build directory contain folders for each failing test. For
-plot-based tests, the directory associated with each failing tests contains a <code class="docutils literal notranslate"><span class="pre">gmtest.sh</span></code> script, a <code class="docutils literal notranslate"><span class="pre">gmt.conf</span></code> file,
-an alias to the test script, a PostScript file and PDF document generated by the test script, and a PNG image that shows
-differences between the reference plot and new plot in magenta. In addition to these files, running the failing tests
-with verbose output can be helpful for evaluating failures:</p>
+the subdirectories <code class="docutils literal notranslate"><span class="pre">test/</span></code>, <code class="docutils literal notranslate"><span class="pre">doc/scripts/</span></code>, and <code class="docutils literal notranslate"><span class="pre">doc/examples/</span></code> inside the build directory contain folders for
+each failing test. For plot-based tests, the directory associated with each failing tests contains a <code class="docutils literal notranslate"><span class="pre">gmtest.sh</span></code>
+script, a <code class="docutils literal notranslate"><span class="pre">gmt.conf</span></code> file, an alias to the test script, a PostScript file and PDF document generated by the test
+script, and a PNG image that shows differences between the reference plot and new plot in magenta. In addition to these
+files, running the failing tests with verbose output can be helpful for evaluating failures:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ctest --rerun-failed --verbose
 </pre></div>
 </div>
 </section>
 <section id="updating-reference-plots-for-tests">
 <h4>Updating reference plots for tests<a class="headerlink" href="#updating-reference-plots-for-tests" title="Permalink to this headline">¶</a></h4>
-<p>Pull requests should avoid needing to change PostScript files in the <code class="docutils literal notranslate"><span class="pre">/test</span></code> and <code class="docutils literal notranslate"><span class="pre">doc/scripts/</span></code>
-directories. However, if this is unavoidable, new PostScript reference files can be generated by running
-<code class="docutils literal notranslate"><span class="pre">ctest</span> <span class="pre">-R</span> <span class="pre">&lt;test-script-name&gt;</span></code> in the build directory after following the
+<p>Pull requests should avoid needing to change PostScript files in the <code class="docutils literal notranslate"><span class="pre">test/baseline/</span></code>, <code class="docutils literal notranslate"><span class="pre">doc/scripts/images/</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">doc/examples/images/</span></code> directories. However, if this is unavoidable, new PostScript reference files can be generated
+using the following steps:</p>
+<ul class="simple">
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">dvc</span> <span class="pre">pull</span></code> to ensure that you have the latest versions of the images.</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">ctest</span> <span class="pre">-R</span> <span class="pre">&lt;test-script-name&gt;</span></code> in the build directory after following the
 <a class="reference external" href="https://github.com/GenericMappingTools/gmt/tree/master/BUILDING.md">building guide</a>, the
 <a class="reference internal" href="#setting-up-your-environment"><span class="std std-ref">setting up your environment</span></a> instructions, and the
-<a class="reference internal" href="#running-tests"><span class="std std-ref">running tests</span></a> instructions. The new PostScript file can then be copied from
-the appropriate subdirectory within <code class="docutils literal notranslate"><span class="pre">build/test/</span></code> or <code class="docutils literal notranslate"><span class="pre">build/doc/scripts/</span></code> to <code class="docutils literal notranslate"><span class="pre">/test</span></code> or <code class="docutils literal notranslate"><span class="pre">/doc/scripts</span></code>
-respectively.</p>
+<a class="reference internal" href="#running-tests"><span class="std std-ref">running tests</span></a> instructions.</p></li>
+<li><p>Copy the modified PostScript file from the appropriate subdirectory within <code class="docutils literal notranslate"><span class="pre">build/test/</span></code>, <code class="docutils literal notranslate"><span class="pre">build/doc/scripts/</span></code>, or
+<code class="docutils literal notranslate"><span class="pre">build/doc/examples/</span></code> to <code class="docutils literal notranslate"><span class="pre">test/baseline/&lt;module&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">doc/scripts/images/</span></code>, or <code class="docutils literal notranslate"><span class="pre">doc/examples/images/</span></code> respectively.</p></li>
+<li><p>Run the tests to ensure that the failing tests now pass.</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">dvc</span> <span class="pre">diff</span></code> to check that modified files are in the correct directory.</p></li>
+<li><p>Add the modified images to dvc using <code class="docutils literal notranslate"><span class="pre">dvc</span> <span class="pre">add</span> <span class="pre">test/baseline/&lt;module&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">dvc</span> <span class="pre">add</span> <span class="pre">doc/scripts/images</span></code>, or <code class="docutils literal notranslate"><span class="pre">dvc</span> <span class="pre">add</span> <span class="pre">doc/scripts/examples</span></code>
+depending on the type of test modified.</p></li>
+<li><p>Check that the .dvc file was updated by running <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">status</span></code>.</p></li>
+<li><p>Stage the modified .dvc file in git using <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span> <span class="pre">test/baseline/&lt;module&gt;.dvc</span></code>, <code class="docutils literal notranslate"><span class="pre">dvc</span> <span class="pre">add</span> <span class="pre">doc/scripts/images.dvc</span></code>, or
+<code class="docutils literal notranslate"><span class="pre">dvc</span> <span class="pre">add</span> <span class="pre">doc/examples/images.dvc</span></code>.</p></li>
+<li><p>Commit the changes using <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span></code>.</p></li>
+<li><p>Open a pull request on GitHub with your changes.</p></li>
+<li><p>Push the new images to the DAGsHub repository using <code class="docutils literal notranslate"><span class="pre">dvc</span> <span class="pre">push</span></code>. Optionally, use <code class="docutils literal notranslate"><span class="pre">dvc</span> <span class="pre">status</span> <span class="pre">--remote</span> <span class="pre">origin</span></code> first
+to query the diff between your local environment and the remote repository.</p></li>
+</ul>
 </section>
 <section id="adding-new-tests">
 <h4>Adding new tests<a class="headerlink" href="#adding-new-tests" title="Permalink to this headline">¶</a></h4>
@@ -576,9 +641,19 @@ or bug fix.</p></li>
 </li>
 <li><p>Run the tests using the instructions in the <a class="reference internal" href="#running-tests"><span class="std std-ref">running tests</span></a> section.</p></li>
 <li><p>Check that the new PostScript file in <code class="docutils literal notranslate"><span class="pre">build/test/&lt;module&gt;</span></code> or <code class="docutils literal notranslate"><span class="pre">build/doc/scripts/</span></code> is as-expected.</p></li>
-<li><p>Copy the new PostScript file from the appropriate subdirectory within <code class="docutils literal notranslate"><span class="pre">build/test/</span></code> or <code class="docutils literal notranslate"><span class="pre">build/doc/scripts/</span></code> to
-<code class="docutils literal notranslate"><span class="pre">test/&lt;module&gt;</span></code> or <code class="docutils literal notranslate"><span class="pre">doc/scripts</span></code> respectively.</p></li>
-<li><p>Check that your new test working by rerunning the failing tests.</p></li>
+<li><p>Copy the new PostScript file from the appropriate subdirectory within <code class="docutils literal notranslate"><span class="pre">build/test/</span></code>, <code class="docutils literal notranslate"><span class="pre">build/doc/scripts/</span></code>, or
+<code class="docutils literal notranslate"><span class="pre">build/doc/examples/</span></code> to <code class="docutils literal notranslate"><span class="pre">test/baseline/&lt;module&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">doc/scripts/images/</span></code>, or <code class="docutils literal notranslate"><span class="pre">doc/examples/images/</span></code> respectively.</p></li>
+<li><p>Run the tests to ensure that the new test passes.</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">dvc</span> <span class="pre">diff</span></code> to check that the new file is in the correct directory.</p></li>
+<li><p>Add the new images to dvc using <code class="docutils literal notranslate"><span class="pre">dvc</span> <span class="pre">add</span> <span class="pre">test/baseline/&lt;module&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">dvc</span> <span class="pre">add</span> <span class="pre">doc/scripts/images</span></code>, or <code class="docutils literal notranslate"><span class="pre">dvc</span> <span class="pre">add</span> <span class="pre">doc/scripts/examples</span></code>
+depending on the type of test modified.</p></li>
+<li><p>Check that the .dvc file was updated by running <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">status</span></code>.</p></li>
+<li><p>Add the modified .dvc file to git using <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span> <span class="pre">test/baseline/&lt;module&gt;.dvc</span></code>, <code class="docutils literal notranslate"><span class="pre">dvc</span> <span class="pre">add</span> <span class="pre">doc/scripts/images.dvc</span></code>, or
+<code class="docutils literal notranslate"><span class="pre">dvc</span> <span class="pre">add</span> <span class="pre">doc/examples/images.dvc</span></code>.</p></li>
+<li><p>Commit the changes using <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span></code>.</p></li>
+<li><p>Open a pull request on GitHub with your changes.</p></li>
+<li><p>Push the new images to the DAGsHub repository using <code class="docutils literal notranslate"><span class="pre">dvc</span> <span class="pre">push</span></code>. Optionally, use <code class="docutils literal notranslate"><span class="pre">dvc</span> <span class="pre">status</span> <span class="pre">--remote</span> <span class="pre">origin</span></code> first
+to query the diff between your local environment and the remote repository.</p></li>
 </ul>
 <p>To add a non-PostScript based test (e.g., <a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/test/blockmean/gmean.sh">gmean.sh</a>):</p>
 <ul class="simple">
@@ -612,8 +687,8 @@ section.</p></li>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, The GMT Team..
-      <span class="lastupdated">Last updated on Nov 18, 2021.
+    <p>&#169; Copyright 2022, The GMT Team..
+      <span class="lastupdated">Last updated on May 10, 2022.
       </span></p>
   </div>
 

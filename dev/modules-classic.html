@@ -2,16 +2,16 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Modules (Classic Mode) &mdash; GMT 6.3.0 documentation</title>
+  <title>Modules (Classic Mode) &mdash; GMT 6.4.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
       <link rel="stylesheet" href="_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.png"/>
@@ -23,9 +23,12 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/togglebutton.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
+        <script>let toggleHintShow = 'Click to show example script';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -48,7 +51,7 @@
             <a href="index.html" class="icon icon-home"> GMT
           </a>
               <div class="version">
-                6.3
+                6.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -64,6 +67,7 @@
 <li class="toctree-l1"><a class="reference internal" href="gallery.html">Example Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="animations.html">Animations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_jl.html">Tutorial in Julia</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -318,9 +322,10 @@ All modules are requested via a call to the <a class="reference internal" href="
 <li><p><a class="reference internal" href="supplements/potential/gmtflexure.html"><span class="doc">gmtflexure</span></a></p></li>
 <li><p><a class="reference internal" href="supplements/potential/gmtgravmag3d.html"><span class="doc">gmtgravmag3d</span></a></p></li>
 <li><p><a class="reference internal" href="supplements/potential/gravfft.html"><span class="doc">gravfft</span></a></p></li>
-<li><p><a class="reference internal" href="supplements/potential/grdflexure.html"><span class="doc">grdflexure</span></a></p></li>
+<li><p><a class="reference internal" href="supplements/potential/gravprisms.html"><span class="doc">gravprisms</span></a></p></li>
 </ul>
 </td><td><ul class="simple">
+<li><p><a class="reference internal" href="supplements/potential/grdflexure.html"><span class="doc">grdflexure</span></a></p></li>
 <li><p><a class="reference internal" href="supplements/potential/grdgravmag3d.html"><span class="doc">grdgravmag3d</span></a></p></li>
 <li><p><a class="reference internal" href="supplements/potential/grdredpol.html"><span class="doc">grdredpol</span></a></p></li>
 <li><p><a class="reference internal" href="supplements/potential/grdseamount.html"><span class="doc">grdseamount</span></a></p></li>
@@ -884,22 +889,25 @@ All modules are requested via a call to the <a class="reference internal" href="
 <tr class="row-odd"><td><p><a class="reference internal" href="supplements/potential/gravfft.html"><span class="doc">gravfft</span></a></p></td>
 <td><p>Spectral calculations of gravity, isostasy, admittance, and coherence for grids</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="supplements/potential/grdflexure.html"><span class="doc">grdflexure</span></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="supplements/potential/gravprisms.html"><span class="doc">gravprisms</span></a></p></td>
+<td><p>Compute geopotential anomalies over 3-D vertical prisms</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="supplements/potential/grdflexure.html"><span class="doc">grdflexure</span></a></p></td>
 <td><p>Compute flexural deformation of 3-D surfaces for various rheologies</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="supplements/potential/grdgravmag3d.html"><span class="doc">grdgravmag3d</span></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="supplements/potential/grdgravmag3d.html"><span class="doc">grdgravmag3d</span></a></p></td>
 <td><p>Computes the gravity effect of one (or two) grids by the method of Okabe</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="supplements/potential/grdredpol.html"><span class="doc">grdredpol</span></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="supplements/potential/grdredpol.html"><span class="doc">grdredpol</span></a></p></td>
 <td><p>Compute the Continuous Reduction To the Pole, AKA differential RTP</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="supplements/potential/grdseamount.html"><span class="doc">grdseamount</span></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="supplements/potential/grdseamount.html"><span class="doc">grdseamount</span></a></p></td>
 <td><p>Create synthetic seamounts (Gaussian, parabolic, polynomial, cone or disc; circular or elliptical)</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="supplements/potential/talwani2d.html"><span class="doc">talwani2d</span></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="supplements/potential/talwani2d.html"><span class="doc">talwani2d</span></a></p></td>
 <td><p>Compute geopotential anomalies over 2-D bodies by the method of Talwani</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="supplements/potential/talwani3d.html"><span class="doc">talwani3d</span></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="supplements/potential/talwani3d.html"><span class="doc">talwani3d</span></a></p></td>
 <td><p>Compute geopotential anomalies over 3-D bodies by the method of Talwani</p></td>
 </tr>
 </tbody>
@@ -1043,8 +1051,8 @@ All modules are requested via a call to the <a class="reference internal" href="
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, The GMT Team..
-      <span class="lastupdated">Last updated on Nov 18, 2021.
+    <p>&#169; Copyright 2022, The GMT Team..
+      <span class="lastupdated">Last updated on May 10, 2022.
       </span></p>
   </div>
 

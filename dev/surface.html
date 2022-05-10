@@ -2,16 +2,16 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>surface &mdash; GMT 6.3.0 documentation</title>
+  <title>surface &mdash; GMT 6.4.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
       <link rel="stylesheet" href="_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.png"/>
@@ -23,11 +23,14 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/togglebutton.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
+        <script>let toggleHintShow = 'Click to show example script';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -49,7 +52,7 @@
             <a href="index.html" class="icon icon-home"> GMT
           </a>
               <div class="version">
-                6.3
+                6.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -65,6 +68,7 @@
 <li class="toctree-l1"><a class="reference internal" href="gallery.html">Example Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="animations.html">Animations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_jl.html">Tutorial in Julia</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -165,7 +169,7 @@
 [ <a class="reference internal" href="#z"><span><strong>-Z</strong></span></a></strong><em>over-relaxation_factor</em> ]
 [ <strong>-a</strong><a class="reference internal" href="gmt.html#aspatial-full"><span class="std std-ref">flags</span></a> ]
 [ <strong>-bi</strong><a class="reference internal" href="gmt.html#bi-full"><span class="std std-ref">binary</span></a> ]
-[ <strong>-di</strong>[<strong>+c</strong><em>col</em>]<a class="reference internal" href="gmt.html#di-full"><span class="std std-ref">nodata</span></a> ]
+[ <strong>-di</strong><a class="reference internal" href="gmt.html#di-full"><span class="std std-ref">nodata</span></a>[<strong>+c</strong><em>col</em>] ]
 [ <strong>-e</strong><a class="reference internal" href="gmt.html#e-full"><span class="std std-ref">regexp</span></a> ]
 [ <strong>-f</strong><a class="reference internal" href="gmt.html#f-full"><span class="std std-ref">flags</span></a> ]
 [ <strong>-h</strong><a class="reference internal" href="gmt.html#h-full"><span class="std std-ref">headers</span></a> ]
@@ -230,7 +234,7 @@ is 1].</p></li>
 </ul>
 </div></blockquote>
 <p>Note: Any offset is added before any scaling. <strong>+sa</strong> also sets <strong>+oa</strong>
-(unless overridden). To write specific formats via GDAL, use = <em>gd</em>
+(unless overridden). To write specific formats via GDAL, use =<em>gd</em>
 and supply <em>driver</em> (and optionally <em>dataType</em>) and/or one or more
 concatenated GDAL <strong>-co</strong> options using <strong>+c</strong>. See
 the <a class="reference internal" href="cookbook/features.html#write-grids-images"><span class="std std-ref">“Writing grids and images” cookbook section</span></a>
@@ -297,7 +301,7 @@ by the grid spacing multiplier.</p>
 </dl>
 <dl class="simple" id="j">
 <dt><strong>-J</strong><em>parameters</em></dt><dd><p>Specify the projection. Select the data map projection. This projection is only used to add a referencing info
-to the grid formats that support it. E.g. netCDF, GeoTIFF, and others supported by GDAL.</p>
+to the grid formats that support it. E.g., netCDF, GeoTIFF, and others supported by GDAL.</p>
 </dd>
 </dl>
 <dl class="simple" id="d">
@@ -343,8 +347,8 @@ by the grid spacing multiplier [Default is 500].</p>
 <dt><strong>-Q</strong></dt><dd><p>Suggest grid dimensions which have a highly composite greatest
 common factor. This allows surface to use several intermediate steps
 in the solution, yielding faster run times and better results. The
-sizes suggested by <strong>-Q</strong> can be achieved by altering <strong>-R</strong> and/or
-<strong>-I</strong>. You can recover the <strong>-R</strong> and <strong>-I</strong> you want later by
+sizes suggested by <a class="reference internal" href="#q"><span><strong>-Q</strong></span></a></strong> can be achieved by altering <a class="reference internal" href="#r"><span><strong>-R</strong></span></a></strong> and/or
+<a class="reference internal" href="#i"><span><strong>-I</strong></span></a></strong>. You can recover the <a class="reference internal" href="#r"><span><strong>-R</strong></span></a></strong> and <a class="reference internal" href="#i"><span><strong>-I</strong></span></a></strong> you want later by
 using <a class="reference internal" href="grdsample.html"><span class="doc">grdsample</span></a> or <a class="reference internal" href="grdcut.html"><span class="doc">grdcut</span></a> on the output of <strong>surface</strong>.</p>
 </dd>
 </dl>
@@ -371,7 +375,7 @@ solution.]</p>
 </dl>
 <dl class="simple" id="v">
 <dt><strong>-V</strong>[<em>level</em>]</dt><dd><p>Select verbosity level [<strong>w</strong>]. <strong>-V3</strong> will report the convergence after each iteration;
-<strong>-V</strong> will report only after each regional grid is converged. <a class="reference internal" href="gmt.html#v-full"><span class="std std-ref">(See full description)</span></a> <a class="reference internal" href="cookbook/options.html#verbose-feedback-the-v-option"><span class="std std-ref">(See cookbook information)</span></a>.</p>
+<a class="reference internal" href="#v"><span><strong>-V</strong></span></a></strong> will report only after each regional grid is converged. <a class="reference internal" href="gmt.html#v-full"><span class="std std-ref">(See full description)</span></a> <a class="reference internal" href="cookbook/options.html#verbose-feedback-the-v-option"><span class="std std-ref">(See cookbook information)</span></a>.</p>
 </dd>
 </dl>
 <dl class="simple" id="w">
@@ -418,7 +422,7 @@ idea to monitor each iteration with the <strong>-Vi</strong> option. [Default =
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-qi</strong>[~]<em>rows</em>|<em>limits</em>[<strong>+c</strong><em>col</em>][<strong>+a</strong>|<strong>f</strong>|<strong>s</strong>] <a class="reference internal" href="gmt.html#qi-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input rows or data limit(s) [default is all rows].</p>
+<dt><strong>-qi</strong>[~]<em>rows</em>|<em>limits</em>[<strong>+c</strong><em>col</em>][<strong>+a</strong>|<strong>t</strong>|<strong>s</strong>] <a class="reference internal" href="gmt.html#qi-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input rows or data limit(s) [default is all rows].</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -434,7 +438,7 @@ idea to monitor each iteration with the <strong>-Vi</strong> option. [Default =
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (NOTE: on Windows just use <strong>-</strong>).</p>
+<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (<strong>Note</strong>: on Windows just use <strong>-</strong>).</p>
 </dd>
 <dt><strong>-+</strong> or just <strong>+</strong></dt><dd><p>Print an extensive usage (help) message, including the explanation of
 any module-specific option (but not the GMT common options), then exit.</p>
@@ -459,7 +463,7 @@ normalizing the data prior to processing.</p>
 <section id="units">
 <h2>Units<a class="headerlink" href="#units" title="Permalink to this headline">¶</a></h2>
 <p>For map distance unit, append <em>unit</em> <strong>d</strong> for arc degree, <strong>m</strong> for arc
-minute, and <strong>s</strong> for arc second, or <strong>e</strong> for meter [Default], <strong>f</strong>
+minute, and <strong>s</strong> for arc second, or <strong>e</strong> for meter [Default unless stated otherwise], <strong>f</strong>
 for foot, <strong>k</strong> for km, <strong>M</strong> for statute mile, <strong>n</strong> for nautical mile,
 and <strong>u</strong> for US survey foot. By default we compute such distances using
 a spherical approximation with great circles (<strong>-jg</strong>) using the authalic radius
@@ -488,7 +492,7 @@ hawaii_grd.nc, and monitoring each iteration, try:</p>
 <section id="gridding-geographic-data-boundary-conditions">
 <h2>Gridding Geographic Data: Boundary Conditions<a class="headerlink" href="#gridding-geographic-data-boundary-conditions" title="Permalink to this headline">¶</a></h2>
 <p>The surface finite difference algorithm is Cartesian at heart, hence the <em>ad hoc</em>
-option to change the aspect ratio for a suitable mean latitude (<strong>-A</strong>). When
+option to change the aspect ratio for a suitable mean latitude (<a class="reference internal" href="#a"><span><strong>-A</strong></span></a></strong>). When
 geographic data are supplied and the output grid has a 360 degree longitude range we will
 impose periodic boundary conditions in longitude.  However, no equivalent geographic
 boundary condition can be applied at the poles since the finite difference solution
@@ -510,7 +514,7 @@ with the number of you chosen unit per degree latitude, while for longitude we d
 <em>x</em>-increment by the number of such units per degree along the mid-parallel in your region. The
 resulting degree increments may therefore not exactly match the increments you entered explicitly.
 Hence, there may be rounding off in ways you don’t want and cannot easily control, resulting in prime grid
-dimensions. You can handle the situation via <strong>-Q</strong> but with the never-ending decimals in some
+dimensions. You can handle the situation via <a class="reference internal" href="#q"><span><strong>-Q</strong></span></a></strong> but with the never-ending decimals in some
 increments that is still a challenge.  Another approach is to <em>not</em> grid geographic data
 using length units as increments, due to the above conversion. It may be cleaner to specify
 grid intervals in spherical degrees, minutes or seconds. That way you can control the grid
@@ -535,7 +539,7 @@ the decimators or choose binary input and/or output using single or
 double precision storage.</p>
 <p>Note that only gridline registration is possible with <strong>surface</strong>. If
 you need a pixel-registered grid you can resample a gridline registered
-grid using <a class="reference internal" href="grdsample.html"><span class="doc">grdsample</span></a> <strong>-T</strong>.</p>
+grid using <a class="reference internal" href="grdsample.html"><span class="doc">grdsample</span></a> <a class="reference internal" href="#t"><span><strong>-T</strong></span></a></strong>.</p>
 </section>
 <section id="see-also">
 <h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
@@ -553,7 +557,7 @@ grid using <a class="reference internal" href="grdsample.html"><span class="doc"
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
 <p>Smith, W. H. F, and P. Wessel, 1990, Gridding with continuous curvature
-splines in tension, <em>Geophysics</em>, 55, 293-305.</p>
+splines in tension, <em>Geophysics</em>, 55, 293-305, <a class="reference external" href="https://doi.org/10.1190/1.1442837">https://doi.org/10.1190/1.1442837</a>.</p>
 </section>
 </section>
 
@@ -568,8 +572,8 @@ splines in tension, <em>Geophysics</em>, 55, 293-305.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, The GMT Team..
-      <span class="lastupdated">Last updated on Nov 18, 2021.
+    <p>&#169; Copyright 2022, The GMT Team..
+      <span class="lastupdated">Last updated on May 10, 2022.
       </span></p>
   </div>
 

@@ -2,16 +2,16 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>grdproject &mdash; GMT 6.3.0 documentation</title>
+  <title>grdproject &mdash; GMT 6.4.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
       <link rel="stylesheet" href="_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.png"/>
@@ -23,9 +23,12 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/togglebutton.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
+        <script>let toggleHintShow = 'Click to show example script';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -48,7 +51,7 @@
             <a href="index.html" class="icon icon-home"> GMT
           </a>
               <div class="version">
-                6.3
+                6.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -64,6 +67,7 @@
 <li class="toctree-l1"><a class="reference internal" href="gallery.html">Example Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="animations.html">Animations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_jl.html">Tutorial in Julia</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -159,7 +163,7 @@
 </section>
 <section id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
-<p><strong>grdproject</strong> will do one of two things depending whether <strong>-I</strong> has
+<p><strong>grdproject</strong> will do one of two things depending whether <a class="reference internal" href="#i"><span><strong>-I</strong></span></a></strong> has
 been set. If set, it will transform a gridded data set from a
 rectangular coordinate system onto a geographical system by resampling
 the surface at the new nodes. If not set, it will project a geographical
@@ -174,7 +178,7 @@ controlled with the <strong>-n</strong> option. The new node spacing may be
 determined in one of several ways by specifying the grid spacing, number
 of nodes, or resolution. Nodes not constrained by input data are set to
 NaN.</p>
-<p>The <strong>-R</strong> option can be used to select a map region larger or smaller
+<p>The <a class="reference internal" href="#r"><span><strong>-R</strong></span></a></strong> option can be used to select a map region larger or smaller
 than that implied by the extent of the grid file.</p>
 </section>
 <section id="required-arguments">
@@ -218,7 +222,7 @@ is 1].</p></li>
 </ul>
 </div></blockquote>
 <p>Note: Any offset is added before any scaling. <strong>+sa</strong> also sets <strong>+oa</strong>
-(unless overridden). To write specific formats via GDAL, use = <em>gd</em>
+(unless overridden). To write specific formats via GDAL, use =<em>gd</em>
 and supply <em>driver</em> (and optionally <em>dataType</em>) and/or one or more
 concatenated GDAL <strong>-co</strong> options using <strong>+c</strong>. See
 the <a class="reference internal" href="cookbook/features.html#write-grids-images"><span class="std std-ref">“Writing grids and images” cookbook section</span></a>
@@ -235,13 +239,13 @@ for more details.</p>
 <dl class="simple" id="c">
 <dt><strong>-C</strong>[<em>dx/dy</em>]</dt><dd><p>Let projected coordinates be relative to projection center [Default
 is relative to lower left corner]. Optionally, add offsets in the
-projected units to be added (or subtracted when <strong>-I</strong> is set) to
+projected units to be added (or subtracted when <a class="reference internal" href="#i"><span><strong>-I</strong></span></a></strong> is set) to
 (from) the projected coordinates, such as false eastings and
 northings for particular projection zones [0/0].</p>
 </dd>
 </dl>
 <dl class="simple" id="d">
-<dt><strong>-D</strong><em>xinc</em>[<strong>+e</strong>|<strong>n</strong>][/<em>yinc</em>[<strong>+e</strong>|<strong>n</strong>]]</dt><dd><p>Set the grid spacing for the new grid.  If neither <strong>-D</strong> nor <strong>-E</strong> are set then we
+<dt><strong>-D</strong><em>xinc</em>[<strong>+e</strong>|<strong>n</strong>][/<em>yinc</em>[<strong>+e</strong>|<strong>n</strong>]]</dt><dd><p>Set the grid spacing for the new grid.  If neither <a class="reference internal" href="#d"><span><strong>-D</strong></span></a></strong> nor <a class="reference internal" href="#e"><span><strong>-E</strong></span></a></strong> are set then we
 select the same number of output nodes as there are input nodes.
 Optionally append a suffix modifier.
 <strong>Geographical (degrees) coordinates</strong>: Append
@@ -262,7 +266,7 @@ recalculated from the number of nodes and the domain. The resulting
 increment value depends on whether you have selected a
 gridline-registered or pixel-registered grid; see <a class="reference internal" href="cookbook/file-formats.html#gmt-file-formats"><span class="std std-ref">GMT File Formats</span></a> for
 details. <strong>Note</strong>: If <strong>-R</strong><em>grdfile</em> is used then the grid spacing (and registration) have
-already been initialized; use <strong>-D</strong> (and <strong>-r</strong>) to override the values.</p>
+already been initialized; use <a class="reference internal" href="#d"><span><strong>-D</strong></span></a></strong> (and <strong>-r</strong>) to override the values.</p>
 </dd>
 </dl>
 <dl class="simple" id="e">
@@ -270,12 +274,12 @@ already been initialized; use <strong>-D</strong> (and <strong>-r</strong>) to o
 </dd>
 </dl>
 <dl class="simple" id="f">
-<dt><strong>-F</strong>[<strong>c</strong>|<strong>i</strong>|<strong>p</strong>|<strong>e</strong>|<strong>f</strong>|<strong>k</strong>|<strong>M</strong>|<strong>n</strong>|<strong>u</strong>]</dt><dd><p>Force 1:1 scaling, i.e., output (or input, see <strong>-I</strong>) data are in
+<dt><strong>-F</strong>[<strong>c</strong>|<strong>i</strong>|<strong>p</strong>|<strong>e</strong>|<strong>f</strong>|<strong>k</strong>|<strong>M</strong>|<strong>n</strong>|<strong>u</strong>]</dt><dd><p>Force 1:1 scaling, i.e., output (or input, see <a class="reference internal" href="#i"><span><strong>-I</strong></span></a></strong>) data are in
 actual projected meters [<strong>e</strong>]. To specify other units, append
 <strong>f</strong> (foot), <strong>k</strong> (km), <strong>M</strong> (statute mile), <strong>n</strong> (nautical
 mile), <strong>u</strong> (US survey foot), <strong>i</strong> (inch), <strong>c</strong> (cm), or <strong>p</strong>
-(point). Without <strong>-F</strong>, the output (or input, see <strong>-I</strong>) are in
-the units specified by <a class="reference internal" href="gmt.conf.html#term-PROJ_LENGTH_UNIT"><span class="xref std std-term">PROJ_LENGTH_UNIT</span></a> (but see <strong>-M</strong>).</p>
+(point). Without <a class="reference internal" href="#f"><span><strong>-F</strong></span></a></strong>, the output (or input, see <a class="reference internal" href="#i"><span><strong>-I</strong></span></a></strong>) are in
+the units specified by <a class="reference internal" href="gmt.conf.html#term-PROJ_LENGTH_UNIT"><span class="xref std std-term">PROJ_LENGTH_UNIT</span></a> (but see <a class="reference internal" href="#m"><span><strong>-M</strong></span></a></strong>).</p>
 </dd>
 </dl>
 <dl class="simple" id="i">
@@ -285,7 +289,7 @@ the units specified by <a class="reference internal" href="gmt.conf.html#term-PR
 <dl class="simple" id="m">
 <dt><strong>-Mc</strong>|<strong>i</strong>|<strong>p</strong></dt><dd><p>Append <strong>c</strong>, <strong>i</strong>, or <strong>p</strong> to indicate that cm, inch, or point
 should be the projected measure unit [Default is set by
-<a class="reference internal" href="gmt.conf.html#term-PROJ_LENGTH_UNIT"><span class="xref std std-term">PROJ_LENGTH_UNIT</span></a> in <a class="reference internal" href="gmt.conf.html"><span class="doc">gmt.conf</span></a>]. Cannot be used with <strong>-F</strong>.</p>
+<a class="reference internal" href="gmt.conf.html#term-PROJ_LENGTH_UNIT"><span class="xref std std-term">PROJ_LENGTH_UNIT</span></a> in <a class="reference internal" href="gmt.conf.html"><span class="doc">gmt.conf</span></a>]. Cannot be used with <a class="reference internal" href="#f"><span><strong>-F</strong></span></a></strong>.</p>
 </dd>
 </dl>
 <dl class="simple" id="r">
@@ -306,7 +310,7 @@ should be the projected measure unit [Default is set by
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (NOTE: on Windows just use <strong>-</strong>).</p>
+<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (<strong>Note</strong>: on Windows just use <strong>-</strong>).</p>
 </dd>
 <dt><strong>-+</strong> or just <strong>+</strong></dt><dd><p>Print an extensive usage (help) message, including the explanation of
 any module-specific option (but not the GMT common options), then exit.</p>
@@ -382,8 +386,8 @@ than you are interested in.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, The GMT Team..
-      <span class="lastupdated">Last updated on Nov 18, 2021.
+    <p>&#169; Copyright 2022, The GMT Team..
+      <span class="lastupdated">Last updated on May 10, 2022.
       </span></p>
   </div>
 

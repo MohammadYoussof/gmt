@@ -2,16 +2,16 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>grdselect &mdash; GMT 6.3.0 documentation</title>
+  <title>grdselect &mdash; GMT 6.4.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
       <link rel="stylesheet" href="_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.png"/>
@@ -23,9 +23,12 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/togglebutton.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
+        <script>let toggleHintShow = 'Click to show example script';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -48,7 +51,7 @@
             <a href="index.html" class="icon icon-home"> GMT
           </a>
               <div class="version">
-                6.3
+                6.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -64,6 +67,7 @@
 <li class="toctree-l1"><a class="reference internal" href="gallery.html">Example Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="animations.html">Animations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_jl.html">Tutorial in Julia</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -157,7 +161,6 @@
 [ <a class="reference internal" href="#l"><span><strong>-L</strong></span></a></strong><em>linefile</em> ]
 [ <a class="reference internal" href="#m"><span><strong>-M</strong></span></a></strong><em>margins</em> ]
 [ <a class="reference internal" href="#n"><span><strong>-N</strong></span></a></strong><strong>l</strong>|<strong>h</strong>[<em>n</em>] ]
-[ <a class="reference internal" href="#q"><span><strong>-Q</strong></span></a></strong> ]
 [ <a class="reference internal" href="#r"><span><strong>-R</strong></span></a></strong><em>region</em> ]
 [ <a class="reference internal" href="#v"><span><strong>-V</strong></span></a></strong>[<em>level</em>] ]
 [ <a class="reference internal" href="#w"><span><strong>-W</strong></span></a></strong>[<em>wmin</em>/<em>wmax</em>] ]
@@ -183,7 +186,7 @@ is new in GMT 6.3.0 and is considered <em>experimental</em>.</p>
 <p><em>ingrid</em>[=<em>ID</em>|?<em>varname</em>][<strong>+b</strong><em>band</em>][<strong>+d</strong><em>divisor</em>][<strong>+n</strong><em>invalid</em>]
 [<strong>+o</strong><em>offset</em>][<strong>+s</strong><em>scale</em>]</p>
 <blockquote>
-<div><p>The name of one or several 2-D grid, image or 3-D cube files. Optionally, append =<em>ID</em> for reading a specific file
+<div><p>The name of one or several 2-D grid, image or 3-D cube files.  <strong>Note</strong>: You cannot mix 2-D and 3-D files. Optionally, append =<em>ID</em> for reading a specific file
 format [Default is =<em>nf</em>] or ?<em>varname</em> for a specific netCDF variable
 [Default is the first 2-D grid found by GMT]
 (<a class="reference internal" href="gmt.html#grd-inout-full"><span class="std std-ref">See full description</span></a>). The following modifiers are
@@ -209,7 +212,7 @@ tests (if any) or the maximum extent of all the sources that passed the tests.
 Optionally, append modifier <strong>+i</strong> and specify a rounding increment to be applied
 to the final region: Specify <strong>l</strong> for the lowest increment of all passed data
 sources, <strong>h</strong> for the highest increment, or <em>inc</em> to set a specific increment.
-If <strong>-A</strong> is not used then we just list the names of the sources that passed
+If <a class="reference internal" href="#a"><span><strong>-A</strong></span></a></strong> is not used then we just list the names of the sources that passed
 (or not; see <a class="reference internal" href="#i"><span><strong>-I</strong></span></a></strong>) any tests selected from <a class="reference internal" href="#c"><span><strong>-C</strong></span></a></strong> <a class="reference internal" href="#d"><span><strong>-D</strong></span></a></strong> <a class="reference internal" href="#f"><span><strong>-F</strong></span></a></strong> <a class="reference internal" href="#l"><span><strong>-L</strong></span></a></strong> <a class="reference internal" href="#n"><span><strong>-N</strong></span></a></strong> <a class="reference internal" href="#r"><span><strong>-R</strong></span></a></strong> <a class="reference internal" href="#w"><span><strong>-W</strong></span></a></strong> <a class="reference internal" href="#z"><span><strong>-Z</strong></span></a></strong> <a class="reference internal" href="#r"><span><strong>-R</strong></span></a></strong>.</p>
 </dd>
 </dl>
@@ -227,7 +230,7 @@ consider the increments when passing or skipping data sources].</p>
 </dl>
 <dl class="simple" id="e">
 <dt><strong>-E</strong>[<strong>b</strong>]</dt><dd><p>Formats an output data record using tab-separated fields on a single line. The
-columns are <em>w e s n {b t} v0 v1</em>. The data in braces only apply if <a class="reference internal" href="#q"><span><strong>-Q</strong></span></a></strong> is
+columns are <em>w e s n {b t} v0 v1</em>. The data in braces only apply if <strong>grdselect</strong> is
 used with 3-D data cubes [Default outputs a single -Rw/e/s/n{/b/t} string].
 Alternatively, append directive <strong>b</strong> to output the region’s closed polygon.
 <strong>Note</strong>: The <em>v0 v1</em> range reflects the full range of all data nodes that lie
@@ -260,7 +263,7 @@ to report the requested information [Default is to refuse to give the informatio
 <li><p><strong>N</strong> - select data sources <em>failing</em> the NaN criterion in <a class="reference internal" href="#n"><span><strong>-N</strong></span></a></strong>.</p></li>
 <li><p><strong>R</strong> - select data sources <em>not</em> having any overlap with the region set in <a class="reference internal" href="#r"><span><strong>-R</strong></span></a></strong>.</p></li>
 <li><p><strong>W</strong> - select data sources whose data range do <em>not</em> overlap the range specified by <a class="reference internal" href="#w"><span><strong>-W</strong></span></a></strong>.</p></li>
-<li><p><strong>Z</strong> - select cubes whose z-dimension range do <em>not</em> overlap the range specified by <a class="reference internal" href="#z"><span><strong>-Z</strong></span></a></strong> (requires <a class="reference internal" href="#q"><span><strong>-Q</strong></span></a></strong>).</p></li>
+<li><p><strong>Z</strong> - select cubes whose z-dimension range do <em>not</em> overlap the range specified by <a class="reference internal" href="#z"><span><strong>-Z</strong></span></a></strong>.</p></li>
 <li><p><strong>r</strong> - select data sources <em>not</em> having the specified registration specified by <a class="reference internal" href="#r"><span><strong>-R</strong></span></a></strong>.</p></li>
 </ul>
 </div></blockquote>
@@ -286,12 +289,8 @@ a single value (use the same margin on all sides), a pair of values separated by
 <strong>Note</strong>: Cannot be used with images.</p>
 </dd>
 </dl>
-<dl class="simple" id="q">
-<dt><strong>-Q</strong></dt><dd><p>All input files must be data 3-D netCDF data cube files [Default is all files are 2-D grids or images].</p>
-</dd>
-</dl>
 <dl class="simple" id="r">
-<dt><strong>-R</strong><em>xmin</em>/<em>xmax</em>/<em>ymin</em>/<em>ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>]</dt><dd><p>Specify the region of interest. Using the <strong>-R</strong> option will in essence supply another region that will be included in the computation via <a class="reference internal" href="#a"><span><strong>-A</strong></span></a></strong>, as well as limit the reading to that subset. If <a class="reference internal" href="#q"><span><strong>-Q</strong></span></a></strong> is used you must also
+<dt><strong>-R</strong><em>xmin</em>/<em>xmax</em>/<em>ymin</em>/<em>ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>]</dt><dd><p>Specify the region of interest. Using the <a class="reference internal" href="#r"><span><strong>-R</strong></span></a></strong> option will in essence supply another region that will be included in the computation via <a class="reference internal" href="#a"><span><strong>-A</strong></span></a></strong>, as well as limit the reading to that subset. For 3-D cubes you must also
 append limits in the <em>z</em> dimension. <a class="reference internal" href="gmt.html#r-full"><span class="std std-ref">(See full description)</span></a> <a class="reference internal" href="cookbook/options.html#data-domain-or-map-region-the-r-option"><span class="std std-ref">(See cookbook information)</span></a>.</p>
 </dd>
 </dl>
@@ -302,7 +301,7 @@ given it defaults to -infinity, while if <em>wmax</em> is not given it defaults 
 </dd>
 </dl>
 <dl class="simple" id="z">
-<dt><strong>-Z</strong>[<em>zmin</em>]/[<em>zmax</em>]</dt><dd><p>Requires <a class="reference internal" href="#q"><span><strong>-Q</strong></span></a></strong>. Only pass cubes whose <em>z</em>-dimension range overlaps with the specified range.  If <em>zmin</em> is not
+<dt><strong>-Z</strong>[<em>zmin</em>]/[<em>zmax</em>]</dt><dd><p>Only pass 3-D cubes whose <em>z</em>-dimension range overlaps with the specified range.  If <em>zmin</em> is not
 given it defaults to -infinity, while if <em>zmax</em> is not given it defaults to +infinity.</p>
 </dd>
 </dl>
@@ -328,7 +327,7 @@ determining which data sources to pass or skip].</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (NOTE: on Windows just use <strong>-</strong>).</p>
+<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (<strong>Note</strong>: on Windows just use <strong>-</strong>).</p>
 </dd>
 <dt><strong>-+</strong> or just <strong>+</strong></dt><dd><p>Print an extensive usage (help) message, including the explanation of
 any module-specific option (but not the GMT common options), then exit.</p>
@@ -359,7 +358,7 @@ gmt grdselect *.nc -Au -M2
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt grdselect *.nc -Nh10 -rp
 </pre></div>
 </div>
-<p>To list all the grids that are entirely included by the polygon in my_data_area.txt, try:</p>
+<p>To list all the grids that are entirely included by the polygon in wesn_polygon.txt, try:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt grdselect *.nc -Fwesn_polygon.txt+i
 </pre></div>
 </div>
@@ -385,8 +384,8 @@ gmt grdselect *.nc -Au -M2
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, The GMT Team..
-      <span class="lastupdated">Last updated on Nov 18, 2021.
+    <p>&#169; Copyright 2022, The GMT Team..
+      <span class="lastupdated">Last updated on May 10, 2022.
       </span></p>
   </div>
 

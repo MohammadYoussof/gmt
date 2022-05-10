@@ -2,16 +2,16 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>gmtgravmag3d &mdash; GMT 6.3.0 documentation</title>
+  <title>gmtgravmag3d &mdash; GMT 6.4.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/togglebutton.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
@@ -23,9 +23,12 @@
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/togglebutton.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
         <script src="../../_static/copybutton.js"></script>
+        <script>let toggleHintShow = 'Click to show example script';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../../_static/togglebutton.js"></script>
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -48,7 +51,7 @@
             <a href="../../index.html" class="icon icon-home"> GMT
           </a>
               <div class="version">
-                6.3
+                6.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -64,6 +67,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../gallery.html">Example Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../animations.html">Animations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial_jl.html">Tutorial in Julia</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -169,7 +173,7 @@ fast but allows computing the anomaly of arbitrarily complex shapes.</p>
 <section id="required-arguments-not-all">
 <h2>Required Arguments (not all)<a class="headerlink" href="#required-arguments-not-all" title="Permalink to this headline">¶</a></h2>
 <dl class="simple" id="c">
-<dt><strong>-C</strong><em>density</em></dt><dd><p>Sets body density in SI. This option is mutually exclusive with <strong>-H</strong>.</p>
+<dt><strong>-C</strong><em>density</em></dt><dd><p>Sets body density in SI. This option is mutually exclusive with <a class="reference internal" href="#h"><span><strong>-H</strong></span></a></strong>.</p>
 </dd>
 </dl>
 <dl class="simple" id="h">
@@ -180,7 +184,7 @@ declination and inclination.</p>
 </dl>
 <dl class="simple" id="f">
 <dt><strong>-F</strong><em>xy_file</em></dt><dd><p>Provide locations where the anomaly will be computed. Note this
-option is mutually exclusive with <strong>-G</strong>.</p>
+option is mutually exclusive with <a class="reference internal" href="#g"><span><strong>-G</strong></span></a></strong>.</p>
 </dd>
 </dl>
 <span class="target" id="g"></span><p><strong>-G</strong><em>outgrid</em>[=<em>ID</em>][<strong>+d</strong><em>divisor</em>][<strong>+n</strong><em>invalid</em>]
@@ -203,7 +207,7 @@ is 1].</p></li>
 </ul>
 </div></blockquote>
 <p>Note: Any offset is added before any scaling. <strong>+sa</strong> also sets <strong>+oa</strong>
-(unless overridden). To write specific formats via GDAL, use = <em>gd</em>
+(unless overridden). To write specific formats via GDAL, use =<em>gd</em>
 and supply <em>driver</em> (and optionally <em>dataType</em>) and/or one or more
 concatenated GDAL <strong>-co</strong> options using <strong>+c</strong>. See
 the <a class="reference internal" href="../../cookbook/features.html#write-grids-images"><span class="std std-ref">“Writing grids and images” cookbook section</span></a>
@@ -237,9 +241,9 @@ no current way of selecting distinct densities or magnetic parameters for each b
 <dt><strong>-Tv</strong><em>vert_file</em> (must have when passing a <em>xyz_file</em>) OR <strong>-Tr|s</strong><em>raw_file</em></dt><dd><p>Gives names of a xyz and vertex (<strong>-Tv</strong><em>vert_file</em>) files defining a close surface.
 The file formats correspond to the output of the <a class="reference internal" href="../../triangulate.html"><span class="doc">triangulate</span></a> program.
 The <em>xyz</em> file can have 3, 4, 5, 6 or 8 columns. In first case (3 columns) the magnetization (or density) are
-assumed constant (controlled by <strong>-C</strong> or <strong>-H</strong>). Following cases are: 4 columns -&gt; 4rth col magnetization intensity;
+assumed constant (controlled by <a class="reference internal" href="#c"><span><strong>-C</strong></span></a></strong> or <a class="reference internal" href="#h"><span><strong>-H</strong></span></a></strong>). Following cases are: 4 columns -&gt; 4rth col magnetization intensity;
 5 columns: mag, mag dip; 6 columns: mag, mag dec, mag dip; 8 columns: field dec, field dip, mag, mag dec, mag dip.
-When n columns &gt; 3 the third argument of the <strong>-H</strong> option is ignored. A <em>raw</em> format (selected by the <strong>-Tr</strong> option)
+When n columns &gt; 3 the third argument of the <a class="reference internal" href="#h"><span><strong>-H</strong></span></a></strong> option is ignored. A <em>raw</em> format (selected by the <strong>-Tr</strong> option)
 is a file with N rows (one per triangle) and 9 columns corresponding to the x,y,x coordinates of each of the three
 vertex of each triangle. Alternatively, the <strong>-Ts</strong> option indicates that the surface file is in the ASCII STL
 (Stereo Lithographic) format. These two type of files are used to provide a closed surface.</p>
@@ -281,7 +285,7 @@ meters via a “Flat Earth” approximation using the current ellipsoid paramete
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (NOTE: on Windows just use <strong>-</strong>).</p>
+<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (<strong>Note</strong>: on Windows just use <strong>-</strong>).</p>
 </dd>
 <dt><strong>-+</strong> or just <strong>+</strong></dt><dd><p>Print an extensive usage (help) message, including the explanation of
 any module-specific option (but not the GMT common options), then exit.</p>
@@ -314,9 +318,9 @@ with -10 deg of declination and 40 deg of inclination, do:</p>
 </section>
 <section id="reference">
 <h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
-<p>Okabe, M., Analytical expressions for gravity anomalies due to
+<p>Okabe, M., 1979, Analytical expressions for gravity anomalies due to
 polyhedral bodies and translation into magnetic anomalies, <em>Geophysics</em>,
-44, (1979), p 730-741.</p>
+44, 730-741.</p>
 </section>
 </section>
 
@@ -331,8 +335,8 @@ polyhedral bodies and translation into magnetic anomalies, <em>Geophysics</em>,
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, The GMT Team..
-      <span class="lastupdated">Last updated on Nov 18, 2021.
+    <p>&#169; Copyright 2022, The GMT Team..
+      <span class="lastupdated">Last updated on May 10, 2022.
       </span></p>
   </div>
 

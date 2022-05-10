@@ -2,16 +2,16 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>mgd77convert &mdash; GMT 6.3.0 documentation</title>
+  <title>mgd77convert &mdash; GMT 6.4.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/togglebutton.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
@@ -23,9 +23,12 @@
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/togglebutton.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
         <script src="../../_static/copybutton.js"></script>
+        <script>let toggleHintShow = 'Click to show example script';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../../_static/togglebutton.js"></script>
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -48,7 +51,7 @@
             <a href="../../index.html" class="icon icon-home"> GMT
           </a>
               <div class="version">
-                6.3
+                6.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -64,6 +67,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../gallery.html">Example Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../animations.html">Animations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial_jl.html">Tutorial in Julia</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -208,7 +212,7 @@ directory. Append <strong>+f</strong> to force an override of this policy.</p>
 <h2>Optional Arguments<a class="headerlink" href="#optional-arguments" title="Permalink to this headline">¶</a></h2>
 <dl class="simple" id="c">
 <dt><strong>-C</strong></dt><dd><p>Convert from NCEI two-file data sets *.h77, *.a77 to single file
-*.mgd77. No other options (except <strong>-V</strong>) are allowed. Give one or
+*.mgd77. No other options (except <a class="reference internal" href="#v"><span><strong>-V</strong></span></a></strong>) are allowed. Give one or
 more names of *.h77 files, *.a77 files, or just the file prefixes.</p>
 </dd>
 </dl>
@@ -226,7 +230,7 @@ option activates such storage [Default uses 2-byte integers].</p>
 <dl class="simple" id="l">
 <dt><strong>-L</strong>[<strong>w</strong>][<strong>e</strong>][<strong>+l</strong>]</dt><dd><p>Set the level of verification reporting [none] and where to send
 such reports [stderr]. Append a combination of <strong>w</strong> for warnings and
-<strong>e</strong> for errors, and append <strong>+l</strong> to send such log information to stdout.</p>
+<strong>e</strong> for errors, and append <strong>+l</strong> to send such log information to standard output.</p>
 </dd>
 </dl>
 <dl class="simple" id="v">
@@ -234,7 +238,7 @@ such reports [stderr]. Append a combination of <strong>w</strong> for warnings a
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (NOTE: on Windows just use <strong>-</strong>).</p>
+<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (<strong>Note</strong>: on Windows just use <strong>-</strong>).</p>
 </dd>
 <dt><strong>-+</strong> or just <strong>+</strong></dt><dd><p>Print an extensive usage (help) message, including the explanation of
 any module-specific option (but not the GMT common options), then exit.</p>
@@ -323,6 +327,8 @@ examined with general-purpose tools such as ncBrowse and ncView.</p>
 ncView, see <a class="reference external" href="https://cirrus.ucsd.edu/~pierce/software/ncview/index.html">https://cirrus.ucsd.edu/~pierce/software/ncview/index.html</a>
 The Marine Geophysical Data Exchange Format - “MGD77”, see
 <a class="reference external" href="https://www.ngdc.noaa.gov/mgg/dat/geodas/docs/mgd77.txt">https://www.ngdc.noaa.gov/mgg/dat/geodas/docs/mgd77.txt</a></p>
+<p>Wessel, P., and Chandler, M. T., 2007, The mgd77 supplement to the Generic Mapping Tools,
+<em>Comp. Geosci.</em>, <strong>33</strong>(1), 62-75, <a class="reference external" href="https://doi.org/10.1023/A:1021744224009">https://doi.org/10.1023/A:1021744224009</a>.</p>
 </section>
 </section>
 
@@ -337,8 +343,8 @@ The Marine Geophysical Data Exchange Format - “MGD77”, see
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, The GMT Team..
-      <span class="lastupdated">Last updated on Nov 18, 2021.
+    <p>&#169; Copyright 2022, The GMT Team..
+      <span class="lastupdated">Last updated on May 10, 2022.
       </span></p>
   </div>
 

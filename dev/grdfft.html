@@ -2,16 +2,16 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>grdfft &mdash; GMT 6.3.0 documentation</title>
+  <title>grdfft &mdash; GMT 6.4.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
       <link rel="stylesheet" href="_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.png"/>
@@ -23,9 +23,12 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/togglebutton.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
+        <script>let toggleHintShow = 'Click to show example script';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -48,7 +51,7 @@
             <a href="index.html" class="icon icon-home"> GMT
           </a>
               <div class="version">
-                6.3
+                6.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -64,6 +67,7 @@
 <li class="toctree-l1"><a class="reference internal" href="gallery.html">Example Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="animations.html">Animations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_jl.html">Tutorial in Julia</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -196,7 +200,7 @@ supported:</p>
 <p>Note: Any offset is added after any scaling.</p>
 </div></blockquote>
 <dl class="simple">
-<dt><strong>-G</strong><em>outfile</em></dt><dd><p>Specify the name of the output grid file (see <a class="reference internal" href="gmt.html#grd-inout-full"><span class="std std-ref">Grid File Formats</span></a>) or the 1-D spectrum table (see <strong>-E</strong>).</p>
+<dt><strong>-G</strong><em>outfile</em></dt><dd><p>Specify the name of the output grid file (see <a class="reference internal" href="gmt.html#grd-inout-full"><span class="std std-ref">Grid File Formats</span></a>) or the 1-D spectrum table (see <a class="reference internal" href="#e"><span><strong>-E</strong></span></a></strong>).</p>
 </dd>
 </dl>
 </section>
@@ -223,11 +227,11 @@ heights in meters and output should be gravity anomalies in mGal.
 </dl>
 <dl class="simple" id="e">
 <dt><strong>-E</strong>[<strong>r</strong>|<strong>x</strong>|<strong>y</strong>][<strong>+w</strong>[<strong>k</strong>]][<strong>+n</strong>]</dt><dd><p>Estimate power spectrum in the radial direction [<strong>r</strong>]. Place
-<strong>x</strong> or <strong>y</strong> immediately after <strong>-E</strong> to compute the spectrum in
+<strong>x</strong> or <strong>y</strong> immediately after <a class="reference internal" href="#e"><span><strong>-E</strong></span></a></strong> to compute the spectrum in
 the x or y direction instead. No grid file is created. If one grid
 is given then f (i.e., frequency or wave number), power[f],
 and 1 standard deviation in power[f] are written to the file set by
-<strong>-G</strong> [stdout]. If two grids are given we write f and 8 quantities:
+<a class="reference internal" href="#g"><span><strong>-G</strong></span></a></strong> [standard output]. If two grids are given we write f and 8 quantities:
 Xpower[f], Ypower[f], coherent power[f], noise power[f], phase[f],
 admittance[f], gain[f], coherency[f].  Each quantity is followed by
 its own 1-std dev error estimate, hence the output is 17 columns wide.
@@ -239,7 +243,7 @@ mean spectral values per frequency are reported instead.</p>
 </dd>
 </dl>
 <dl id="f">
-<dt><strong>-F</strong>[<strong>r</strong>|<strong>x</strong>|<strong>y</strong>]<em>params</em></dt><dd><p>Filter the data. Place <strong>x</strong> or <strong>y</strong> immediately after <strong>-F</strong> to
+<dt><strong>-F</strong>[<strong>r</strong>|<strong>x</strong>|<strong>y</strong>]<em>params</em></dt><dd><p>Filter the data. Place <strong>x</strong> or <strong>y</strong> immediately after <a class="reference internal" href="#f"><span><strong>-F</strong></span></a></strong> to
 filter <em>x</em> or <em>y</em> direction only; default is isotropic [<strong>r</strong>].
 Choose between a cosine-tapered band-pass, a Gaussian band-pass
 filter, or a Butterworth band-pass filter.</p>
@@ -280,8 +284,8 @@ using a 2nd-order Butterworth filter, with half-weight at 30, while
 </dd>
 </dl>
 <dl class="simple" id="g">
-<dt><strong>-G</strong><em>outfile</em>|<em>table</em></dt><dd><p>Filename for output netCDF grid file OR 1-D data table (see <strong>-E</strong>).
-This is optional for -E (spectrum written to stdout) but mandatory for
+<dt><strong>-G</strong><em>outfile</em>|<em>table</em></dt><dd><p>Filename for output netCDF grid file OR 1-D data table (see <a class="reference internal" href="#e"><span><strong>-E</strong></span></a></strong>).
+This is optional for -E (spectrum written to standard output) but mandatory for
 all other options that require a grid output.</p>
 </dd>
 </dl>
@@ -341,7 +345,7 @@ default we write the real and imaginary components to
 </dd>
 </dl>
 <dl class="simple" id="q">
-<dt><strong>-Q</strong></dt><dd><p>Selects no wavenumber operations. Useful in conjunction with <strong>-N</strong> modifiers
+<dt><strong>-Q</strong></dt><dd><p>Selects no wavenumber operations. Useful in conjunction with <a class="reference internal" href="#n"><span><strong>-N</strong></span></a></strong> modifiers
 when you wish to write out the 2-D spectrum (or other intermediate grid products)
 only.</p>
 </dd>
@@ -360,7 +364,7 @@ meters via a “Flat Earth” approximation using the current ellipsoid paramete
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (NOTE: on Windows just use <strong>-</strong>).</p>
+<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (<strong>Note</strong>: on Windows just use <strong>-</strong>).</p>
 </dd>
 <dt><strong>-+</strong> or just <strong>+</strong></dt><dd><p>Print an extensive usage (help) message, including the explanation of
 any module-specific option (but not the GMT common options), then exit.</p>
@@ -386,7 +390,7 @@ using <a class="reference internal" href="grdproject.html"><span class="doc">grd
 </section>
 <section id="normalization-of-spectrum">
 <h2>Normalization of Spectrum<a class="headerlink" href="#normalization-of-spectrum" title="Permalink to this headline">¶</a></h2>
-<p>By default, the power spectrum returned by <strong>-E</strong> simply sums the contributions
+<p>By default, the power spectrum returned by <a class="reference internal" href="#e"><span><strong>-E</strong></span></a></strong> simply sums the contributions
 from frequencies that are part of the output frequency.  For <em>x</em>- or <em>y</em>-spectra
 this means summing the power across the other frequency dimension, while for the
 radial spectrum it means summing up power within each annulus of width <em>delta_q</em>,
@@ -470,8 +474,8 @@ components of the raw spectrum of the data in topo.nc, try:</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, The GMT Team..
-      <span class="lastupdated">Last updated on Nov 18, 2021.
+    <p>&#169; Copyright 2022, The GMT Team..
+      <span class="lastupdated">Last updated on May 10, 2022.
       </span></p>
   </div>
 

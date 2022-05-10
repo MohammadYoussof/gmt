@@ -2,16 +2,16 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>gmtselect &mdash; GMT 6.3.0 documentation</title>
+  <title>gmtselect &mdash; GMT 6.4.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
       <link rel="stylesheet" href="_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.png"/>
@@ -23,9 +23,12 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/togglebutton.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
+        <script>let toggleHintShow = 'Click to show example script';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -48,7 +51,7 @@
             <a href="index.html" class="icon icon-home"> GMT
           </a>
               <div class="version">
-                6.3
+                6.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -64,6 +67,7 @@
 <li class="toctree-l1"><a class="reference internal" href="gallery.html">Example Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="animations.html">Animations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_jl.html">Tutorial in Julia</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -158,11 +162,11 @@
 [ <a class="reference internal" href="#l"><span><strong>-L</strong></span></a></strong><em>linefile</em><strong>+d</strong><em>dist</em>[<strong>+p</strong>] ]
 [ <a class="reference internal" href="#n"><span><strong>-N</strong></span></a></strong><em>maskvalues</em> ]
 [ <a class="reference internal" href="#r"><span><strong>-R</strong></span></a></strong><em>region</em> ]
-[ <a class="reference internal" href="#z"><span><strong>-Z</strong></span></a></strong><em>min</em>[/<em>max</em>][<strong>+a</strong>][<strong>+c</strong><em>col</em>][<strong>+i</strong>] ]
 [ <a class="reference internal" href="#v"><span><strong>-V</strong></span></a></strong>[<em>level</em>] ]
+[ <a class="reference internal" href="#z"><span><strong>-Z</strong></span></a></strong><em>min</em>[/<em>max</em>][<strong>+a</strong>][<strong>+c</strong><em>col</em>][<strong>+i</strong>] ]
 [ <strong>-a</strong><a class="reference internal" href="gmt.html#aspatial-full"><span class="std std-ref">flags</span></a> ]
 [ <strong>-b</strong><a class="reference internal" href="gmt.html#bi-full"><span class="std std-ref">binary</span></a> ]
-[ <strong>-d</strong>[<strong>+c</strong><em>col</em>]<a class="reference internal" href="gmt.html#d-full"><span class="std std-ref">nodata</span></a> ]
+[ <strong>-d</strong><a class="reference internal" href="gmt.html#d-full"><span class="std std-ref">nodata</span></a>[<strong>+c</strong><em>col</em>] ]
 [ <strong>-e</strong><a class="reference internal" href="gmt.html#e-full"><span class="std std-ref">regexp</span></a> ]
 [ <strong>-f</strong><a class="reference internal" href="gmt.html#f-full"><span class="std std-ref">flags</span></a> ]
 [ <strong>-g</strong><a class="reference internal" href="gmt.html#g-full"><span class="std std-ref">gaps</span></a> ]
@@ -180,11 +184,11 @@
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
 <p><strong>select</strong> is a filter that reads (x, y) or (longitude, latitude) positions from the first 2 columns of <em>infiles</em>
 [or standard input] and uses a combination of 1-7 criteria to pass or reject the records. Records can be
-selected based on whether or not they are 1) inside a rectangular region (<strong>-R</strong> [and <strong>-J</strong>]), 2) within
+selected based on whether or not they are 1) inside a rectangular region (<a class="reference internal" href="#r"><span><strong>-R</strong></span></a></strong> [and <a class="reference internal" href="#j"><span><strong>-J</strong></span></a></strong>]), 2) within
 <em>dist</em> km of any point in <em>pointfile</em>, 3) within <em>dist</em> km of any line in <em>linefile</em>, 4) inside one of the
 polygons in the <em>polygonfile</em>, 5) inside geographical features (based on coastlines), 6) has z-values
 within a given range, or 7) inside bins of a grid mask whose nodes are non-zero. The sense of the tests can
-be reversed for each of these 7 criteria by using the <strong>-I</strong> option. See option <strong>-:</strong> on how to read
+be reversed for each of these 7 criteria by using the <a class="reference internal" href="#i"><span><strong>-I</strong></span></a></strong> option. See option <strong>-:</strong> on how to read
 (y,x) or (latitude,longitude) files (this option affects all module input data).  <strong>Note</strong>: If no projection
 information is used then you must supply <strong>-fg</strong> to tell <strong>select</strong> that your data are geographical.</p>
 </section>
@@ -214,7 +218,7 @@ add <strong>g</strong> to select the ice grounding line instead.  For expert
 users who wish to utilize their own Antarctica (with islands) coastline
 you can add <strong>s</strong> to skip all GSHHG features below 60S. In contrast, you
 can add <strong>S</strong> to instead skip all features <em>north</em> of 60S.  See
-GSHHG INFORMATION below for more details. Ignored unless <strong>-N</strong> is set.</p>
+GSHHG INFORMATION below for more details. Ignored unless <a class="reference internal" href="#n"><span><strong>-N</strong></span></a></strong> is set.</p>
 </dd>
 </dl>
 <dl class="simple" id="c">
@@ -225,14 +229,14 @@ influence. . If you only have a single point then you can specify
 <em>lon</em>/<em>lat</em> instead of <em>pointfile</em>.  Distances are Cartesian and in
 user units; specify <strong>-fg</strong> to indicate spherical distances and
 append a distance unit, even if the distance specified is 0.
-(see <a class="reference internal" href="#units">Units</a>). Alternatively, if <strong>-R</strong> and <strong>-J</strong> are used then
+(see <a class="reference internal" href="#units">Units</a>). Alternatively, if <a class="reference internal" href="#r"><span><strong>-R</strong></span></a></strong> and <a class="reference internal" href="#j"><span><strong>-J</strong></span></a></strong> are used then
 geographic coordinates are projected to map coordinates (in cm,
 inch, or points, as determined by <a class="reference internal" href="gmt.conf.html#term-PROJ_LENGTH_UNIT"><span class="xref std std-term">PROJ_LENGTH_UNIT</span></a>) before
 Cartesian distances are compared to <em>dist</em>.</p>
 </dd>
 </dl>
 <dl class="simple" id="d">
-<dt><strong>-D</strong><em>resolution</em>[<strong>+f</strong>]</dt><dd><p>Ignored unless <strong>-N</strong> is set. Selects the resolution of the
+<dt><strong>-D</strong><em>resolution</em>[<strong>+f</strong>]</dt><dd><p>Ignored unless <a class="reference internal" href="#n"><span><strong>-N</strong></span></a></strong> is set. Selects the resolution of the
 coastline data set to use ((<strong>f</strong>)ull, (<strong>h</strong>)igh,
 (<strong>i</strong>)ntermediate, (<strong>l</strong>)ow, or (<strong>c</strong>)rude). The resolution drops
 off by ~80% between data sets. [Default is <strong>l</strong>]. Append (<strong>+f</strong>) to
@@ -246,7 +250,7 @@ inside [or outside] when a different resolution is selected.</p>
 <dt><strong>-E</strong>[<strong>f</strong>][<strong>n</strong>]</dt><dd><p>Specify how points exactly on a polygon boundary should be
 considered. By default, such points are considered to be inside the
 polygon. Append <strong>f</strong> and/or <strong>n</strong> to change this behavior for the
-<strong>-F</strong> and/or <strong>-N</strong> options, respectively, so that boundary points are
+<a class="reference internal" href="#f"><span><strong>-F</strong></span></a></strong> and/or <a class="reference internal" href="#n"><span><strong>-N</strong></span></a></strong> options, respectively, so that boundary points are
 considered to be outside.</p>
 </dd>
 </dl>
@@ -268,12 +272,12 @@ Nodes that are outside are either NaN or zero.</p>
 <ul class="simple">
 <li><p><strong>c</strong> - select records NOT inside any point’s circle of influence.</p></li>
 <li><p><strong>f</strong> - select records NOT inside any of the polygons.</p></li>
-<li><p><strong>g</strong> - pass records inside the cells with z equal zero of the grid mask in <strong>-G</strong>.</p></li>
+<li><p><strong>g</strong> - pass records inside the cells with z equal zero of the grid mask in <a class="reference internal" href="#g"><span><strong>-G</strong></span></a></strong>.</p></li>
 <li><p><strong>l</strong> - select records NOT within the specified distance of any line.</p></li>
 <li><p><strong>r</strong> - select records NOT inside the specified rectangular region.</p></li>
-<li><p><strong>s</strong> - select records NOT considered inside as specified by <strong>-N</strong>
-(and <strong>-A</strong>, <strong>-D</strong>).</p></li>
-<li><p><strong>z</strong> - select records NOT within the range specified by <strong>-Z</strong>.</p></li>
+<li><p><strong>s</strong> - select records NOT considered inside as specified by <a class="reference internal" href="#n"><span><strong>-N</strong></span></a></strong>
+(and <a class="reference internal" href="#a"><span><strong>-A</strong></span></a></strong>, <a class="reference internal" href="#d"><span><strong>-D</strong></span></a></strong>).</p></li>
+<li><p><strong>z</strong> - select records NOT within the range specified by <a class="reference internal" href="#z"><span><strong>-Z</strong></span></a></strong>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -289,7 +293,7 @@ zero then we will scan each sub-header in the <em>linefile</em> for an
 embedded <strong>-D</strong><em>dist</em> setting that sets each line’s individual
 distance value. Distances are Cartesian and in user units; specify
 <strong>-fg</strong> to indicate spherical distances append a distance unit (see
-<a class="reference internal" href="#units">Units</a>). Alternatively, if <strong>-R</strong> and <strong>-J</strong> are used then geographic
+<a class="reference internal" href="#units">Units</a>). Alternatively, if <a class="reference internal" href="#r"><span><strong>-R</strong></span></a></strong> and <a class="reference internal" href="#j"><span><strong>-J</strong></span></a></strong> are used then geographic
 coordinates are projected to map coordinates (in cm, inch, m, or
 points, as determined by <a class="reference internal" href="gmt.conf.html#term-PROJ_LENGTH_UNIT"><span class="xref std std-term">PROJ_LENGTH_UNIT</span></a>) before Cartesian
 distances are compared to <em>dist</em>. Append <strong>+p</strong> to ensure only points
@@ -329,7 +333,7 @@ is given then the <strong>-Iz</strong> option cannot be used.  In the case of mu
 you may use these modifiers as well: <strong>+a</strong> passes any record that passes at least
 one of your <em>z</em> tests [Default is all tests must pass], and <strong>+i</strong> reverses the
 tests to pass record with <em>z</em> value NOT in the given range.  Finally, if <strong>+c</strong> is
-not used then it is automatically incremented for each new <strong>-Z</strong> option, starting
+not used then it is automatically incremented for each new <a class="reference internal" href="#z"><span><strong>-Z</strong></span></a></strong> option, starting
 with 2.</p>
 </dd>
 </dl>
@@ -374,7 +378,7 @@ with 2.</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-q</strong>[<strong>i</strong>|<strong>o</strong>][~]<em>rows</em>|<em>limits</em>[<strong>+c</strong><em>col</em>][<strong>+a</strong>|<strong>f</strong>|<strong>s</strong>] <a class="reference internal" href="gmt.html#q-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input or output rows or data limit(s) [all].</p>
+<dt><strong>-q</strong>[<strong>i</strong>|<strong>o</strong>][~]<em>rows</em>|<em>limits</em>[<strong>+c</strong><em>col</em>][<strong>+a</strong>|<strong>t</strong>|<strong>s</strong>] <a class="reference internal" href="gmt.html#q-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input or output rows or data limit(s) [all].</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -390,7 +394,7 @@ with 2.</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (NOTE: on Windows just use <strong>-</strong>).</p>
+<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (<strong>Note</strong>: on Windows just use <strong>-</strong>).</p>
 </dd>
 <dt><strong>-+</strong> or just <strong>+</strong></dt><dd><p>Print an extensive usage (help) message, including the explanation of
 any module-specific option (but not the GMT common options), then exit.</p>
@@ -404,7 +408,7 @@ any module-specific option (but not the GMT common options), then exit.</p>
 <section id="units">
 <h2>Units<a class="headerlink" href="#units" title="Permalink to this headline">¶</a></h2>
 <p>For map distance unit, append <em>unit</em> <strong>d</strong> for arc degree, <strong>m</strong> for arc
-minute, and <strong>s</strong> for arc second, or <strong>e</strong> for meter [Default], <strong>f</strong>
+minute, and <strong>s</strong> for arc second, or <strong>e</strong> for meter [Default unless stated otherwise], <strong>f</strong>
 for foot, <strong>k</strong> for km, <strong>M</strong> for statute mile, <strong>n</strong> for nautical mile,
 and <strong>u</strong> for US survey foot. By default we compute such distances using
 a spherical approximation with great circles (<strong>-jg</strong>) using the authalic radius
@@ -439,17 +443,17 @@ not, comments, and other non-numerical content.</p>
 </section>
 <section id="note-on-distances">
 <h2>Note On Distances<a class="headerlink" href="#note-on-distances" title="Permalink to this headline">¶</a></h2>
-<p>If options <strong>-C</strong> or <strong>-L</strong> are selected then distances are Cartesian
+<p>If options <a class="reference internal" href="#c"><span><strong>-C</strong></span></a></strong> or <a class="reference internal" href="#l"><span><strong>-L</strong></span></a></strong> are selected then distances are Cartesian
 and in user units; use <strong>-fg</strong> to imply spherical distances in km and
-geographical (lon, lat) coordinates. Alternatively, specify <strong>-R</strong> and
+geographical (lon, lat) coordinates. Alternatively, specify <a class="reference internal" href="#r"><span><strong>-R</strong></span></a></strong> and
 <strong>-J</strong> to measure projected Cartesian distances in map units (cm, inch,
 or points, as determined by <a class="reference internal" href="gmt.conf.html#term-PROJ_LENGTH_UNIT"><span class="xref std std-term">PROJ_LENGTH_UNIT</span></a>).</p>
-<p>This program has evolved over the years. Originally, the <strong>-R</strong> and
+<p>This program has evolved over the years. Originally, the <a class="reference internal" href="#r"><span><strong>-R</strong></span></a></strong> and
 <strong>-J</strong> were mandatory in order to handle geographic data, but now there
-is full support for spherical calculations. Thus, <strong>-J</strong> should only be
+is full support for spherical calculations. Thus, <a class="reference internal" href="#j"><span><strong>-J</strong></span></a></strong> should only be
 used if you want the tests to be applied on projected data and not the
-original coordinates. If <strong>-J</strong> is used the distances given via <strong>-C</strong>
-and <strong>-L</strong> are projected distances.</p>
+original coordinates. If <a class="reference internal" href="#j"><span><strong>-J</strong></span></a></strong> is used the distances given via <a class="reference internal" href="#c"><span><strong>-C</strong></span></a></strong>
+and <a class="reference internal" href="#l"><span><strong>-L</strong></span></a></strong> are projected distances.</p>
 </section>
 <section id="note-on-segments">
 <h2>Note On Segments<a class="headerlink" href="#note-on-segments" title="Permalink to this headline">¶</a></h2>
@@ -577,8 +581,8 @@ we employ a full spherical ray-shooting method to determine a points status.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, The GMT Team..
-      <span class="lastupdated">Last updated on Nov 18, 2021.
+    <p>&#169; Copyright 2022, The GMT Team..
+      <span class="lastupdated">Last updated on May 10, 2022.
       </span></p>
   </div>
 

@@ -2,16 +2,16 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>batch &mdash; GMT 6.3.0 documentation</title>
+  <title>batch &mdash; GMT 6.4.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
       <link rel="stylesheet" href="_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.png"/>
@@ -23,9 +23,12 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/togglebutton.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
+        <script>let toggleHintShow = 'Click to show example script';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -48,7 +51,7 @@
             <a href="index.html" class="icon icon-home"> GMT
           </a>
               <div class="version">
-                6.3
+                6.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -64,6 +67,7 @@
 <li class="toctree-l1"><a class="reference internal" href="gallery.html">Example Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="animations.html">Animations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_jl.html">Tutorial in Julia</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -213,7 +217,7 @@ is available as no data file is available.</p>
 <dl class="simple" id="i">
 <dt><strong>-I</strong><em>includefile</em></dt><dd><p>Insert the contents of <em>includefile</em> into the batch_init.sh script that is accessed by all batch scripts.
 This mechanism is used to add information (typically constant variable assignments) that the <em>mainscript</em>
-and any optional <strong>-S</strong> scripts can rely on.</p>
+and any optional <a class="reference internal" href="#s"><span><strong>-S</strong></span></a></strong> scripts can rely on.</p>
 </dd>
 </dl>
 <dl class="simple" id="m">
@@ -248,17 +252,17 @@ script.</p>
 </dd>
 </dl>
 <dl class="simple" id="w">
-<dt><strong>-W</strong>[<em>dir</em>]</dt><dd><p>By default, all temporary files and job products are created in the subdirectory <em>prefix</em> set via <strong>-N</strong>.
+<dt><strong>-W</strong>[<em>dir</em>]</dt><dd><p>By default, all temporary files and job products are created in the subdirectory <em>prefix</em> set via <a class="reference internal" href="#n"><span><strong>-N</strong></span></a></strong>.
 You can override that selection by giving another <em>dir</em> as a relative or full directory path. If no
 path is given then we create a working directory in the system temp folder named <em>prefix</em>.  The main benefit
 of a working directory is to avoid endless syncing by agents like DropBox or TimeMachine, or to avoid
 problems related to low space in the main directory.  The product files will still be placed in the <em>prefix</em>
-directory.  The <em>dir</em> is removed unless <strong>-Q</strong> is specified for debugging.</p>
+directory.  The <em>dir</em> is removed unless <a class="reference internal" href="#q"><span><strong>-Q</strong></span></a></strong> is specified for debugging.</p>
 </dd>
 </dl>
 <dl class="simple" id="z">
-<dt><strong>-Z</strong></dt><dd><p>Erase the <em>mainscript</em> and all input scripts given via <strong>-I</strong> and <strong>-S</strong> upon completion.  Not compatible
-with <strong>-Q</strong>.</p>
+<dt><strong>-Z</strong></dt><dd><p>Erase the <em>mainscript</em> and all input scripts given via <a class="reference internal" href="#i"><span><strong>-I</strong></span></a></strong> and <a class="reference internal" href="#s"><span><strong>-S</strong></span></a></strong> upon completion.  Not compatible
+with <a class="reference internal" href="#q"><span><strong>-Q</strong></span></a></strong>.</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -275,7 +279,7 @@ complete. <strong>Note</strong>: One core is reserved by <strong>batch</strong> 
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (NOTE: on Windows just use <strong>-</strong>).</p>
+<dt><strong>-^</strong> or just <strong>-</strong></dt><dd><p>Print a short message about the syntax of the command, then exit (<strong>Note</strong>: on Windows just use <strong>-</strong>).</p>
 </dd>
 <dt><strong>-+</strong> or just <strong>+</strong></dt><dd><p>Print an extensive usage (help) message, including the explanation of
 any module-specific option (but not the GMT common options), then exit.</p>
@@ -291,15 +295,15 @@ any module-specific option (but not the GMT common options), then exit.</p>
 <p>Several parameters are automatically assigned and can be used when composing the <em>mainscript</em> and the
 optional <em>preflight</em> and <em>postflight</em> scripts. There are two sets of parameters: Those that are constants
 and those that change with the job number.  The constants are accessible by all the scripts:
-<strong>BATCH_PREFIX</strong>: The common prefix of the batch jobs (it is set with <strong>-N</strong>). <strong>BATCH_NJOBS</strong>: The
-total number of jobs (given or inferred from <strong>-T</strong>). Also, if <strong>-I</strong> was used then any static parameters
+<strong>BATCH_PREFIX</strong>: The common prefix of the batch jobs (it is set with <a class="reference internal" href="#n"><span><strong>-N</strong></span></a></strong>). <strong>BATCH_NJOBS</strong>: The
+total number of jobs (given or inferred from <a class="reference internal" href="#t"><span><strong>-T</strong></span></a></strong>). Also, if <a class="reference internal" href="#i"><span><strong>-I</strong></span></a></strong> was used then any static parameters
 listed therein will be available to all the scripts as well. In addition, the <em>mainscript</em> also has access
 to parameters that vary with the job counter: <strong>BATCH_JOB</strong>: The current job number (an integer, e.g., 136),
 <strong>BATCH_ITEM</strong>: The formatted job number given the precision (a string, e.g., 000136), and <strong>BATCH_NAME</strong>:
 The name prefix unique to the current job (i.e., <em>prefix</em>_<strong>BATCH_ITEM</strong>), Furthermore, if a <em>timefile</em>
 was given then variables <strong>BATCH_COL0</strong>, <strong>BATCH_COL1</strong>, etc. are also set, yielding one variable per
 column in <em>timefile</em>.  If <em>timefile</em> has trailing text then that text can be accessed via the variable
-<strong>BATCH_TEXT</strong>, and if word-splitting was explicitly requested by <strong>+w</strong> modifier to <strong>-T</strong> then the trailing
+<strong>BATCH_TEXT</strong>, and if word-splitting was explicitly requested by <strong>+w</strong> modifier to <a class="reference internal" href="#t"><span><strong>-T</strong></span></a></strong> then the trailing
 text is also split into individual word parameters <strong>BATCH_WORD0</strong>, <strong>BATCH_WORD1</strong>, etc. <strong>Note</strong>: Any
 product(s) made by the processing scripts should be named using <strong>BATCH_NAME</strong> as their name prefix as these
 will be automatically moved up to the starting directory upon completion.</p>
@@ -307,14 +311,14 @@ will be automatically moved up to the starting directory upon completion.</p>
 <section id="data-files">
 <h2>Data Files<a class="headerlink" href="#data-files" title="Permalink to this headline">¶</a></h2>
 <p>The batch scripts will be able to find any files present in the starting directory when <strong>batch</strong> was initiated,
-as well as any new files produced by <em>mainscript</em> or the optional scripts set via <strong>-S</strong>.
+as well as any new files produced by <em>mainscript</em> or the optional scripts set via <a class="reference internal" href="#s"><span><strong>-S</strong></span></a></strong>.
 No path specification is needed to access these files.  Other files may
 require full paths unless their directories were already included in the <a class="reference internal" href="gmt.conf.html#term-DIR_DATA"><span class="xref std std-term">DIR_DATA</span></a> setting.</p>
 </section>
 <section id="custom-gmt-conf-files">
 <h2>Custom gmt.conf files<a class="headerlink" href="#custom-gmt-conf-files" title="Permalink to this headline">¶</a></h2>
 <p>If you have a gmt.conf file in the top directory with your main script prior to running <strong>batch</strong> then it will be
-used and shared across all the scripts created and executed <em>unless</em> your scripts use <strong>-C</strong> when starting a new
+used and shared across all the scripts created and executed <em>unless</em> your scripts use <a class="reference internal" href="#c"><span><strong>-C</strong></span></a></strong> when starting a new
 modern mode session. The preferred ways of changing GMT defaults is via <a class="reference internal" href="gmtset.html"><span class="doc">gmtset</span></a> calls in your input scripts.
 <strong>Note</strong>: Each script is run in isolation (modern) mode so trying to create a gmt.conf file via the <em>preflight</em>
 script to be used by other scripts is futile.</p>
@@ -326,7 +330,7 @@ to have your <em>mainscript</em> either access a <em>different</em> data set as 
 only a varying <em>subset</em> of a data set, or the processing parameters need to change, or all of the above.  There
 are several strategies you can use to accomplish these effects:</p>
 <ol class="arabic simple">
-<li><p>Your <em>timefile</em> passed to <strong>-T</strong> may list names of specific data files and you simply have your <em>mainscript</em>
+<li><p>Your <em>timefile</em> passed to <a class="reference internal" href="#t"><span><strong>-T</strong></span></a></strong> may list names of specific data files and you simply have your <em>mainscript</em>
 use the relevant <strong>BATCH_TEXT</strong> or <strong>BATCH_WORD?</strong> to access the job-specific file name.</p></li>
 <li><p>You have a 3-D grid (or a stack of 2-D grids) and you want to interpolate along the axis perpendicular to the
 2-D slices (e.g., time, or it could be depth).  In this situation you will use the module <a class="reference internal" href="grdinterpolate.html"><span class="doc">grdinterpolate</span></a>
@@ -346,9 +350,9 @@ differently per job (using parameters in the <em>timefile</em>) and computing th
 (optional since it derives from <strong>-Sf</strong> and processes files once all the batch job complete), <em>batch_job</em>
 (accepts a job counter argument and processes data for those parameters), and <em>batch_cleanup</em> (removes temporary
 files at the end of the process). For each job, there is a separate <em>batch_params_######</em> script that provides
-job-specific variables (e.g., job number and anything given via <strong>-T</strong>).  The <em>preflight</em> and <em>postflight</em> scripts
+job-specific variables (e.g., job number and anything given via <a class="reference internal" href="#t"><span><strong>-T</strong></span></a></strong>).  The <em>preflight</em> and <em>postflight</em> scripts
 have access to the information in <em>batch_init</em>, while the <em>batch_job</em> script in addition has access to the job-specific
-parameter file.  Using the <strong>-Q</strong> option will just produce these scripts which you can then examine.
+parameter file.  Using the <a class="reference internal" href="#q"><span><strong>-Q</strong></span></a></strong> option will just produce these scripts which you can then examine.
 <strong>Note</strong>: The <em>mainscript</em> is duplicated per job and many of these are run simultaneously on all available cores.
 Multi-treaded GMT modules will therefore be limited to a single core per call.  Because we do not know how
 many products each batch job makes, we ensure each job creates a unique file when it is finished.  Checking for
@@ -372,14 +376,14 @@ or vice versa is not a problem (e.g., echo ….. | gmt convert …).</p>
 we describe.  Then, start by making a single script (i.e., your <em>mainscript</em>) and identify which
 things should change with time (i.e., with the job number).  Create variables for these values. If they
 are among the listed parameters that <strong>batch</strong> creates automatically then use those names.  Unless you only
-require the job number you will need to make a file that you can pass via <strong>-T</strong>.  This file should
+require the job number you will need to make a file that you can pass via <a class="reference internal" href="#t"><span><strong>-T</strong></span></a></strong>.  This file should
 then have all the values you need, per job (i.e., per row), with values across all the columns you need.
 If you need to assign various <em>fixed</em> variables that do not change with time, then your <em>mainscript</em>
-will look shorter and cleaner if you offload those assignments to a separate <em>includefile</em> (via <strong>-I</strong>).
+will look shorter and cleaner if you offload those assignments to a separate <em>includefile</em> (via <a class="reference internal" href="#i"><span><strong>-I</strong></span></a></strong>).
 To test your <em>mainscript</em>, start by using options <strong>-Q -M</strong> to ensure that your master job results are correct.
-The <strong>-M</strong> option simply runs one job of your batch sequence (you can select which one via the <strong>-M</strong>
+The <a class="reference internal" href="#m"><span><strong>-M</strong></span></a></strong> option simply runs one job of your batch sequence (you can select which one via the <a class="reference internal" href="#m"><span><strong>-M</strong></span></a></strong>
 arguments [0]).  Fix any issues with your use of variables and options until this works.  You can then try
-to remove <strong>-Q</strong>. We recommend you make a very short (i.e., via <strong>-T</strong>) and small batch sequence so you don’t
+to remove <a class="reference internal" href="#q"><span><strong>-Q</strong></span></a></strong>. We recommend you make a very short (i.e., via <a class="reference internal" href="#t"><span><strong>-T</strong></span></a></strong>) and small batch sequence so you don’t
 have to wait very long to see the result.  Once things are working you can beef up number of jobs.</p>
 </section>
 <section id="examples">
@@ -467,8 +471,8 @@ for various solutions.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, The GMT Team..
-      <span class="lastupdated">Last updated on Nov 18, 2021.
+    <p>&#169; Copyright 2022, The GMT Team..
+      <span class="lastupdated">Last updated on May 10, 2022.
       </span></p>
   </div>
 

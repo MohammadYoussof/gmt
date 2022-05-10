@@ -2,16 +2,16 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>19. Annotation of Contours and “Quoted Lines” &mdash; GMT 6.3.0 documentation</title>
+  <title>19. Annotation of Contours and “Quoted Lines” &mdash; GMT 6.4.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/togglebutton.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
       <link rel="stylesheet" href="../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/favicon.png"/>
@@ -23,11 +23,14 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/togglebutton.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
+        <script>let toggleHintShow = 'Click to show example script';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../_static/togglebutton.js"></script>
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -49,7 +52,7 @@
             <a href="../index.html" class="icon icon-home"> GMT
           </a>
               <div class="version">
-                6.3
+                6.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -65,6 +68,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../gallery.html">Example Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../animations.html">Animations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial_jl.html">Tutorial in Julia</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul class="current">
@@ -201,20 +205,19 @@ Chapter which summarizes the various options and gives several examples
 of their use.</p>
 <section id="label-placement">
 <h2><span class="section-number">19.1. </span>Label Placement<a class="headerlink" href="#label-placement" title="Permalink to this headline">¶</a></h2>
-<p>While the previous GMT versions 1–3 allowed for a single algorithm
-that determined where labels would be placed, GMT 4 allows for five
-different algorithms. Furthermore, a new “symbol” option (<strong>-Sq</strong> for
-“quoted line”) has been added to <a class="reference internal" href="../plot.html"><span class="doc">plot</span></a> and
-<a class="reference internal" href="../plot3d.html"><span class="doc">plot3d</span></a> and hence the new label placement
-mechanisms apply to those programs as well. The contouring programs
-expect the algorithm to be specified as arguments to <strong>-G</strong> while the
-line plotting programs expect the same arguments to follow <strong>-Sq</strong>. The
-information appended to these options is the same in both cases and is
-of the form [<strong>code</strong>]<em>info</em>. The five algorithms correspond to the
+<p>GMT provides five different algorithms for determining where labels
+should be placed. Furthermore, two “symbol” options (<strong>-Sq</strong> for
+“quoted line” and <strong>-S~</strong> for “decorated line”) in <a class="reference internal" href="../plot.html"><span class="doc">plot</span></a> and
+<a class="reference internal" href="../plot3d.html"><span class="doc">plot3d</span></a> share these algorithms for text and symbol placements.
+The contouring programs expect the algorithm to be specified as
+arguments to <strong>-G</strong>, while the line plotting programs expect the same
+arguments to follow <strong>-Sq</strong> or <strong>-S~</strong>. The information appended to
+these options is the same in all three cases and is provided in the
+form of [<strong>code</strong>]<em>info</em>. The five algorithms correspond to the
 five codes below (some codes will appear in both upper and lower case;
 they share the same algorithm but differ in some other ways). In what
 follows, the phrase “line segment” is taken to mean either a contour or
-a line to be labeled. The codes are:</p>
+a line to be labeled or decorated. The codes are:</p>
 <dl class="simple">
 <dt><strong>d</strong>:</dt><dd><p>Full syntax is
 <strong>d</strong><em>dist</em>[<strong>c</strong>|<strong>i</strong>|<strong>p</strong>][/<em>frac</em>].
@@ -293,11 +296,11 @@ the end of the line.</p>
 <dt><strong>s</strong>:</dt><dd><p>Similar to <strong>n</strong> but splits input lines into a series of two-point
 line segments first.  The rest of the algorithm them operates on
 these sets of lines.  This code (and <strong>S</strong>) are specific to
-quoted lines.</p>
+quoted and decorated lines.</p>
 </dd>
 <dt><strong>S</strong>:</dt><dd><p>Similar to <strong>N</strong> but with the modification described for <strong>s</strong>.</p>
 </dd>
-<dt><strong>x</strong>:</dt><dd><p>Full syntax is <strong>x</strong><em>cross.d</em>. Here, an ASCII file <em>cross.d</em> is a
+<dt><strong>x</strong>:</dt><dd><p>Full syntax is <strong>x</strong><em>cross.txt</em>. Here, an ASCII file <em>cross.txt</em> is a
 multi-segment file whose lines will intersect our segment lines;
 labels will be placed at these intersections.</p>
 </dd>
@@ -439,7 +442,7 @@ fixed label location algorithm (code <strong>f</strong>) to be in effect.</p>
 <dt><strong>+LN</strong>:</dt><dd><p>Use a slash-separated combination of the current file number and
 the current multi-segment number as label.</p>
 </dd>
-<dt><strong>+Lx</strong>:</dt><dd><p>As <strong>h</strong> but use the multi-segment headers in the <em>cross.d</em> file
+<dt><strong>+Lx</strong>:</dt><dd><p>As <strong>h</strong> but use the multi-segment headers in the <em>cross.txt</em> file
 instead. This choice obviously requires the crossing segments
 location algorithm (code <strong>x|X</strong>) to be in effect.</p>
 </dd>
@@ -736,8 +739,8 @@ that New York will experience a large tsunami about 8 hours after the event.</sp
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, The GMT Team..
-      <span class="lastupdated">Last updated on Nov 18, 2021.
+    <p>&#169; Copyright 2022, The GMT Team..
+      <span class="lastupdated">Last updated on May 10, 2022.
       </span></p>
   </div>
 
